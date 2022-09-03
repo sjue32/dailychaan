@@ -9,6 +9,16 @@ const app = express();
 app.use(express.json());
 
 // serve routes
+
+// test error handler
+app.get('/error', (req: Request, res: Response, next: NextFunction) => {
+  return next({
+    log: 'This is a test of global error handler',
+    status: 418,
+    message: { err: 'This is a test of global error handler'}
+  });
+});
+
 // condition: NODE_ENV is production, serve static files
 if(process.env.NODE_ENV === 'production') {
   app.use('/', express.static(path.join(__dirname, '../../dist')));
@@ -20,7 +30,7 @@ if(process.env.NODE_ENV === 'production') {
 // 404 handler
 app.use('*', (req: Request, res: Response) => {
   console.log('Error: Client attempted access to unknown route');
-  res.status(404).sendFile(path.resolve(__dirname, '../client/404error.html'));
+  return res.status(404).sendFile(path.resolve(__dirname, '../client/404error.html'));
 });
 
 // global error handler
