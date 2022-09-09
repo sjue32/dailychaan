@@ -2,7 +2,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  mode: 'development',
+  mode: process.env.NODE_ENV,
   entry: './src/client/index.tsx',
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -40,7 +40,7 @@ module.exports = {
       directory: path.join(__dirname, './dist'),
     },
     proxy: {
-      './api': 'http://localhost:3000',
+      '/': 'http://localhost:3000',
       secure: false
     }
   },

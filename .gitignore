@@ -1,7 +1,7 @@
 # dotenv environment variable files
-.env
+*.env
 
 # Dependency directories
 node_modules/
 
-package-lock.json
+dist/
