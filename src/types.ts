@@ -7,3 +7,9 @@ export interface ServerError {
   status: number,
   message: message
 }
+
+export type ImageFrameProps = {
+  imgUrl: string
+  alt?: string
+  caption?: string
+}
