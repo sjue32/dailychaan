@@ -13,3 +13,7 @@ export type ImageFrameProps = {
   alt?: string
   caption?: string
 }
+
+export interface GenericFunction {
+  <Type>(arg: Type): Type;
+}

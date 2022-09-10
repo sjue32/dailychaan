@@ -4,6 +4,8 @@ import path from 'path';
 
 import { ServerError } from '../types';
 
+import apiRouter from './routes/apiRouter';
+
 const app = express();
 
 app.use(express.json());
