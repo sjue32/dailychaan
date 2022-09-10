@@ -5,7 +5,7 @@ import '@types/pg';
 
 
 const apiRouter = express.Router();
-router.use('/posts', postsRouter);
-router.use('/users', usersRouter);
+apiRouter.use('/posts', postsRouter);
+apiRouter.use('/users', usersRouter);
 
 export default apiRouter;
