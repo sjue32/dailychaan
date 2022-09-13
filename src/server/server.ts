@@ -1,5 +1,24 @@
 import express, { Request, Response, NextFunction, RequestHandler } from 'express';
 import path from 'path';
+import db_model from './db/db_model';
+// import db from './db/db_model';
+
+
+
+const test = {
+  getUser: async () => {
+    // const string1 = 'SELECT * FROM users';
+    const string2 = 'SELECT url, caption, user_id, date, likes FROM posts JOIN users ON\
+    users._id = posts.user_id';
+    const response = await db_model.query(string2);
+    const { rows } = response;
+    console.log('Response from pool: ', rows);
+  }
+};
+
+test.getUser();
+
+
 
 
 import { ServerError } from '../types';
@@ -10,7 +29,16 @@ const app = express();
 
 app.use(express.json());
 
+// condition: NODE_ENV is production, serve static files
+if(process.env.NODE_ENV === 'production') {
+  app.use('/', express.static(path.join(__dirname, '../../dist')));
+}
+
+// Is this redundant? Webpack dev server proxy pointed to root is redundant?
+// app.get('/', (req, res) => res.status(200).sendFile(path.join(__dirname, '../client/index.html')));
+
 // serve routes
+app.use('/api', apiRouter);
 
 // test error handler
 app.get('/error', (req: Request, res: Response, next: NextFunction) => {
@@ -21,17 +49,10 @@ app.get('/error', (req: Request, res: Response, next: NextFunction) => {
   });
 });
 
-// condition: NODE_ENV is production, serve static files
-if(process.env.NODE_ENV === 'production') {
-  app.use('/', express.static(path.join(__dirname, '../../dist')));
-}
-
-// Is this redundant? Webpack dev server proxy pointed to root is redundant?
-// app.get('/', (req, res) => res.status(200).sendFile(path.join(__dirname, '../client/index.html')));
 
 // 404 handler
 app.use('*', (req: Request, res: Response) => {
-  console.log('Error: Client attempted access to unknown route');
+  console.log('Error: Client attempted access to unknown route!');
   return res.status(404).sendFile(path.resolve(__dirname, '../client/404error.html'));
 });
 
