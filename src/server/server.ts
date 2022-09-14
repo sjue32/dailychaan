@@ -1,7 +1,6 @@
 import express, { Request, Response, NextFunction, RequestHandler } from 'express';
 import path from 'path';
 import db_model from './db/db_model';
-// import db from './db/db_model';
 
 
 

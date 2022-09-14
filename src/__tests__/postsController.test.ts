@@ -7,11 +7,17 @@ import '@jest/globals';
 import sampleGetPostData from '../sample/sampleGetPostData';
 
 describe('getPosts returns posts data', () => {
-  // mock the db module
-  // assign a mock function to db.query
+
   const queryMock = jest.spyOn(db, 'query');
   queryMock.mockResolvedValue(sampleGetPostData);
 
+  let mockReq: Partial<Request> = {};
+  let mockRes: Partial<Response> = {};
+  let mockNext: Partial<NextFunction> = function() { return mockRes as any;};
+
+  beforeAll( async () => {
+    await postsController.getPosts(mockReq as Request, mockRes as Response, mockNext as NextFunction);
+  });
 
   afterAll(() => {
     queryMock.mockClear();
@@ -20,50 +26,29 @@ describe('getPosts returns posts data', () => {
   // make some test with wrong argument that rejects
   // reject with an error????
 
-  // other assertions, for mockRes.locals
-  // the url property contains a string with a '.jpg' regex
-
-  it('query returns reponse data', async () => {
-
-    let mockReq: Partial<Request> = {};
-    let mockRes: Partial<Response> = {};
-    let mockNext: Partial<NextFunction> = function() { return mockRes as any;};
-
-    await postsController.getPosts(mockReq as Request, mockRes as Response, mockNext as NextFunction);
+  it('returns reponse data from query', async () => {
     const { rows } = await queryMock.mock.results[0].value;
-    queryMock.mock.calls.pop();
     expect(rows).toBeInstanceOf(Array);
-
   });
-
-  const queryMock2 = jest.spyOn(db, 'query');
-  queryMock2.mockResolvedValue(sampleGetPostData);
-
-  // invoking postsController.getPosts without await
-  let mockReq: Partial<Request> = {};
-  let mockRes: Partial<Response> = {};
-  let mockNext: Partial<NextFunction> = function() { return mockRes as any;};
-
-  postsController.getPosts(mockReq as Request, mockRes as Response, mockNext as NextFunction);
 
   it('calls db.query function', () => {
-
-    expect(queryMock2).toHaveBeenCalledTimes(1);
+    expect(queryMock).toHaveBeenCalledTimes(1);
   });
+
   it('was given string argument', () => {
-    const string = 'SELECT url, caption, user_id, date, likes FROM users JOIN users ON users._id = posts.user_id WHERE users._id = $1';
-    const param = [1];
-    expect(queryMock2.mock.calls[0][0]).toBe(string);
-    expect(queryMock2.mock.calls[0][1]).toStrictEqual(param);
+    const string = 'SELECT url, caption, user_id, date, likes FROM users JOIN users ON users._id = posts.user_id WHERE users._id = 1';
+    expect(queryMock.mock.calls[0][0]).toBe(string);
 
   });
 
   it('res.locals to contain an array', () => {
     expect(mockRes.locals).toBeInstanceOf(Array);
   });
+
   it('contains post data related to user_id 1', () => {
     expect(mockRes.locals[0].user_id).toBe(1);
   });
+
   it('contains links to jpeg images', () => {
     expect(/https/.test(mockRes.locals[0].url)).toBe(true);
     expect(/jpeg/.test(mockRes.locals[0].url)).toBe(true);
