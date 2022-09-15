@@ -47,7 +47,34 @@ const postsController = {
     }
   },
 
-  // addPost - 201
+  // addPost - 201 - POST REQUEST
+  addUserPost: async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const postData = req.body;
+      const string = 'INSERT INTO posts (user_id, url, caption) VALUES ($1, $2, $3) RETURNING *';
+      const user_id = Number(req.params.user_id);
+      const url = postData.url;
+      const caption = postData.caption;
+      const params = [user_id, url, caption];
+      const response = await db.query(string, params);
+
+      const data = response.rows;
+      // console.log(data[0]);
+      // res.locals = response;
+      return next();
+
+    } catch(err) {
+      // console.log('inside catch block of addUserPosts: ', err);
+      const errObj = {
+        log: `postsController.getUserPosts : ERROR : ${err}`,
+        status: 404,
+        message: { err: 'postsController.getUserPosts: ERROR: Check server logs for details'}
+      }
+      // console.log(errObj);
+      return next(errObj);
+    }
+
+  },
 
   // updatePost - edit caption
 

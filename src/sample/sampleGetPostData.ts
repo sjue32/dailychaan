@@ -59,4 +59,17 @@ const sampleGetPostData = {
   ]
 };
 
+const sampleAddUserPostData = {
+  rows: [
+    {
+      url: 'https://dailychaan-public-photos.s3.us-east-2.amazonaws.com/11802736_10104167012944459_5302688321690486926_o.jpeg',
+      caption: 'Awesomeness!',
+      user_id: 2,
+      // date: 2022-09-09T04:00:00.000Z,
+      likes: 0
+    }
+  ]
+}
+
 export default sampleGetPostData;
+export {sampleAddUserPostData};
