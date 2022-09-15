@@ -50,11 +50,12 @@ const postsController = {
   // addPost - 201 - POST REQUEST
   addUserPost: async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const postData = req.body;
+      // const postData = req.body;
       const string = 'INSERT INTO posts (user_id, url, caption) VALUES ($1, $2, $3) RETURNING *';
       const user_id = Number(req.params.user_id);
-      const url = postData.url;
-      const caption = postData.caption;
+      // const url = postData.url;
+      // const caption = postData.caption;
+      const { url, caption } = req.body;
       const params = [user_id, url, caption];
       const response = await db.query(string, params);
 
@@ -77,11 +78,34 @@ const postsController = {
   },
 
   // updatePost - edit caption
+  updateUserPost: async (req: Request, res: Response, next: NextFunction) => {
+    // req.param for user_id - but we don't need to check it, can check it?
+    // req.body: caption, user_id?, post_id - in DB it's _id?
+    try {
+      const string = 'UPDATE posts SET caption = $1 WHERE _id = $2 RETURNING *';
+      const { post_id, caption }  = req.body;
+
+      const params = [post_id, caption]; // update with correct var's
+      const response = await db.query(string, params);
+      res.locals = response.rows;
+
+      return next();
+    } catch(err) {
+      const errObj = {
+        log: `postsController.getUserPosts : ERROR : ${err}`,
+        status: 404,
+        message: { err: 'postsController.updateUserPost: ERROR: Check server logs for details'}
+      };
+
+      return next(errObj);
+     }
+  },
 
   // deletePost - delete entire post - 204
+  deleteUserPost: async (req: Request, res: Response, next: NextFunction) => {
+
+  },
   // in future will also remove image from S3 bucket
-
-
 };
 
 export default postsController;

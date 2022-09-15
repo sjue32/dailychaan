@@ -71,5 +71,17 @@ const sampleAddUserPostData = {
   ]
 }
 
+const sampleUpdateUserPostData = {
+  rows: [
+    {
+      url: 'https://dailychaan-public-photos.s3.us-east-2.amazonaws.com/11802736_10104167012944459_5302688321690486926_o.jpeg',
+      caption: 'Finally a new caption!',
+      user_id: 3,
+      post_id: 8,
+      likes: 0
+    }
+  ]
+}
+
 export default sampleGetPostData;
-export {sampleAddUserPostData};
+export {sampleAddUserPostData, sampleUpdateUserPostData};

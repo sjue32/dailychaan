@@ -4,7 +4,7 @@ import { Request, Response, NextFunction } from 'express';
 import db from '../server/db/db_model';
 
 import '@jest/globals';
-import sampleGetPostData, { sampleAddUserPostData } from '../sample/sampleGetPostData';
+import sampleGetPostData, { sampleAddUserPostData, sampleUpdateUserPostData } from '../sample/sampleGetPostData';
 
 describe('getPosts returns posts data', () => {
 
@@ -230,8 +230,54 @@ describe('add user post with error triggers error handler', () => {
 });
 
 describe('Update post successful', () => {
+  const queryMock = jest.spyOn(db, 'query');
+  // variables for mock dependencies
+  // 
+  const { user_id, caption, post_id } = sampleUpdateUserPostData.rows[0];
+  const mockReq: Partial<Request> = {
+    body: {
+      user_id: user_id,
+      caption: caption,
+      post_id: post_id,
+    }
+  };
+  const mockRes: Partial<Response> = {};
+  const mockNext: Partial<NextFunction> = function() { return };
+
+  beforeAll( async () => {
+    // should return object with rows prop, array with 1 obj
+    queryMock.mockResolvedValue(sampleUpdateUserPostData);
+    await postsController.updateUserPost(mockReq as Request, mockRes as Response, mockNext as NextFunction);
+  });
+
+  afterAll( async () => {
+    queryMock.mockReset();
+  });
+
+  // called mockQuery with 2 arguments
+  it('called mockQuery with 2 arguments', () => {
+    expect(queryMock.mock.calls[0].length).toBe(2);
+  });
+  // has a 1st argument with correct syntax
+  it('passed in 1st argument with correct SQL syntax', ()=> {
+    expect(queryMock.mock.calls[0][0]).toBe('UPDATE posts SET caption = $1 WHERE _id = $2 RETURNING *');
+  });
+  // returns the updated row from db
+  it('returns the updated row from DB', async () => {
+    expect(await queryMock.mock.results[0].value).toBe(sampleUpdateUserPostData);
+  });
+  // stores an array at mockRes.locals
+  it('stores an array at mockRes.locals', () => {
+    expect(mockRes.locals).toBeInstanceOf(Array);
+  });
+  // contains updated caption
+  it('returns the updated caption', () => {
+    expect(mockRes.locals[0].caption).toBe(caption);
+  });
 
 });
+
+// write tests for error handler????
 
 describe('Delete post successful', () => {
 
