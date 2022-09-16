@@ -1,8 +1,10 @@
 import express, { Request, Response, NextFunction, RequestHandler } from 'express';
 import path from 'path';
 import db_model from './db/db_model';
+import morgan from 'morgan';
 
-
+import { ServerError } from '../types';
+import apiRouter from './routes/apiRouter';
 
 const test = {
   getUser: async () => {
@@ -15,18 +17,12 @@ const test = {
   }
 };
 
-test.getUser();
-
-
-
-
-import { ServerError } from '../types';
-
-import apiRouter from './routes/apiRouter';
 
 const app = express();
 
 app.use(express.json());
+
+app.use(morgan('tiny'));
 
 // condition: NODE_ENV is production, serve static files
 if(process.env.NODE_ENV === 'production') {
@@ -38,6 +34,9 @@ if(process.env.NODE_ENV === 'production') {
 
 // serve routes
 app.use('/api', apiRouter);
+
+// test
+// test.getUser();
 
 // test error handler
 app.get('/error', (req: Request, res: Response, next: NextFunction) => {

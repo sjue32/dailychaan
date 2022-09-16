@@ -6,7 +6,7 @@ const postsController = {
   // get posts from public chaan
   getPosts: async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const sqlString = 'SELECT url, caption, user_id, date, likes FROM users JOIN users ON users._id = posts.user_id WHERE users._id = 1';
+      const sqlString = 'SELECT url, caption, user_id, date, likes FROM posts WHERE user_id = 1';
       const response = await db.query(sqlString);
       const data = response.rows;
       res.locals = data;
