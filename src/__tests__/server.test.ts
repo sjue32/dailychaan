@@ -4,10 +4,10 @@ const request = myDefault;
 
 const server = 'http://localhost:3000';
 
-describe('Route integration', () => {
+describe.skip('Route integration', () => {
   describe('*', () => {
     describe('GET', () => {
-      it.skip('responds with 404 status', () => {
+      it('responds with 404 status', () => {
         return request(server)
         .get('/test')
         .expect('Content-Type', /text\/html/)
@@ -17,9 +17,9 @@ describe('Route integration', () => {
   });
 });
 
-describe('Error handler', () => {
+describe.skip('Error handler', () => {
   describe('GET', () => {
-    it.skip('responds with 418 status and error message', () => {
+    it('responds with 418 status and error message', () => {
       return request(server)
       .get('/error')
       .expect(418)

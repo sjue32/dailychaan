@@ -2,20 +2,25 @@
 import postsController from '../server/controllers/postsController';
 import { Request, Response, NextFunction } from 'express';
 import db from '../server/db/db_model';
+import { ddbDocClient } from '../../libs/ddbDocClient';
+import { QueryCommand, PutCommand } from '@aws-sdk/lib-dynamodb';
 
 import '@jest/globals';
-import sampleGetPostData, { sampleAddUserPostData, sampleUpdateUserPostData } from '../sample/sampleGetPostData';
+import sampleGetPostData, { sampleAddUserPostData, 
+  sampleUpdateUserPostData, sampleAddUserPostResponse, sampleUpdateUserPostResponse,
+  sampleDeleteUserPostData, 
+  sampleDeleteUserPostResponse} from '../sample/sampleGetPostData';
 
 describe('getPosts returns posts data', () => {
-
-  const queryMock = jest.spyOn(db, 'query');
+  const queryMock = jest.spyOn(ddbDocClient, 'send');
+  
 
   let mockReq: Partial<Request> = {};
   let mockRes: Partial<Response> = {};
   let mockNext: Partial<NextFunction> = function() { return mockRes as any;};
 
   beforeAll( async () => {
-    queryMock.mockResolvedValue(sampleGetPostData);
+    queryMock.mockResolvedValue(sampleGetPostData as never);
     await postsController.getPosts(mockReq as Request, mockRes as Response, mockNext as NextFunction);
   });
 
@@ -27,19 +32,24 @@ describe('getPosts returns posts data', () => {
   // reject with an error????
 
   it('returns reponse data from query', async () => {
-    const { rows } = await queryMock.mock.results[0].value;
-    expect(rows).toBeInstanceOf(Array);
+    const { Items } = await queryMock.mock.results[0].value;
+    expect(Items).toBeInstanceOf(Array);
   });
 
   it('calls db.query function', () => {
     expect(queryMock).toHaveBeenCalledTimes(1);
   });
 
-  it('was given string argument', () => {
-    const string = 'SELECT url, caption, user_id, date, likes FROM users JOIN users ON users._id = posts.user_id WHERE users._id = 1';
-    expect(queryMock.mock.calls[0][0]).toBe(string);
-
-  });
+  it('was given a QueryCommand instance', () => {
+    const params = {
+      TableName: 'user_posts',
+      KeyConditionExpression: 'user_id = :user_id',
+      ExpressionAttributeValues: {
+        ':user_id': 1,
+      },
+    };
+    expect(queryMock.mock.calls[0][0]).toBeInstanceOf(QueryCommand);
+  })
 
   it('res.locals to contain an array', () => {
     expect(mockRes.locals).toBeInstanceOf(Array);
@@ -58,8 +68,7 @@ describe('getPosts returns posts data', () => {
 
 describe('posts retrived for specific user', () => {
 
-  const queryMock = jest.spyOn(db, 'query');
-  // queryMock.mockResolvedValue(sampleGetPostData);
+  const queryMock = jest.spyOn(ddbDocClient, 'send');
 
   const test_req_param: string = '1';
   const mockReq: Partial<Request> = { 
@@ -71,21 +80,12 @@ describe('posts retrived for specific user', () => {
   const mockNext: Partial<NextFunction> = function() { return mockRes as any;};
 
   beforeAll( async () => {
-    // const queryMock = jest.spyOn(db, 'query');
-    queryMock.mockResolvedValue(sampleGetPostData);
+    queryMock.mockResolvedValue(sampleGetPostData as never);
     await postsController.getUserPosts(mockReq as Request, mockRes as Response, mockNext as NextFunction);
   });
 
   afterAll( async () => {
     queryMock.mockReset();
-  });
-
-  it('called mockQuery with 2 arguments', () => {
-    expect(queryMock.mock.calls[0].length).toBe(2);
-  });
-
-  it('passed in user_id as 2nd argument', () => {
-    expect(queryMock.mock.calls[0][1]).toBe(Number(test_req_param));
   });
 
   it('returns expected response data from queryMock', async () => {
@@ -107,13 +107,12 @@ describe('posts retrived for specific user', () => {
     expect(/jpeg/.test(url)).toBe(true);
   });
 
-
 });
 
 describe('add post for specific user', () => {
 
-  const queryMock = jest.spyOn(db, 'query');
-  const sampleData = sampleAddUserPostData.rows[0];
+  const queryMock = jest.spyOn(ddbDocClient, 'send');
+  const sampleData = sampleAddUserPostData.Attributes[0];
   // add object to mockReq related to user's new post
   const user_data = {
     user_id: sampleData.user_id,
@@ -129,19 +128,15 @@ describe('add post for specific user', () => {
       user_id: `${id}`,
     },
     body: user_data,
-
   };
-  const mockRes: Partial<Response> = {
-  };
-  // const mockNext: Partial<NextFunction> = function(arg?: Error) { return arg;};
+  const mockRes: Partial<Response> = {};
   const mockNext: Partial<NextFunction> = function() { return;};
 
 
   beforeAll(async () => {
-    const successfulResponse = sampleAddUserPostData;
-    queryMock.mockResolvedValue(successfulResponse);
-    const answer = await postsController.addUserPost(mockReq as Request, mockRes as Response, mockNext as NextFunction);
-    // await console.log('Response from calling postsController.addUserPost', answer);
+    // const successfulResponse = sampleAddUserPostData;
+    queryMock.mockResolvedValue(sampleAddUserPostResponse as never);
+    await postsController.addUserPost(mockReq as Request, mockRes as Response, mockNext as NextFunction);
 
   });
 
@@ -149,40 +144,26 @@ describe('add post for specific user', () => {
     queryMock.mockReset();
   });
 
-  // assertions
   it('mockRes has correct id', () => {
     expect(mockReq.params.user_id).toBe('2');
   });
-  // calls db.query function
-  it('calls db.query function', () => {
-    expect(queryMock.mock.calls[0].length).toBe(2);
+  it('calls send function on ddbDocClient', () => {
+    expect(queryMock).toHaveBeenCalledTimes(1);
   });
-  // was given string arg
-  it('passed in POST sql string as 1st argument', () => {
-    expect(/INSERT INTO posts/.test(queryMock.mock.calls[0][0])).toBe(true);
+  it('returns an object with Attributes property set to undefined', async ()=> {
+    const { Attributes } = await queryMock.mock.results[0].value;
+    expect(Attributes).toEqual(undefined);
   });
-  // db.query response contains data / object
-  it('returns an object containing a rows property', async ()=> {
-    const { rows } = await queryMock.mock.results[0].value;
-    expect(rows).toBeDefined();
+  it('sets res.locals.message', async () => {
+    expect(await mockRes.locals.message).toEqual('Item added');
   });
-  // db.query response contains data of added post (url link)
-  it('returns query response with data - img url, user_id', async () => {
-    // const response = queryMock.mock.results[0].value;
-    const { rows } = await queryMock.mock.results[0].value;
-    const data = rows[0];
-    expect(/jpeg/.test(data.url)).toBe(true);
-    expect(data.user_id).toBe(user_data.user_id);
-    // expect(rows[0].caption).toBeInstanceOf(String || null);
-  });
-
 });
 
 // save for describe block for error response from DB
 describe('add user post with error triggers error handler', () => {
-  const queryMock = jest.spyOn(db, 'query');
+  const queryMock = jest.spyOn(ddbDocClient, 'send');
 
-  const sampleData = sampleAddUserPostData.rows[0];
+  const sampleData = sampleAddUserPostData.Attributes[0];
   const user_data = {
     user_id: sampleData.user_id,
     url: sampleData.url,
@@ -198,15 +179,15 @@ describe('add user post with error triggers error handler', () => {
   let mockRes: Partial<Response> = {};
   let mockNext: Partial<NextFunction> = function() { };
 
-  // beforeAll(async () => {
-  //   queryMock.mockRejectedValue(new Error('Error occured in postsController.addUserPost'));
-  //   // await postsController.addUserPost(mockReq as Request, mockRes as Response, mockNext as NextFunction);
-  // })
+  beforeAll(async () => {
+    // queryMock.mockRejectedValue(new Error('Error occured in postsController.addUserPost') as never);
+    // await postsController.addUserPost(mockReq as Request, mockRes as Response, mockNext as NextFunction);
+  })
 
 
   it('throws an error when db.query returns an error', async () => {
     try {
-      queryMock.mockRejectedValue(new Error('Error occured in postsController.addUserPost'));
+      queryMock.mockRejectedValue(new Error('Error occured in postsController.addUserPost') as never);
       await postsController.addUserPost(mockReq as Request, mockRes as Response, mockNext as NextFunction);
 
     } catch(err) {
@@ -230,23 +211,22 @@ describe('add user post with error triggers error handler', () => {
 });
 
 describe('Update post successful', () => {
-  const queryMock = jest.spyOn(db, 'query');
+  const queryMock = jest.spyOn(ddbDocClient, 'send');
   // variables for mock dependencies
   // 
-  const { user_id, caption, post_id } = sampleUpdateUserPostData.rows[0];
+  const { user_id, timestamp, caption } = sampleUpdateUserPostData;
   const mockReq: Partial<Request> = {
     body: {
       user_id: user_id,
       caption: caption,
-      post_id: post_id,
+      timestamp: timestamp,
     }
   };
   const mockRes: Partial<Response> = {};
   const mockNext: Partial<NextFunction> = function() { return };
 
   beforeAll( async () => {
-    // should return object with rows prop, array with 1 obj
-    queryMock.mockResolvedValue(sampleUpdateUserPostData);
+    queryMock.mockResolvedValue(sampleUpdateUserPostResponse as never);
     await postsController.updateUserPost(mockReq as Request, mockRes as Response, mockNext as NextFunction);
   });
 
@@ -254,25 +234,15 @@ describe('Update post successful', () => {
     queryMock.mockReset();
   });
 
-  // called mockQuery with 2 arguments
-  it('called mockQuery with 2 arguments', () => {
-    expect(queryMock.mock.calls[0].length).toBe(2);
+  it('returns the updated Item from DB', async () => {
+    expect(await queryMock.mock.results[0].value).toBe(sampleUpdateUserPostResponse);
   });
-  // has a 1st argument with correct syntax
-  it('passed in 1st argument with correct SQL syntax', ()=> {
-    expect(queryMock.mock.calls[0][0]).toBe('UPDATE posts SET caption = $1 WHERE _id = $2 RETURNING *');
+  it('stores an object from response at mockRes.locals', () => {
+    expect(mockRes.locals).toBeInstanceOf(Object);
   });
-  // returns the updated row from db
-  it('returns the updated row from DB', async () => {
-    expect(await queryMock.mock.results[0].value).toBe(sampleUpdateUserPostData);
-  });
-  // stores an array at mockRes.locals
-  it('stores an array at mockRes.locals', () => {
-    expect(mockRes.locals).toBeInstanceOf(Array);
-  });
-  // contains updated caption
   it('returns the updated caption', () => {
-    expect(mockRes.locals[0].caption).toBe(caption);
+    const caption = sampleUpdateUserPostResponse.Attributes.caption;
+    expect(mockRes.locals.caption).toBe(caption);
   });
 
 });
@@ -280,6 +250,56 @@ describe('Update post successful', () => {
 // write tests for error handler????
 
 describe('Delete post successful', () => {
+  const queryMock = jest.spyOn(ddbDocClient, 'send');
+  
+  // initialize user_id, timestamp from sample data
+  const { user_id, timestamp } = sampleDeleteUserPostData;
+  // set up mock arguments (req, res, next)
+  const mockReq: Partial<Request> = {
+    body: {
+      user_id: user_id,
+      timestamp: timestamp,
+    },
+  }
+  const mockRes: Partial<Response> = {};
+  const mockNext: Partial<NextFunction> = function() { return };
+  // set up params
+  const params = {
+    TableName: 'user_posts',
+    Key: {
+      user_id: user_id,
+      timestamp: timestamp,
+    }
+  }
+  // beforeAll await call to ddbDocClient.send
+  beforeAll( async () => {
+    queryMock.mockResolvedValue(sampleDeleteUserPostResponse as never);
+    await postsController.deleteUserPost(mockReq as Request, mockRes as Response, mockNext as NextFunction);
+  });
+  // afterAll - mockReset/clear
+  afterAll(() => {
+    queryMock.mockReset();
+  });
+  // assertions
+  // ddbDocClient.send was called
+  it('called ddbDocClient.send function', () => {
+    expect(queryMock).toHaveBeenCalledTimes(1);
+  });
+  // response is an object?
+  it('returns an object when ddbDocClient.send is called', async () => {
+    const response = await queryMock.mock.results[0].value
+    expect(response).toBeInstanceOf(Object);
+  });
+  // response status code is 200
+  it('returns a status code of 200', async () => {
+    const response = await queryMock.mock.results[0].value;
+    const { httpStatusCode } = response['$metadata'];
+    expect(httpStatusCode).toEqual(200);
+  });
+  it('stores correct user_id and timestamp at res.locals.deletedItem', () => {
+    expect(mockRes.locals.deletedItem.user_id).toEqual(user_id);
+    expect(mockRes.locals.deletedItem.timestamp).toEqual(timestamp);
+  });
 
 });
 
