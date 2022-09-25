@@ -1,7 +1,6 @@
 
 import postsController from '../server/controllers/postsController';
 import { Request, Response, NextFunction } from 'express';
-import db from '../server/db/db_model';
 import { ddbDocClient } from '../../libs/ddbDocClient';
 import { QueryCommand, PutCommand } from '@aws-sdk/lib-dynamodb';
 
@@ -11,7 +10,7 @@ import sampleGetPostData, { sampleAddUserPostData,
   sampleDeleteUserPostData, 
   sampleDeleteUserPostResponse} from '../sample/sampleGetPostData';
 
-describe('getPosts returns posts data', () => {
+describe('getPublicPosts returns public posts', () => {
   const queryMock = jest.spyOn(ddbDocClient, 'send');
   
 
@@ -21,15 +20,12 @@ describe('getPosts returns posts data', () => {
 
   beforeAll( async () => {
     queryMock.mockResolvedValue(sampleGetPostData as never);
-    await postsController.getPosts(mockReq as Request, mockRes as Response, mockNext as NextFunction);
+    await postsController.getPublicPosts(mockReq as Request, mockRes as Response, mockNext as NextFunction);
   });
 
   afterAll( async () => {
     queryMock.mockReset();
   });
-
-  // make some test with wrong argument that rejects
-  // reject with an error????
 
   it('returns reponse data from query', async () => {
     const { Items } = await queryMock.mock.results[0].value;
@@ -41,13 +37,6 @@ describe('getPosts returns posts data', () => {
   });
 
   it('was given a QueryCommand instance', () => {
-    const params = {
-      TableName: 'user_posts',
-      KeyConditionExpression: 'user_id = :user_id',
-      ExpressionAttributeValues: {
-        ':user_id': 1,
-      },
-    };
     expect(queryMock.mock.calls[0][0]).toBeInstanceOf(QueryCommand);
   })
 
@@ -66,7 +55,36 @@ describe('getPosts returns posts data', () => {
 
 });
 
-describe('posts retrived for specific user', () => {
+describe('getPublicPosts throws error and triggers error handler', () => {
+  const queryMock = jest.spyOn(ddbDocClient, 'send');
+
+  const mockReq: Partial<Request> = {
+    params: {
+      user_id: '1',
+    },
+    body: {
+      user_id: 1,
+    },
+  };
+  let mockRes: Partial<Response> = {};
+  let mockNext: Partial<NextFunction> = function() { };
+
+  afterAll(() => {
+    queryMock.mockReset();
+  })
+
+  it('throws an error when db.query returns an error', async () => {
+    try {
+      queryMock.mockRejectedValue(new Error('Error occured in postsController.getPublicPosts') as never);
+      await postsController.getPublicPosts(mockReq as Request, mockRes as Response, mockNext as NextFunction);
+
+    } catch(err) {
+      expect(err.message).toBe('Error occured in postsController.addUserPost');
+    }
+  }); 
+});
+
+describe('get posts for specific user', () => {
 
   const queryMock = jest.spyOn(ddbDocClient, 'send');
 
@@ -107,6 +125,36 @@ describe('posts retrived for specific user', () => {
     expect(/jpeg/.test(url)).toBe(true);
   });
 
+});
+
+describe('getUserPosts throws error and triggers error handler', () => {
+  const queryMock = jest.spyOn(ddbDocClient, 'send');
+  const { user_id } = sampleGetPostData.Items[0];
+
+  const mockReq: Partial<Request> = {
+    params: {
+      user_id: `${user_id}`,
+    },
+    body: {
+      user_id: user_id,
+    },
+  };
+  let mockRes: Partial<Response> = {};
+  let mockNext: Partial<NextFunction> = function() { };
+
+  afterAll(() => {
+    queryMock.mockReset();
+  })
+
+  it('throws an error when ddbDocClient.send returns an error', async () => {
+    try {
+      queryMock.mockRejectedValue(new Error('Error occured in postsController.getUserPosts') as never);
+      await postsController.getPublicPosts(mockReq as Request, mockRes as Response, mockNext as NextFunction);
+
+    } catch(err) {
+      expect(err.message).toBe('Error occured in postsController.getUserPosts');
+    }
+  }); 
 });
 
 describe('add post for specific user', () => {
@@ -179,11 +227,9 @@ describe('add user post with error triggers error handler', () => {
   let mockRes: Partial<Response> = {};
   let mockNext: Partial<NextFunction> = function() { };
 
-  beforeAll(async () => {
-    // queryMock.mockRejectedValue(new Error('Error occured in postsController.addUserPost') as never);
-    // await postsController.addUserPost(mockReq as Request, mockRes as Response, mockNext as NextFunction);
+  afterAll(() => {
+    queryMock.mockReset();
   })
-
 
   it('throws an error when db.query returns an error', async () => {
     try {
@@ -200,13 +246,6 @@ describe('add user post with error triggers error handler', () => {
   //   expect(queryMock.toThrow('Error occured in postsController.addUserPost');
   // });
 
-  afterAll(() => {
-    queryMock.mockReset();
-  })
-
-  it('was called 1 time', async () => {
-    expect(queryMock).toBeCalledTimes(1);
-  });
 
 });
 
@@ -247,14 +286,44 @@ describe('Update post successful', () => {
 
 });
 
-// write tests for error handler????
+describe('update user post with error triggers error handler', () => {
+  const queryMock = jest.spyOn(ddbDocClient, 'send');
+
+  const { user_id, timestamp, caption } = sampleUpdateUserPostData;
+
+  const mockReq: Partial<Request> = {
+    params: {
+      user_id: `${user_id}`,
+    },
+    body: {
+      user_id: user_id,
+      timestamp: timestamp,
+      caption: caption,
+    }
+  };
+  let mockRes: Partial<Response> = {};
+  let mockNext: Partial<NextFunction> = function() { };
+
+  afterAll( async () => {
+    queryMock.mockReset();
+  });
+
+
+  it('throws an error when ddbDocClient.send returns an error', async () => {
+    try {
+      queryMock.mockRejectedValue(new Error('Error occured in postsController.updateUserPost') as never);
+      await postsController.updateUserPost(mockReq as Request, mockRes as Response, mockNext as NextFunction);
+
+    } catch(err) {
+      expect(err.message).toBe('Error occured in postsController.updateUserPost');
+    }
+  });
+});
 
 describe('Delete post successful', () => {
   const queryMock = jest.spyOn(ddbDocClient, 'send');
   
-  // initialize user_id, timestamp from sample data
   const { user_id, timestamp } = sampleDeleteUserPostData;
-  // set up mock arguments (req, res, next)
   const mockReq: Partial<Request> = {
     body: {
       user_id: user_id,
@@ -263,34 +332,21 @@ describe('Delete post successful', () => {
   }
   const mockRes: Partial<Response> = {};
   const mockNext: Partial<NextFunction> = function() { return };
-  // set up params
-  const params = {
-    TableName: 'user_posts',
-    Key: {
-      user_id: user_id,
-      timestamp: timestamp,
-    }
-  }
-  // beforeAll await call to ddbDocClient.send
+
   beforeAll( async () => {
     queryMock.mockResolvedValue(sampleDeleteUserPostResponse as never);
     await postsController.deleteUserPost(mockReq as Request, mockRes as Response, mockNext as NextFunction);
   });
-  // afterAll - mockReset/clear
   afterAll(() => {
     queryMock.mockReset();
   });
-  // assertions
-  // ddbDocClient.send was called
   it('called ddbDocClient.send function', () => {
     expect(queryMock).toHaveBeenCalledTimes(1);
   });
-  // response is an object?
   it('returns an object when ddbDocClient.send is called', async () => {
     const response = await queryMock.mock.results[0].value
     expect(response).toBeInstanceOf(Object);
   });
-  // response status code is 200
   it('returns a status code of 200', async () => {
     const response = await queryMock.mock.results[0].value;
     const { httpStatusCode } = response['$metadata'];
@@ -301,6 +357,39 @@ describe('Delete post successful', () => {
     expect(mockRes.locals.deletedItem.timestamp).toEqual(timestamp);
   });
 
+});
+
+describe('delete user post with error triggers error handler', () => {
+  const queryMock = jest.spyOn(ddbDocClient, 'send');
+
+  const { user_id, timestamp } = sampleDeleteUserPostData;
+
+  const mockReq: Partial<Request> = {
+    params: {
+      user_id: `${user_id}`,
+    },
+    body: {
+      user_id: user_id,
+      timestamp: timestamp,
+    }
+  };
+  let mockRes: Partial<Response> = {};
+  let mockNext: Partial<NextFunction> = function() { };
+
+  afterAll( async () => {
+    queryMock.mockReset();
+  });
+
+
+  it('throws an error when ddbDocClient.send returns an error', async () => {
+    try {
+      queryMock.mockRejectedValue(new Error('Error occured in postsController.deleteUserPost') as never);
+      await postsController.deleteUserPost(mockReq as Request, mockRes as Response, mockNext as NextFunction);
+
+    } catch(err) {
+      expect(err.message).toBe('Error occured in postsController.updateUserPost');
+    }
+  });
 });
 
 

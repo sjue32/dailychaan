@@ -113,7 +113,7 @@ const xpostsController = {
 
 const postsController = {
   // get posts from user public chaan 
-  getPosts: async (req: Request, res: Response, next: NextFunction) => {
+  getPublicPosts: async (req: Request, res: Response, next: NextFunction) => {
     try {
       const params = {
         TableName: 'user_posts',
@@ -276,7 +276,7 @@ const postsController = {
       };
 
       return next();
-      
+
     } catch(err) {
       const errObj = {
         log: `postsController.deleteUserPost : ERROR : ${err}`,

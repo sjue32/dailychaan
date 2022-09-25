@@ -1,110 +1,8 @@
 import express, { Request, Response, NextFunction, RequestHandler } from 'express';
 import path from 'path';
-import db_model from './db/db_model';
 import morgan from 'morgan';
-// test for DDB
-import { ddbClient } from '../../libs/ddbClient';
-import { DynamoDBDocumentClient, PutCommand, QueryCommand, UpdateCommand, DeleteCommand } from '@aws-sdk/lib-dynamodb';
-
-
 import { ServerError } from '../types';
 import apiRouter from './routes/apiRouter';
-
-// const test = {
-//   getUser: async () => {
-//     // const string1 = 'SELECT * FROM users';
-//     const string2 = 'SELECT url, caption, user_id, date, likes FROM posts JOIN users ON\
-//     users._id = posts.user_id';
-//     const response = await db_model.query(string2);
-//     const { rows } = response;
-//     console.log('Response from pool: ', rows);
-//   }
-// };
-
-const params = {
-  TableName: "user_posts",
-  KeyConditionExpression: 'user_id = :user_id',
-  ExpressionAttributeValues: {
-    ":user_id": 1,
-  }
-} 
-
-const ddbDocClient = DynamoDBDocumentClient.from(ddbClient);
-
-async function query_ddb_item () {
-  try {
-    const data = await ddbDocClient.send(new QueryCommand(params));
-    console.log('Success: ', data.Items);
-  } catch(err) {
-    console.log('Error: ', err);
-  }
-}
-
-async function testPutCommand() {
-  const params = {
-    TableName: 'user_posts',
-    Item: {
-      user_id: 1,
-      timestamp: '1663976134000',
-      likes: 2,
-      url: 'Yabba!',
-      caption: 'test Put number 5',
-    },
-    ReturnValues: 'ALL_OLD',
-
-  }
-
-  try {
-    const response = await ddbDocClient.send(new PutCommand(params));
-    console.log('Success Query response: ',response);
-  } catch(err) {
-    console.log('ERROR: ', err);
-  }
-}
-
-async function testUpdateCommand() {
-  const newCaption = 'REVISED: Updated! 3rd Attempt'
-
-  const params = {
-    TableName: 'user_posts',
-    Key: {
-      user_id: 1,
-      timestamp: '1663976133900',
-    },
-    UpdateExpression: 'SET caption = :caption',
-    ExpressionAttributeValues: {
-      ':caption': newCaption,
-    },
-    ReturnValues: 'ALL_NEW',
-  };
-
-  try {
-    const response = await ddbDocClient.send(new UpdateCommand(params));
-    console.log('Successful Query: ', response);
-  } catch(err) {
-    console.log('ERROR: ', err);
-  }
-};
-
-async function testDeleteCommand() {
-  const params = {
-    TableName: 'user_posts',
-    Key: {
-      user_id: 1,
-      timestamp: '1663976133900',
-    },
-    ReturnValues: 'ALL_OLD',
-  }
-
-  try {
-    const response = await ddbDocClient.send(new DeleteCommand(params));
-    console.log(response);
-  } catch(err) {
-    console.log('ERROR: ', err);
-  }
-
-};
-
 
 const app = express();
 
@@ -122,13 +20,6 @@ if(process.env.NODE_ENV === 'production') {
 
 // serve routes
 app.use('/api', apiRouter);
-
-// test
-// test.getUser();
-// query_ddb_item();
-// testPutCommand();
-// testUpdateCommand();
-// testDeleteCommand();
 
 // test error handler
 app.get('/error', (req: Request, res: Response, next: NextFunction) => {
