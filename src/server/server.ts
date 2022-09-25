@@ -1,33 +1,14 @@
 import express, { Request, Response, NextFunction, RequestHandler } from 'express';
 import path from 'path';
-import db_model from './db/db_model';
-// import db from './db/db_model';
-
-
-
-const test = {
-  getUser: async () => {
-    // const string1 = 'SELECT * FROM users';
-    const string2 = 'SELECT url, caption, user_id, date, likes FROM posts JOIN users ON\
-    users._id = posts.user_id';
-    const response = await db_model.query(string2);
-    const { rows } = response;
-    console.log('Response from pool: ', rows);
-  }
-};
-
-test.getUser();
-
-
-
-
+import morgan from 'morgan';
 import { ServerError } from '../types';
-
 import apiRouter from './routes/apiRouter';
 
 const app = express();
 
 app.use(express.json());
+
+app.use(morgan('tiny'));
 
 // condition: NODE_ENV is production, serve static files
 if(process.env.NODE_ENV === 'production') {

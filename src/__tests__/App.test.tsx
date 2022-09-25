@@ -7,7 +7,7 @@
  import { render, screen } from '@testing-library/react';
  import '@testing-library/jest-dom';
 
- describe('Unit testing App component', () => {
+ describe.skip('Unit testing App component', () => {
 
    const urlSource = ['https://dailychaan-public-photos.s3.us-east-2.amazonaws.com/11802736_10104167012944459_5302688321690486926_o.jpeg',
    'https://dailychaan-public-photos.s3.us-east-2.amazonaws.com/13301363_10104985284945809_7979679298381378844_o.jpeg',

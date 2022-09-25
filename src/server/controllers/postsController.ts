@@ -1,15 +1,21 @@
 import express, { Request, Response, NextFunction } from 'express';
-// import db model
-import db from '../db/db_model';
+import { ddbDocClient } from '../../../libs/ddbDocClient';
+import { QueryCommand, PutCommand, UpdateCommand, DeleteCommand } from '@aws-sdk/lib-dynamodb';
 
+// Middleware controller making all queries to user_posts tables in DynamoDB
 const postsController = {
-  // get posts from public chaan
-  getPosts: async (req: Request, res: Response, next: NextFunction) => {
+  // get all posts from public profile of Daily Chaan
+  getPublicPosts: async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const sqlString = 'SELECT url, caption, user_id, date, likes FROM users JOIN users ON users._id = posts.user_id WHERE users._id = $1';
-      const params = [1];
-      const response = await db.query(sqlString, params);
-      const data = response.rows;
+      const params = {
+        TableName: 'user_posts',
+        KeyConditionExpression: 'user_id = :user_id',
+        ExpressionAttributeValues: {
+          ':user_id': 1,
+        },
+      }
+      const response = await ddbDocClient.send(new QueryCommand(params));
+      const data = response.Items;
       res.locals = data;
 
       return next();
@@ -18,22 +24,27 @@ const postsController = {
       console.log(err);
       // pass new error object to global error handler with next
       const errObj = {
-        log: `postsController.getUserPosts : ERROR : ${err}`,
+        log: `postsController.getPosts : ERROR : ${err}`,
         status: 404,
-        message: { err: 'postsController.getUserPosts: ERROR: Check server logs for details'}
+        message: { err: 'postsController.getPosts: ERROR: Check server logs for details'}
       }
       return next(errObj);
     }
   },
-  // getUserPosts - individual user's posts
+  // query for all posts from a specific user
   getUserPosts: async (req: Request, res: Response, next: NextFunction): Promise<any> => {
     try {
-      const string = 'SELECT url, caption, user_id, date, likes FROM users JOIN users ON users._id = \
-      posts.user_id WHERE users._id = $1';
       const user_id = Number(req.params.user_id);
-      const params = user_id;
-      const response = await db.query(string, params);
-      const data = response.rows;
+      const params = {
+        TableName: 'user_posts',
+        KeyConditionExpression: 'user_id = :user_id',
+        ExpressionAttributeValues: {
+          ':user_id': user_id,
+        },
+      }
+
+      const response = await ddbDocClient.send(new QueryCommand(params));
+      const data = response.Items;
       res.locals = data;
       return next();
 
@@ -48,14 +59,121 @@ const postsController = {
     }
   },
 
-  // addPost - 201
+  // add a single post for a specific user
+  addUserPost: async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { url, caption } = req.body;
+      const user_id = Number(req.params.user_id);
+      const likes = 0;
+      // need time stamp string to act as sortKey
+      const dateObj = new Date();
+      const timestamp = dateObj.toISOString();
+      const params = {
+        TableName: 'user_posts',
+        Item: {
+          user_id: user_id,
+          timestamp: timestamp,
+          url: url,
+          caption: caption,
+          likes: likes,
+        },
+        ReturnValues: 'ALL_OLD',
+      };
 
-  // updatePost - edit caption
+      const response = await ddbDocClient.send(new PutCommand(params));
+      const data = response.Attributes;
+      if(data == undefined) {
+        res.locals = {
+          message: 'Item added'
+        };
+      }
+      else {
+        res.locals = { 
+          message: 'Item already exists, item updated.'
+        }
+      }
+      return next();
 
-  // deletePost - delete entire post - 204
+    } catch(err) {
+      const errObj = {
+        log: `postsController.addUserPost : ERROR : ${err}`,
+        status: 400,
+        message: { err: 'postsController.addUserPost: ERROR: Check server logs for details'}
+      }
+      return next(errObj);
+    }
+
+  },
+  // update a single post for a specific user 
+  updateUserPost: async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { user_id, timestamp, caption }  = req.body;
+
+      const params = {
+        TableName: 'user_posts',
+        Key: {
+          user_id: user_id,
+          timestamp: timestamp,
+        },
+        UpdateExpression: 'SET caption = :caption',
+        ExpressionAttributeValues: {
+          ':caption': caption,
+        },
+        ReturnValues: 'ALL_NEW',
+      };
+
+      const response = await ddbDocClient.send(new UpdateCommand(params));
+      const updatedItem = response.Attributes;
+      res.locals = updatedItem;
+
+      return next();
+    } catch(err) {
+      const errObj = {
+        log: `postsController.updateUserPost : ERROR : ${err}`,
+        status: 404,
+        message: { err: 'postsController.updateUserPost: ERROR: Check server logs for details'}
+      };
+
+      return next(errObj);
+     }
+  },
+
+  // delete a single post for a specific user
+  deleteUserPost: async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      // destructure timestamp from req.body
+      const { timestamp } = req.body;
+      // initialize user_id from req.body and convert to Number
+      const user_id = Number(req.body.user_id);
+      // declare params
+      const params = {
+        TableName: 'user_posts',
+        Key: {
+          user_id: user_id,
+          timestamp: timestamp,
+        },
+        ReturnValues: 'ALL_OLD',
+      }
+      const response = await ddbDocClient.send(new DeleteCommand(params));
+      // store deletedItem at res.locals.deletedItem
+      const { Attributes } = response;
+      res.locals = {
+        deletedItem: Attributes,
+      };
+
+      return next();
+
+    } catch(err) {
+      const errObj = {
+        log: `postsController.deleteUserPost : ERROR : ${err}`,
+        status: 404,
+        message: { err: 'postsController.deleteUserPost: ERROR: Check server logs for details'}
+      };
+
+      return next(errObj);
+    }
+  },
   // in future will also remove image from S3 bucket
-
-
 };
 
 export default postsController;
