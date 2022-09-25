@@ -353,8 +353,8 @@ describe('Delete post successful', () => {
     expect(httpStatusCode).toEqual(200);
   });
   it('stores correct user_id and timestamp at res.locals.deletedItem', () => {
-    expect(mockRes.locals.deletedItem.user_id).toEqual(user_id);
-    expect(mockRes.locals.deletedItem.timestamp).toEqual(timestamp);
+    expect(mockRes.locals.user_id).toEqual(user_id);
+    expect(mockRes.locals.timestamp).toEqual(timestamp);
   });
 
 });

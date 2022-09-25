@@ -157,9 +157,7 @@ const postsController = {
       const response = await ddbDocClient.send(new DeleteCommand(params));
       // store deletedItem at res.locals.deletedItem
       const { Attributes } = response;
-      res.locals = {
-        deletedItem: Attributes,
-      };
+      res.locals = Attributes;
 
       return next();
 
@@ -174,6 +172,23 @@ const postsController = {
     }
   },
   // in future will also remove image from S3 bucket
+
+  // middleware function to assign user_posts to table_name property for user_posts-related requests
+  assignTable: (req: Request, res: Response, next: NextFunction) => {
+    try {
+      req.body.table_name = 'user_posts';
+      return next();
+    } catch(err) {
+      console.log(err);
+      // pass new error object to global error handler with next
+      const errObj = {
+        log: `postsController.getPosts : ERROR : ${err}`,
+        status: 404,
+        message: { err: 'postsController.assignTable: ERROR: Check server logs for details'}
+      }
+      return next(errObj);
+    }
+  }
 };
 
 export default postsController;
