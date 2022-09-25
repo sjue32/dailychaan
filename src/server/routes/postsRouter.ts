@@ -4,7 +4,7 @@ import tableNameController from '../controllers/tableNameController';
 
 const postsRouter = express.Router();
 
-// route CRUD requests to postsController
+// route CRUD requests to tableNameController and postsController
 postsRouter.get('/', tableNameController.assignPosts, postsController.getPublicPosts, (req: Request, res: Response, next: NextFunction) => {
   return res.status(200).json(res.locals);
 });
