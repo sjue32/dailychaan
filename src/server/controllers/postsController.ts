@@ -7,8 +7,9 @@ const postsController = {
   // get all posts from public profile of Daily Chaan
   getPublicPosts: async (req: Request, res: Response, next: NextFunction) => {
     try {
+      const { table_name } = req.body;
       const params = {
-        TableName: 'user_posts',
+        TableName: table_name,
         KeyConditionExpression: 'user_id = :user_id',
         ExpressionAttributeValues: {
           ':user_id': 1,
@@ -34,9 +35,10 @@ const postsController = {
   // query for all posts from a specific user
   getUserPosts: async (req: Request, res: Response, next: NextFunction): Promise<any> => {
     try {
+      const { table_name } = req.body;
       const user_id = Number(req.params.user_id);
       const params = {
-        TableName: 'user_posts',
+        TableName: table_name,
         KeyConditionExpression: 'user_id = :user_id',
         ExpressionAttributeValues: {
           ':user_id': user_id,
@@ -62,14 +64,14 @@ const postsController = {
   // add a single post for a specific user
   addUserPost: async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const { url, caption } = req.body;
+      const { table_name, url, caption } = req.body;
       const user_id = Number(req.params.user_id);
       const likes = 0;
       // need time stamp string to act as sortKey
       const dateObj = new Date();
       const timestamp = dateObj.toISOString();
       const params = {
-        TableName: 'user_posts',
+        TableName: table_name,
         Item: {
           user_id: user_id,
           timestamp: timestamp,
@@ -107,10 +109,10 @@ const postsController = {
   // update a single post for a specific user 
   updateUserPost: async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const { user_id, timestamp, caption }  = req.body;
+      const { table_name, user_id, timestamp, caption }  = req.body;
 
       const params = {
-        TableName: 'user_posts',
+        TableName: table_name,
         Key: {
           user_id: user_id,
           timestamp: timestamp,
@@ -141,13 +143,12 @@ const postsController = {
   // delete a single post for a specific user
   deleteUserPost: async (req: Request, res: Response, next: NextFunction) => {
     try {
-      // destructure timestamp from req.body
-      const { timestamp } = req.body;
+      const { table_name, timestamp } = req.body;
       // initialize user_id from req.body and convert to Number
       const user_id = Number(req.body.user_id);
       // declare params
       const params = {
-        TableName: 'user_posts',
+        TableName: table_name,
         Key: {
           user_id: user_id,
           timestamp: timestamp,
@@ -173,22 +174,6 @@ const postsController = {
   },
   // in future will also remove image from S3 bucket
 
-  // middleware function to assign user_posts to table_name property for user_posts-related requests
-  assignTable: (req: Request, res: Response, next: NextFunction) => {
-    try {
-      req.body.table_name = 'user_posts';
-      return next();
-    } catch(err) {
-      console.log(err);
-      // pass new error object to global error handler with next
-      const errObj = {
-        log: `postsController.getPosts : ERROR : ${err}`,
-        status: 404,
-        message: { err: 'postsController.assignTable: ERROR: Check server logs for details'}
-      }
-      return next(errObj);
-    }
-  }
 };
 
 export default postsController;
