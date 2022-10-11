@@ -12,9 +12,9 @@ postsRouter.get('/:user_id', tableNameController.assignPosts, postsController.ge
   return res.status(200).json(res.locals);
 });
 postsRouter.post('/:user_id', tableNameController.assignPosts, postsController.addUserPost, (req: Request, res: Response, next: NextFunction) => {
-  return res.status(200).json(res.locals.message);
+  return res.status(200).json(res.locals);
 });
-postsRouter.put('/:user_id', tableNameController.assignPosts, postsController.updateUserPost, (req: Request, res: Response, next: NextFunction) => {
+postsRouter.patch('/:user_id', tableNameController.assignPosts, postsController.updateUserPost, (req: Request, res: Response, next: NextFunction) => {
   return res.status(200).json(res.locals);
 });
 postsRouter.delete('/:user_id', tableNameController.assignPosts, postsController.deleteUserPost, (req: Request, res: Response, next: NextFunction) => {
