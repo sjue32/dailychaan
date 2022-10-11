@@ -13,8 +13,11 @@ import sampleGetPostData, { sampleAddUserPostData,
 describe('getPublicPosts returns public posts', () => {
   const queryMock = jest.spyOn(ddbDocClient, 'send');
   
-
-  let mockReq: Partial<Request> = {};
+  let mockReq: Partial<Request> = {
+    body: {
+      table_name: 'test_user_posts',
+    }
+  };
   let mockRes: Partial<Response> = {};
   let mockNext: Partial<NextFunction> = function() { return mockRes as any;};
 
@@ -92,6 +95,9 @@ describe('get posts for specific user', () => {
   const mockReq: Partial<Request> = { 
     params: {
       user_id: test_req_param,
+    },
+    body: {
+      table_name: 'test_user_posts',
     }
    };
   const mockRes: Partial<Response> = {};
@@ -353,8 +359,8 @@ describe('Delete post successful', () => {
     expect(httpStatusCode).toEqual(200);
   });
   it('stores correct user_id and timestamp at res.locals.deletedItem', () => {
-    expect(mockRes.locals.deletedItem.user_id).toEqual(user_id);
-    expect(mockRes.locals.deletedItem.timestamp).toEqual(timestamp);
+    expect(mockRes.locals.user_id).toEqual(user_id);
+    expect(mockRes.locals.timestamp).toEqual(timestamp);
   });
 
 });

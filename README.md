@@ -1,2 +1,2 @@
-# dailycaan
-A social media platform focused on sharing food experiences
+# Daily Chaan
+A social media platform focused on sharing food experiences through images.
