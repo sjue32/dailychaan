@@ -1,30 +1,44 @@
-import React from 'react';
-import ImageFrameComponent from './components/ImageFrameComponent';
-import { ImageFrameProps } from '../types';
+import React, { useEffect, useState } from 'react';
+import { Routes, Route, useLocation } from 'react-router-dom';
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
+import NavBar from './components/Navbar';
+import Home from './components/Home';
+import Explore from './components/Explore';
+import About from './components/About';
+import Posts from './components/Posts';
+import Login from './components/Login';
+import { ImageFrameProps, UsersData, ImageFrameComponentProp, LoggedInUserProp } from '../types';
 
 const App = () => {
-  // public image array
-  // temporarily hard coded until URL's are cached or saved in database
-  const public_images = ['https://dailychaan-public.s3.amazonaws.com/11802736_10104167012944459_5302688321690486926_o.jpg',
-  'https://dailychaan-public.s3.amazonaws.com/13301363_10104985284945809_7979679298381378844_o.jpg',
-  'https://dailychaan-public.s3.amazonaws.com/13323735_10104999104426459_2516400911121474739_o.jpg',
-  'https://dailychaan-public.s3.amazonaws.com/13329358_10104985284307089_9186752348523393200_o.jpg',
-  'https://dailychaan-public.s3.amazonaws.com/13329600_10104990389810619_7757854025143533726_o.jpg',
-  'https://dailychaan-public.s3.amazonaws.com/13391471_10105000520498639_6651838389706195689_o.jpg',
-  'https://dailychaan-public.s3.amazonaws.com/13391551_10104998862885509_2916281007743705705_o.jpg',
-  'https://dailychaan-public.s3.amazonaws.com/13415502_10105000518268109_2615196590672735618_o.jpg'];
-  // need to specify correct type for img elements
-  const imgComponentArray: any[] = [];
 
-  public_images.forEach((url, idx) => {
-    const sampleCaption = `Testing ${idx}`;
-    imgComponentArray.push(<ImageFrameComponent imgUrl={url} key={`caption${idx}`} caption={sampleCaption} />);
+  const [ publicChaan, setPublicChaan ] = useState<any[]>([]);
+  const [ usersList, setUsersList ] = useState<Record<string, UsersData>>({});
+  const [ userPosts, setUserPosts ] = useState<Record<string, ImageFrameComponentProp[]>>({});
+  const [ isLoading, setIsLoading ] = useState<boolean>(true);
+  const [ loggedInUser, setLoggedInUser ] = useState<LoggedInUserProp>({
+    loggedIn: false,
+    username: '',
+    posts: [],
+    fav_users: [],
+    liked: {}
   });
 
+  const location = useLocation();
+
   return (
-    <div>
-      <h1>Daily Chaan!</h1>
-      <div>{imgComponentArray}</div>
+    <div className="main">
+      <NavBar loggedInUser={loggedInUser} setLoggedInUser={setLoggedInUser} />
+      <TransitionGroup>
+        <CSSTransition key={location.key} classNames="fade" timeout={300}>
+          <Routes location={location}>
+            <Route path="/" element={<Home data={ publicChaan } loggedInUser={loggedInUser} isLoading={isLoading} setIsLoading={setIsLoading} />} />
+            <Route path="/explore" element ={<Explore user_data={ usersList } setUserPosts={setUserPosts} user_posts={ userPosts }  />} />
+            <Route path="/about" element ={<About />} />
+            <Route path ="/posts/:user_id" element ={<Posts user_posts={ userPosts } setUserPosts={setUserPosts} isLoading={isLoading} setIsLoading={setIsLoading} /> } />
+            <Route path="/login" element ={<Login loggedInUser={loggedInUser} setLoggedInUser={setLoggedInUser} />} />
+          </Routes>
+        </CSSTransition>
+      </TransitionGroup>
     </div>
   );
 }
