@@ -7,6 +7,7 @@ const postsController = {
   // get all posts from public profile of Daily Chaan
   getPublicPosts: async (req: Request, res: Response, next: NextFunction) => {
     try {
+      console.log('inside of getPublicPosts');
       // console.log('testing, req.body.test: ', req.body.test, 'table_name: ', req.body.table_name);
       const { table_name } = req.body;
       const params = {

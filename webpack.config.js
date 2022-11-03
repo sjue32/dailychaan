@@ -24,6 +24,10 @@ module.exports = {
         test: /\.css$/i,
         use: ["style-loader", "css-loader"],
       },
+      {
+        test: /\.ico$/,
+        use: 'file-loader',
+      },
     ],
   },
   resolve: {
@@ -33,6 +37,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: './src/client/index.html',
       filename: './index.html',
+      favicon: './src/client/favicon.ico',
     }),
   ],
   devServer: {
@@ -44,5 +49,6 @@ module.exports = {
       secure: false
     }
   },
+  devtool: 'source-map',
   
 }
