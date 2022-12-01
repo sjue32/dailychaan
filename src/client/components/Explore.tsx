@@ -1,36 +1,53 @@
 import React from 'react';
+import { ThreeDots } from 'react-loader-spinner';
 import { Link } from 'react-router-dom';
-import { UsersData, ImageFrameComponentProp } from '../../types';
+import { UsersData, ImagePostProp } from '../../types';
+import useFetch from '../custom_hooks/useFetch';
 
+// user_data: Record<string, UsersData>
 
-const Explore = (props: { user_data: Record<string, UsersData>, 
-  setUserPosts: React.Dispatch<React.SetStateAction<{}>>,
-  user_posts: Record<string, ImageFrameComponentProp[]> }) => {
+const Explore = () => {
 
-  const { user_data, setUserPosts, user_posts } = props;
-  // console.log('inside Explore Comp, user_data: ', user_data);
+  console.log('inside Explore Comp');
 
-  const chaansArray = Object.values(user_data);
+  const usersListUrl = '/api/users/users';
+  const { isLoading, isError, data } = useFetch(usersListUrl);
 
-  const chaanLinkArray: any[] = [];
-
-  chaansArray.forEach((data, idx) => {
-    const { user_id, username } = data;
-    chaanLinkArray.push(
-      <div className="chaanLink" key={`chaanLink${idx}`}>
-        {/* <button onClick={() => getUserPosts(user_id)}><Link to={`/posts/${user_id}`} > {username} </Link></button> */}
-        <button><Link to={`/posts/${user_id}`} > {username} </Link></button>
-      </div>
-  )});
-
-
+  const usersListArray = Object.values(data);
 
   return(
     <div className="exploreComponent">
-      <h1>Explore Chaans Page</h1>
-      <div>{chaanLinkArray}</div>
+      <div className="exploreInnerContainer">
+        <h1>Explore Chaans Page</h1>
 
+        { isLoading ? <div className="testSpinner">
+        <ThreeDots 
+          height="80"
+          width="80"
+          radius="9"
+          color="#4fa94d"
+          ariaLabel="three-dots-loading"
+          wrapperStyle={{}}
+          // wrapperClassName=""
+          visible={true}
+        />
+      </div> : 
+
+        <div>
+          { isError ? <div>ERROR COMPONENT</div> :
+            usersListArray.map((object: UsersData, idx) => {
+              const { user_id, username } = object;
+              return(<div className="chaanLink" key={`chaanLink${idx}`}>
+              <button><Link to={`/posts/${user_id}`} > {username} </Link></button>
+            </div>)
+            })
+          }
+        </div>
+  } 
+
+      </div>
     </div>
+  
   )
 };
 

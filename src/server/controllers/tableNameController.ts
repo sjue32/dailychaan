@@ -26,7 +26,7 @@ const tableNameController = {
         new_user_id += user_id[i];
       }
     }
-    // console.log('tableNameController: user_id: ', user_id, ', new_user_id: ', new_user_id);
+    console.log('tableNameController: user_id: ', user_id, ', new_user_id: ', new_user_id);
     req.params.user_id = new_user_id;
     return next();
   },

@@ -1,34 +1,35 @@
 import React from 'react';
 import { PublicChaanProp, LoggedInUserProp } from '../../types';
-import ImageFrameComponent from './ImageFrameComponent';
+import ImagePost from './ImagePost';
+import useFetch from '../custom_hooks/useFetch';
+import { ThreeDots } from 'react-loader-spinner';
 
+const Home =  ()  => {
+  const publicPostsUrl = '/api/posts/1';
+  const { isLoading, isError, data } = useFetch(publicPostsUrl);
 
-const Home =  (props: { data: PublicChaanProp[], loggedInUser: LoggedInUserProp ,isLoading: boolean,
-  setIsLoading: React.Dispatch<React.SetStateAction<boolean>> })  => {
-  const { data, loggedInUser, setIsLoading } = props;
+  console.log('isLoading', isLoading);
 
-  const loggedInUserPosts = loggedInUser.posts;
+  setTimeout(() => {
+    if(isLoading) {
+      console.log('inside of setTimeout of Home Component');
+      // return <div className="testSpinner">LOADING SPINNER ...</div>;
+      return <div>LOADING SPINNER ...</div>;
+    }
+  }, 0);
 
   console.log('Home component rendered');
   return(
     <div className="homeComponent">
       <h1>Home Page - Daily Chaan</h1>
-        <div>
         {
-          !loggedInUser.loggedIn ? data.map((data: PublicChaanProp, idx: number) => {
-            const { user_id, timestamp, url, caption, likes } = data
-          return(<ImageFrameComponent key={`key${idx}`} user_id={user_id} url={url} 
-          caption={caption} likes={likes} timestamp={timestamp} home={true}
-          setIsLoading={setIsLoading} />);
-          }) :
-          loggedInUserPosts.map((data: PublicChaanProp, idx: number) => {
-            const { user_id, timestamp, url, caption, likes } = data
-          return(<ImageFrameComponent key={`key${idx}`} user_id={user_id} url={url} 
-          caption={caption} likes={likes} timestamp={timestamp} home={true}
-          setIsLoading={setIsLoading} />);
+          isError ? <div className ='errorNetwork'> ERROR: NETWORK TROUBLE - add an error with network component here</div>
+          : data.map((object: PublicChaanProp, idx: number) => {
+            const { username, user_id, timestamp, url, caption, likes } = object;
+            return(<ImagePost id={`img${idx}`} key={`key${idx}`} username={username} user_id={user_id} url={url}
+            caption={caption} likes={likes} timestamp={timestamp} />)
           })
         }
-        </div> 
     </div>
   )
 };

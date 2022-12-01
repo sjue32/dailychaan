@@ -1,73 +1,47 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { LoggedInUserProp } from '../../types';
+import checkLogin from '../helperFunctions/checkLogin';
+import Loader from './Loader';
+import LoginInput from './LoginInput';
+import { loginInputUsernamePropData, loginInputPasswordPropData } from '../helperData/loginFormPropData';
 
 const Login = ( props: { loggedInUser: LoggedInUserProp, setLoggedInUser: React.Dispatch<React.SetStateAction<LoggedInUserProp>> } ) => {
 
   const { loggedInUser, setLoggedInUser } = props;
 
-  const [ details, setDetails ] = useState({
-    username: '', password: ''
-  });
+  const [ details, setDetails ] = useState({ username: '', password: ''});
   const [ loginMessage, setLoginMessage ] = useState<string>('');
+  const [ status, setStatus ] = useState<string>('idle');
 
   const navigate = useNavigate();
 
-  // declare object with some dummy data 
-  const testUser = 'public';
-  const testPassword = 'public123';
-
-  const checkLogin =  async (details: {username: string, password: string}) => {
-
-    console.log('passed in username: ', details.username, ', password: ', details.password);
-    const requestOptions = {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ 
-        username: details.username,
-        password: details.password,
-      }),
-    };
-    const response = await fetch('/api/login', requestOptions).then(res => res.json());
-    const { message, user_posts } = response;
-    // const message = response.message;
-    console.log('message from login server: ', message);
-    
-    // unsuccessful login
-    if(message == 'username does not exist' || message == `username / password does not match`) {
-        setLoginMessage(message);
-    //  successful login
-    } else if(message == 'user verified') {
-      console.log('LOGGED IN SUCCESSFULLY');
-      setLoggedInUser({ ...loggedInUser, loggedIn: true, username: details.username, posts: user_posts });
-      console.log('response.posts', response.user_posts);
-    }
+  const submitHandler = async (event: React.FormEvent) => {
+    event.preventDefault();
+    setStatus('pending');
+    const response = await checkLogin({details, setStatus, loggedInUser, setLoggedInUser, setLoginMessage} );
+    response ? setStatus('fulfilled') : setStatus('error');
+    // if login fails, return to login? with error message displayed?
+    response ? navigate('/user') : null;
+    setDetails({ username: '', password: ''});
   };
 
-  const submitHandler = (event: React.FormEvent) => {
-    event.preventDefault();
-    checkLogin(details);
-    navigate('/');
-  }
+  console.log('status: ', status);
+  console.log('loginMessage: ', loginMessage);
 
   return(
     <div className="loginComponent">
-      <form onSubmit={submitHandler}>
-        <div className="form-inner">
+      <form onSubmit={submitHandler} noValidate>
           <h2>Login</h2>
-          <div className="form-group">
-            <label htmlFor="username">Username:</label>
-            <input type="text" name="username" id="username" onChange={e => setDetails({...details, username: e.target.value})} />
-          </div>
-          <div className="form-group">
-            <label htmlFor="password">Password:</label>
-            <input type="password" name="password" id="password" onChange={e => setDetails({...details, password:e.target.value})} />
-          </div>
+          <LoginInput id='username' value={details.username} onChange={e => setDetails({...details, username: e.target.value})} loginInputData={loginInputUsernamePropData} />
+          <LoginInput id='password' value={details.password} onChange={e => setDetails({...details, password: e.target.value})} loginInputData={loginInputPasswordPropData} />
           <input type="submit" value="LOGIN" />
-
-        </div>
       </form>
-      {loginMessage == "" ? null : loginMessage}
+
+      { status === 'error' ? <div>{loginMessage} </div> : null }
+      { status === 'pending' ? 
+      <Loader />
+      : null }
     </div>
   )
 };

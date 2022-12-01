@@ -1,5 +1,6 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const NodePolyfillPlugin = require('node-polyfill-webpack-plugin');
 
 module.exports = {
   mode: process.env.NODE_ENV,
@@ -25,7 +26,7 @@ module.exports = {
         use: ["style-loader", "css-loader"],
       },
       {
-        test: /\.ico$/,
+        test: /\.(ico|png|jep?g|gif)$/,
         use: 'file-loader',
       },
     ],
@@ -39,6 +40,7 @@ module.exports = {
       filename: './index.html',
       favicon: './src/client/favicon.ico',
     }),
+    new NodePolyfillPlugin(),
   ],
   devServer: {
     static: {
@@ -50,5 +52,4 @@ module.exports = {
     }
   },
   devtool: 'source-map',
-  
 }

@@ -52,7 +52,8 @@ import bcrypt from 'bcrypt';
       const data = response.Item;
       if(data == undefined) {
         res.locals.message = 'username does not exist';
-        return next();
+        // send response to client
+        return res.status(401).json({ message: res.locals.message });
       }
       const storedHashedPassword = data.password;
       console.log('storedHashedPassword: ', storedHashedPassword);
@@ -63,27 +64,37 @@ import bcrypt from 'bcrypt';
       if(!comparison) {
         console.log('Password does not match');
         res.locals.message = `username / password does not match`;
-        return next();
+        // send response to client
+        return res.status(401).json({ message: res.locals.message });
       }
       else {
         // otherwise, retrieve user data and save to req.body
-        const { user_id } = data;
-        const paramsPosts = {
-          TableName: 'user_posts',
-          KeyConditionExpression: 'user_id = :user_id',
-          ExpressionAttributeValues: {
-            ':user_id': user_id,
-          },
-      }
-      const response = await ddbDocClient.send(new QueryCommand(paramsPosts));
-      const userPosts = response.Items;
-      console.log('userPosts', userPosts);
-      // create session
-      // generate cookie
+      //   const { user_id } = data;
+      //   const paramsPosts = {
+      //     TableName: 'user_posts',
+      //     KeyConditionExpression: 'user_id = :user_id',
+      //     ExpressionAttributeValues: {
+      //       ':user_id': user_id,
+      //     },
+      // }
+      // const response = await ddbDocClient.send(new QueryCommand(paramsPosts));
+      // const userPosts = response.Items;
+      // console.log('userPosts', userPosts);
+      // create session - pass to sessionController
       // send cookie with sessionId and user data back to client
-      console.log('succesful login');
+      console.log('successful login');
       res.locals.message = 'user verified';
-      res.locals.user_posts = userPosts;
+
+      const { user_id, fav_users, liked } = data;
+      req.params.user_id = user_id.toString();
+      req.params.username = username;
+      // res.locals.user_posts = userPosts;
+      res.locals.user_data = { 
+        user_id: user_id,
+        username: username,
+        fav_users: fav_users,
+        liked: liked,
+      };
 
       }
       
