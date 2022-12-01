@@ -5,3 +5,9 @@
 node_modules/
 
 dist/
+
+# Redis 
+dump.rdb
+
+# Code Cov
+coverage/
