@@ -21,7 +21,7 @@ const Home =  ()  => {
   console.log('Home component rendered');
   return(
     <div className="homeComponent">
-      <h1>Home Page - Daily Chaan</h1>
+      {/* <h1>Home Page - Daily Chaan</h1> */}
         {
           isError ? <div className ='errorNetwork'> ERROR: NETWORK TROUBLE - add an error with network component here</div>
           : data.map((object: PublicChaanProp, idx: number) => {

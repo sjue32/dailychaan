@@ -18,8 +18,8 @@ const Explore = () => {
 
   return(
     <div className="exploreComponent">
+      <h1>Explore Chaans Page</h1>
       <div className="exploreInnerContainer">
-        <h1>Explore Chaans Page</h1>
 
         { isLoading ? <div className="testSpinner">
         <ThreeDots 
