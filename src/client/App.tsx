@@ -28,18 +28,20 @@ const App = () => {
   return (
     <div className="main">
       <NavBar loggedInUser={loggedInUser} setLoggedInUser={setLoggedInUser} />
-      <TransitionGroup>
-        <CSSTransition key={location.key} classNames="fade" timeout={300}>
-          <Routes location={location}>
-            <Route path="/" element={<Home />} />
-            <Route path="/user" element={<Dashboard loggedInUser={loggedInUser} />} />
-            <Route path="/explore" element ={<Explore  />} />
-            <Route path="/about" element ={<About />} />
-            <Route path ="/posts/:user_id" element ={<Posts user_posts={ userPosts } setUserPosts={setUserPosts} /> } />
-            <Route path="/login" element ={<Login loggedInUser={loggedInUser} setLoggedInUser={setLoggedInUser} />} />
-          </Routes>
-        </CSSTransition>
-      </TransitionGroup>
+      {/* <div className="routesContainer">  */}
+        <TransitionGroup className="routesContainer">
+          <CSSTransition key={location.key} classNames="fade" timeout={300}>
+            <Routes location={location}>
+              <Route path="/" element={<Home />} />
+              <Route path="/user" element={<Dashboard loggedInUser={loggedInUser} />} />
+              <Route path="/explore" element ={<Explore  />} />
+              <Route path="/about" element ={<About />} />
+              <Route path ="/posts/:user_id" element ={<Posts user_posts={ userPosts } setUserPosts={setUserPosts} /> } />
+              <Route path="/login" element ={<Login loggedInUser={loggedInUser} setLoggedInUser={setLoggedInUser} />} />
+            </Routes>
+          </CSSTransition>
+        </TransitionGroup>
+      {/* </div> */}
     </div>
   );
 }

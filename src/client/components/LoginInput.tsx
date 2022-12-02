@@ -1,3 +1,4 @@
+import { BlockList } from 'net';
 import React, { useState } from 'react';
 import { LoginInputProps } from '../../types';
 
@@ -13,20 +14,24 @@ import { LoginInputProps } from '../../types';
 
   return(
     <div className="loginInputGroup">
-      <label htmlFor={htmlFor}>{placeholder}</label>
-      <input 
-        id={id}
-        name={name}
-        type={type}
-        placeholder={placeholder}
-        value={value}
-        pattern={pattern}
-        required={required}
-        data-focused={focused.toString()}
-        onChange={onChange}
-        onBlur={handleFocus}
-      />
-      <span>{errorMessage}</span>
+      {/* <div className="loginInputGroupTopRow"> */}
+        {/* <label htmlFor={htmlFor}>{placeholder}</label> */}
+        <input 
+          id={id}
+          name={name}
+          type={type}
+          placeholder={placeholder}
+          value={value}
+          pattern={pattern}
+          required={required}
+          data-focused={focused.toString()}
+          onChange={onChange}
+          onBlur={handleFocus}
+        />
+      {/* </div> */}
+      <div className="loginInputErrorContainer">
+        <span className="loginInputErrorMessage" >{errorMessage}</span>
+      </div>
     </div>
   )
 
