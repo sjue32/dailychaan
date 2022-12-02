@@ -31,11 +31,11 @@ const Login = ( props: { loggedInUser: LoggedInUserProp, setLoggedInUser: React.
 
   return(
     <div className="loginComponent">
-      <form onSubmit={submitHandler} noValidate>
+      <form className="loginForm" onSubmit={submitHandler} noValidate>
           <h2>Login</h2>
           <LoginInput id='username' value={details.username} onChange={e => setDetails({...details, username: e.target.value})} loginInputData={loginInputUsernamePropData} />
           <LoginInput id='password' value={details.password} onChange={e => setDetails({...details, password: e.target.value})} loginInputData={loginInputPasswordPropData} />
-          <input type="submit" value="LOGIN" />
+          <input className="submitButton" type="submit" value="LOGIN" />
       </form>
 
       { status === 'error' ? <div>{loginMessage} </div> : null }
