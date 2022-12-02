@@ -42,6 +42,12 @@ export type ImagePostTextProps = {
   user_id: number,
 }
 
+export type ChaanLinkButtonProps = {
+  // key: string,
+  username: string,
+  user_id: number
+}
+
 export type CheckLoginProps = {
   details: {
     username: string,

@@ -122,17 +122,17 @@ body {
 
 }
 
-.chaanLink {
-  border-radius: 5px;
+.chaanLinkButton {
+  border-radius: 20px;
   background-color: #8b6254;
   /* text-decoration: none; */
-  width: 300px;
-  margin: 18px;
-  font-size: 25px;
-  padding: 10px;
+  width: 85%;
+  margin: 3rem auto;
+  font-size: 2.5rem;
+  padding: 25px;
 }
 
-.chaanLink > a {
+.chaanLinkButton > a {
   text-decoration: none;
 }
 
@@ -155,7 +155,7 @@ body {
 .postsComponent {
   min-height: 100vh;
   width: 92%;
-  margin: 10rem auto;
+  margin: 3rem auto;
 }
 
 .imageContainer {
