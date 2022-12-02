@@ -3,6 +3,7 @@ import { ThreeDots } from 'react-loader-spinner';
 import { Link } from 'react-router-dom';
 import { UsersData, ImagePostProp } from '../../types';
 import useFetch from '../custom_hooks/useFetch';
+import Error from './Error';
 
 // user_data: Record<string, UsersData>
 
@@ -34,7 +35,7 @@ const Explore = () => {
       </div> : 
 
         <div>
-          { isError ? <div>ERROR COMPONENT</div> :
+          { isError ? <Error /> :
             usersListArray.map((object: UsersData, idx) => {
               const { user_id, username } = object;
               return(<div className="chaanLink" key={`chaanLink${idx}`}>

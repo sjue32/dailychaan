@@ -290,3 +290,10 @@ body {
   border-radius: 12px;
   /* font-family: 'Noto Sans JP', sans-serif; */
 }
+
+.errorComponent {
+  background-color: white;
+  width: 75%;
+  border-radius: 20px;
+  padding: 25px 40px 40px 40px;
+}
