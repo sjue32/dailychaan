@@ -321,6 +321,7 @@ body {
     /* flex-wrap: wrap; */
     width: 95%;
     margin: 0 auto;
+    font-size: 1.3rem;
   }
 
   .homeComponentInnerContainer {
