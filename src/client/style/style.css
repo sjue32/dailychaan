@@ -101,7 +101,15 @@ body {
   min-height: 100vh;
   width: 92%;
   margin: 2rem auto;
-  /* min-height: 750px; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 2rem;
+}
+
+
+
+.homeComponentInnerContainer {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -298,9 +306,6 @@ body {
 
   .navBarInnerContainer {
     margin: auto;
-    /* width: 98%; */
-    /* display: flex; */
-    /* flex-direction: row; */
     justify-content: flex-start;
     gap: 30px;
   }
@@ -311,6 +316,14 @@ body {
   }
   
   .homeComponent {
+    display: flex;
+    flex-direction: column;
+    /* flex-wrap: wrap; */
+    width: 95%;
+    margin: 0 auto;
+  }
+
+  .homeComponentInnerContainer {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
