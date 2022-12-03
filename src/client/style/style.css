@@ -100,12 +100,28 @@ body {
 .homeComponent {
   min-height: 100vh;
   width: 92%;
-  margin: 0 auto;
+  margin: 2rem auto;
   /* min-height: 750px; */
   display: flex;
   flex-direction: column;
   align-items: center;
+}
 
+.postsComponent {
+  min-height: 100vh;
+  width: 92%;
+  margin: 2rem auto;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 2rem;
+}
+
+.postsComponentInnerContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .exploreComponent {
@@ -114,6 +130,10 @@ body {
   min-height: 100vh;
   margin: 2rem auto;
   font-size: 2rem; 
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .exploreInnerContainer {
@@ -130,32 +150,11 @@ body {
   margin: 3rem auto;
   font-size: 2.5rem;
   padding: 25px;
+  box-shadow: 6px 6px 12px hsl(0deg 0% 0% / 0.44);
 }
 
 .chaanLinkButton > a {
   text-decoration: none;
-}
-
-.aboutComponent {
-  min-height: 100vh;
-  width: 85%;
-  margin: 3rem auto;
-  font-size: 2rem;
-}
-
-.aboutComponentInnerContainer {
-  /* width: 85%; */
-  margin: 40px auto;
-  padding: 3rem;
-  background-color: white;
-  border-radius: 20px;
-  box-shadow: 6px 6px 12px hsl(0deg 0% 0% / 0.44);
-}
-
-.postsComponent {
-  min-height: 100vh;
-  width: 92%;
-  margin: 3rem auto;
 }
 
 .imageContainer {
@@ -165,7 +164,7 @@ body {
   box-shadow: 6px 6px 12px hsl(0deg 0% 0% / 0.44);
   margin: 2rem auto;
   padding: 2.2rem;
-  font-size: 2rem;
+  font-size: 2.2rem;
 }
 
 .imageFrame {
@@ -174,7 +173,7 @@ body {
 
 .imageFrame > img {
   width: 100%;
-  border-radius: 7px;
+  /* border-radius: 7px; */
 }
 
 .postImg {
@@ -191,6 +190,7 @@ body {
   flex-direction: column;
   align-items: center;
   margin-top: 0.5rem;
+  margin-bottom: -0.5rem;
 }
 
 .imagePostTextTopRow {
@@ -212,12 +212,27 @@ body {
   height: 2.4rem;
 }
 
+.aboutComponent {
+  min-height: 100vh;
+  width: 85%;
+  margin: 3rem auto;
+  font-size: 2rem;
+}
+
+.aboutComponentInnerContainer {
+  /* width: 85%; */
+  margin: 40px auto;
+  padding: 3rem;
+  background-color: white;
+  border-radius: 20px;
+  box-shadow: 6px 6px 12px hsl(0deg 0% 0% / 0.44);
+}
+
 .loginComponent {
-  margin: 4rem auto;
+  margin: 8rem auto;
   min-height: 100vh;
   /* width: 60%; */
 }
-
 
 .loginForm {
   display: flex;
@@ -229,7 +244,7 @@ body {
   background-color: white;
   border-radius: 25px;
   box-shadow: 6px 6px 12px hsl(0deg 0% 0% / 0.44);
-  font-size: 3rem;
+  font-size: 2.6rem;
 }
 
 .loginInputGroup {
@@ -239,9 +254,9 @@ body {
 }
 
 .loginInputGroup > input {
-  padding: 2.5rem;
+  padding: 2.2rem;
   border-radius: 25px;
-  font-size: 3rem;
+  font-size: 2.4rem;
   background-color: rgb(239, 234, 234);
 }
 
@@ -254,22 +269,22 @@ body {
 }
 
 .loginInputErrorContainer {
-  height: 9rem;
+  height: 7.5rem;
   margin: 1rem auto;
 }
 
 .loginInputErrorMessage {
-  font-size: 2.5rem;
+  font-size: 2rem;
   padding: 3px;
   color: red;
   display: none;
 }
 
 .submitButton {
-  margin-top: 2rem;
+  margin-top: 0.5rem;
   padding: 2rem 4rem;
   border-radius: 25px;
-  font-size: 3rem;
+  font-size: 2.4rem;
 }
 
 .errorComponent {
@@ -317,7 +332,6 @@ body {
     margin: 1.2rem auto;
     font-size: 1rem;
     padding: 16px;
-
     /* border-radius: 15px; */
   }
 
@@ -327,6 +341,35 @@ body {
 
   .likesIcon {
     height: 1.3rem;
+  }
+
+  .exploreComponent {
+    /* min-width: 95%; */
+    /* width: 95%; */
+    /* min-height: 100vh; */
+    margin: 0 auto;
+    font-size: 1.5rem; 
+  }
+  
+  .exploreInnerContainer {
+    margin: 0 auto;
+    width: 100%;
+    /* color: white; */
+  }
+  
+  .chaanLinkButton {
+    border-radius: 20px;
+    background-color: #8b6254;
+    /* text-decoration: none; */
+    width: 85%;
+    margin: 2rem auto;
+    font-size: 1.5rem;
+    padding: 25px;
+  }
+  
+  .chaanLinkButton > a {
+    /* text-decoration: none; */
+    color:white;
   }
 
   .aboutComponent {
@@ -342,6 +385,8 @@ body {
     background-color: white;
     border-radius: 15px;
     box-shadow: 6px 6px 12px hsl(0deg 0% 0% / 0.44);
+
+    font-size: 1.2rem;
   }
 
   .loginComponent {
