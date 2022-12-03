@@ -13,7 +13,7 @@ export const loginInputPasswordPropData = {
   type: "password",
   placeholder: 'Password',
   pattern: `^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[!@#$])[a-zA-Z0-9!@#$]{6,20}$`,
-  errorMessage: `Required: at least 6 characters,, contains at least one letter, one number, and one special character`,
+  errorMessage: `Required: at least 6 characters, contains at least one letter, one number, and one special character`,
   required: true,
   htmlFor: 'password',
 };

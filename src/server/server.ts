@@ -36,7 +36,7 @@ app.use(session({
   resave: false,
   saveUninitialized: false,
   cookie: {
-    maxAge: 1000 * 60,
+    maxAge: 1000 * 60 * 10,
   },
   store: new redisStore({
     host: 'localhost',

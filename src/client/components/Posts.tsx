@@ -26,8 +26,8 @@ const Posts =  (props: {
 
   return(
     <div className="postsComponent">
-      <h1>User Posts</h1>
-        <div>
+      {/* <h1>User Posts</h1> */}
+        {/* <div> */}
           { 
             user_posts[user_id]?.map((object: ImagePostProp, idx: number) => {
             const { username, user_id, timestamp, url, caption, likes } = object;
@@ -35,7 +35,7 @@ const Posts =  (props: {
               caption={caption} likes={likes} timestamp={timestamp} home={false} style={{opacity: 1}} />);
           })
           }
-        </div> 
+        {/* </div>  */}
     </div>
   )
 };

@@ -1,8 +1,10 @@
 import React from 'react';
-import { ThreeDots } from 'react-loader-spinner';
 import { Link } from 'react-router-dom';
 import { UsersData, ImagePostProp } from '../../types';
 import useFetch from '../custom_hooks/useFetch';
+
+import ChaanLinkButton from './ChaanLinkButton';
+import Loader from './Loader';
 import Error from './Error';
 
 // user_data: Record<string, UsersData>
@@ -18,29 +20,18 @@ const Explore = () => {
 
   return(
     <div className="exploreComponent">
+      <h1>Explore Chaans Page</h1>
       <div className="exploreInnerContainer">
-        <h1>Explore Chaans Page</h1>
 
         { isLoading ? <div className="testSpinner">
-        <ThreeDots 
-          height="80"
-          width="80"
-          radius="9"
-          color="#4fa94d"
-          ariaLabel="three-dots-loading"
-          wrapperStyle={{}}
-          // wrapperClassName=""
-          visible={true}
-        />
+        <Loader />
       </div> : 
 
         <div>
           { isError ? <Error /> :
             usersListArray.map((object: UsersData, idx) => {
               const { user_id, username } = object;
-              return(<div className="chaanLink" key={`chaanLink${idx}`}>
-              <button><Link to={`/posts/${user_id}`} > {username} </Link></button>
-            </div>)
+              return(<ChaanLinkButton key={`chaanLink${idx}`} user_id={user_id} username={username} />)
             })
           }
         </div>

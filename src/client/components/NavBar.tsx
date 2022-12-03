@@ -70,14 +70,16 @@ const NavBar = (props: { loggedInUser:LoggedInUserProp, setLoggedInUser:React.Di
 
   return(
     <div className ="navBar">
-      {
-        loggedInUser.loggedIn ? <Link className="navBarLink" to="/user" onClick={ handleLoggedInUser }>Home</Link>
-        : <Link className="navBarLink" to="/">Home </Link>
-      }
-      <Link className="navBarLink" to="/explore">Explore </Link>
-      <Link className="navBarLink" to="/about">About </Link>
-      { !loggedInUser.loggedIn ? <Link className="navBarLink" to="/login">Login </Link>
-      : <Link className="navBarLink" to="/" onClick={handleLogout} >Logout</Link> }
+      <div className="navBarInnerContainer">
+        {
+          loggedInUser.loggedIn ? <Link className="navBarLink" to="/user" onClick={ handleLoggedInUser }>Home</Link>
+          : <Link className="navBarLink" to="/">Home </Link>
+        }
+        <Link className="navBarLink" to="/explore">Explore </Link>
+        <Link className="navBarLink" to="/about">About </Link>
+        { !loggedInUser.loggedIn ? <Link className="navBarLink" to="/login">Login </Link>
+        : <Link className="navBarLink" to="/" onClick={handleLogout} >Logout</Link> }
+      </div>
     </div>
   )
 };

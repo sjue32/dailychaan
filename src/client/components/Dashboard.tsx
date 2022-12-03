@@ -1,5 +1,5 @@
 import React from 'react';
-import MemoImagePost from './ImagePost';
+import ImagePost from './ImagePost';
 import { ImagePostProp, LoggedInUserProp } from '../../types';
 
 
@@ -11,11 +11,11 @@ const Dashboard = ( props: { loggedInUser: LoggedInUserProp  }) => {
   return(
     <div className='postsComponent'>
       <h2>{username} Feed</h2>
-      <div>
+      <div className="postsComponentInnerContainer">
         { posts.map((object: ImagePostProp, idx: number) => {
           const { user_id, timestamp, url, caption, likes } = object;
           const home = false;
-          return (<MemoImagePost id={`img${idx}`} key={`key${idx}`} username={username} user_id={ user_id } 
+          return (<ImagePost id={`img${idx}`} key={`key${idx}`} username={username} user_id={ user_id } 
             url={url} caption={caption} likes={likes} timestamp={timestamp} home={home} />);
         })}
       </div>

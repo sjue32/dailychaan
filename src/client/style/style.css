@@ -10,8 +10,8 @@ body {
   color: black;
   margin: 0;
   padding: 0;
-  height: 100vh + 8px;
-  width: 100vw + 8px;
+  height: 100vh;
+  width: 100vw;
 }
 
 /* * {
@@ -65,53 +65,83 @@ body {
 
 .navBar {
   display: flex;
-  width: 92%;
-  margin-top: 1rem;
+  width: 88%;
+  margin: 2rem auto 0.5rem auto;
   /* position: relative; */
   background-image: url("../images/brown-wooden-textured-flooring-background-800-v2.jpg");
   background-size: contain;
-  padding: 1.2rem;
-  border-radius: 10px;
+  padding: 1.8rem;
+  border-radius: 20px;
   border-color: black;
-  gap: 20px;
   box-shadow: 6px 6px 12px hsl(0deg 0% 0% / 0.44);
+}
+
+.navBarInnerContainer {
+  margin: auto;
+  width: 98%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
 .navBarLink {
   background-color: white;
-  padding: 0.6rem 0.8rem;
-  border-radius: 12px;
+  padding: 0.6rem 1.5rem;
+  border-radius: 25px;
   box-shadow: 6px 6px 12px hsl(0deg 0% 0% / 0.44);
 
-}
-
-.navBar > a {
   text-decoration: none;
   border-style: solid;
   color: black;
-  font-size: 1.5rem;
-  /* padding: 0.25rem; */
-
+  font-size: 3rem;
 }
 
+
 .homeComponent {
-  /* display: block; */
-  /* overflow-y: scroll; */
   min-height: 100vh;
   width: 92%;
-  margin: 0 auto;
-  /* min-height: 750px; */
+  margin: 2rem auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 2rem;
+}
 
+
+
+.homeComponentInnerContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.postsComponent {
+  min-height: 100vh;
+  width: 92%;
+  margin: 2rem auto;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 2rem;
+}
+
+.postsComponentInnerContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .exploreComponent {
   min-width: 95%;
   width: 95%;
-  /* height: 100%; */
   min-height: 100vh;
-  margin: 0 auto;
-  /* min-width: 100vw; */
-  /* padding: 10px; */
+  margin: 2rem auto;
+  font-size: 2rem; 
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .exploreInnerContainer {
@@ -120,89 +150,55 @@ body {
 
 }
 
-.chaanLink {
-  border-radius: 5px;
+.chaanLinkButton {
+  border-radius: 20px;
   background-color: #8b6254;
   /* text-decoration: none; */
-  width: 300px;
-  margin: 18px;
-  font-size: 25px;
-  padding: 10px;
+  width: 85%;
+  margin: 3rem auto;
+  font-size: 2.5rem;
+  padding: 25px;
+  box-shadow: 6px 6px 12px hsl(0deg 0% 0% / 0.44);
 }
 
-.chaanLink > a {
+.chaanLinkButton > a {
   text-decoration: none;
 }
 
-.aboutComponent {
-  min-height: 100vh;
-  width: 85%;
-  margin: auto;
-  
-}
-
-.aboutComponentInnerContainer {
-  /* width: 85%; */
-  margin: 40px auto;
-  padding: 1.5rem;
-  background-color: white;
-  border-radius: 15px;
-  box-shadow: 6px 6px 12px hsl(0deg 0% 0% / 0.44);
-}
-
-.postsComponent {
-  /* height: 100%; */
-  min-height: 100vh;
-  width: 92%;
-  margin: 0 auto;
-}
-
 .imageContainer {
-  /* background-color: #404040; */
-  /* background-color: black; */
   background-color: white;
   border-radius: 15px;
-  width: 94%;
+  /* width: 94%; */
   box-shadow: 6px 6px 12px hsl(0deg 0% 0% / 0.44);
-  /* padding-bottom: 5px; */
   margin: 2rem auto;
-  padding: 20px;
+  padding: 2.2rem;
+  font-size: 2.2rem;
 }
 
 .imageFrame {
   border-width: 2px;
-  /* display: block; */
-  /* padding-top: 3%; */
 }
 
 .imageFrame > img {
   width: 100%;
-  border-radius: 7px;
-  /* margin-left: 3%; */
-  /* box-shadow: 2px 2px #202020; */
+  /* border-radius: 7px; */
 }
 
 .postImg {
-  /* max-height: 100%; */
   width: 100%;
   border-radius: 15px;
-  /* margin-left: 3%; */
-  /* aspect-ratio: 3/2; */
 }
 
 .lazyLoadImg {
   height: 100%
 }
 
-/* .spinnerContainer {
-  width: 50%;
-} */
-
 .imagePostTextGroup {
   display: flex;
   flex-direction: column;
   align-items: center;
   margin-top: 0.5rem;
+  margin-bottom: -0.5rem;
 }
 
 .imagePostTextTopRow {
@@ -221,29 +217,42 @@ body {
 }
 
 .likesIcon {
-  height: 1.3rem;
+  height: 2.4rem;
+}
+
+.aboutComponent {
+  min-height: 100vh;
+  width: 85%;
+  margin: 3rem auto;
+  font-size: 2rem;
+}
+
+.aboutComponentInnerContainer {
+  /* width: 85%; */
+  margin: 40px auto;
+  padding: 3rem;
+  background-color: white;
+  border-radius: 20px;
+  box-shadow: 6px 6px 12px hsl(0deg 0% 0% / 0.44);
 }
 
 .loginComponent {
-  margin: 45px auto;
-  /* width: 100%; */
-  /* height: 100%; */
+  margin: 8rem auto;
   min-height: 100vh;
-  width: 60%;
-  /* padding: 45px; */
+  /* width: 60%; */
 }
-
 
 .loginForm {
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 80%;
+  margin: 0 auto;
   padding: 45px;
   background-color: white;
-  border-radius: 20px;
+  border-radius: 25px;
   box-shadow: 6px 6px 12px hsl(0deg 0% 0% / 0.44);
-
-
+  font-size: 2.6rem;
 }
 
 .loginInputGroup {
@@ -252,16 +261,10 @@ body {
   align-items: center;
 }
 
-/* .loginInputGroupTopRow > label {
-  display: inline-block;
-  width: 120px;
-  font-size: 1.2rem;
-} */
-
 .loginInputGroup > input {
-  padding: 15px;
-  border-radius: 10px;
-  font-size: 1rem;
+  padding: 2.2rem;
+  border-radius: 25px;
+  font-size: 2.4rem;
   background-color: rgb(239, 234, 234);
 }
 
@@ -274,21 +277,22 @@ body {
 }
 
 .loginInputErrorContainer {
-  height: 2rem;
-  margin: 8px auto;
+  height: 7.5rem;
+  margin: 1rem auto;
 }
 
 .loginInputErrorMessage {
-  font-size: 12px;
+  font-size: 2rem;
   padding: 3px;
   color: red;
   display: none;
 }
 
 .submitButton {
-  padding: 15px 20px;
-  border-radius: 12px;
-  /* font-family: 'Noto Sans JP', sans-serif; */
+  margin-top: 0.5rem;
+  padding: 2rem 4rem;
+  border-radius: 25px;
+  font-size: 2.4rem;
 }
 
 .errorComponent {
@@ -296,4 +300,163 @@ body {
   width: 75%;
   border-radius: 20px;
   padding: 25px 40px 40px 40px;
+}
+
+@media screen and (min-device-width: 768px) {
+
+  .navBarInnerContainer {
+    margin: auto;
+    justify-content: flex-start;
+    gap: 30px;
+  }
+
+  .navBarLink {
+    font-size: 1.5rem;
+    border-radius: 15px;
+  }
+  
+  .homeComponent {
+    display: flex;
+    flex-direction: column;
+    /* flex-wrap: wrap; */
+    width: 95%;
+    margin: 0 auto;
+  }
+
+  .homeComponentInnerContainer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 95%;
+    margin: 0 auto;
+  }
+
+  .postsComponent {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 95%;
+    margin: 0 auto;
+
+  }
+
+  .imageContainer {
+    width: 42%;
+    margin: 1.2rem auto;
+    font-size: 1rem;
+    padding: 16px;
+    /* border-radius: 15px; */
+  }
+
+  .imageFrame {
+    border-radius: 15px;
+  }
+
+  .likesIcon {
+    height: 1.3rem;
+  }
+
+  .exploreComponent {
+    /* min-width: 95%; */
+    /* width: 95%; */
+    /* min-height: 100vh; */
+    margin: 0 auto;
+    font-size: 1.5rem; 
+  }
+  
+  .exploreInnerContainer {
+    margin: 0 auto;
+    width: 100%;
+    /* color: white; */
+  }
+  
+  .chaanLinkButton {
+    border-radius: 20px;
+    background-color: #8b6254;
+    /* text-decoration: none; */
+    width: 85%;
+    margin: 2rem auto;
+    font-size: 1.5rem;
+    padding: 25px;
+  }
+  
+  .chaanLinkButton > a {
+    /* text-decoration: none; */
+    color:white;
+  }
+
+  .aboutComponent {
+    min-height: 100vh;
+    width: 85%;
+    margin: auto;
+  }
+
+  .aboutComponentInnerContainer {
+    /* width: 85%; */
+    margin: 40px auto;
+    padding: 1.5rem;
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 6px 6px 12px hsl(0deg 0% 0% / 0.44);
+
+    font-size: 1.2rem;
+  }
+
+  .loginComponent {
+    margin: 45px auto;
+    min-height: 100vh;
+    width: 60%;
+  }
+  
+  
+  .loginForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 45px;
+    background-color: white;
+    border-radius: 20px;
+    box-shadow: 6px 6px 12px hsl(0deg 0% 0% / 0.44);
+    font-size: 1.8rem;
+  }
+  
+  .loginInputGroup {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .loginInputGroup > input {
+    padding: 15px;
+    border-radius: 10px;
+    font-size: 1rem;
+    background-color: rgb(239, 234, 234);
+  }
+  
+  .loginInputGroup > input:invalid[data-focused="true"] {
+    border: 1px solid red;
+  }
+  
+  .loginInputGroup > input:invalid[data-focused="true"] ~ div .loginInputErrorMessage {
+    display: block;
+  }
+  
+  .loginInputErrorContainer {
+    height: 2rem;
+    margin: 8px auto;
+  }
+  
+  .loginInputErrorMessage {
+    font-size: 12px;
+    padding: 3px;
+    color: red;
+    display: none;
+  }
+  
+  .submitButton {
+    padding: 15px 20px;
+    border-radius: 12px;
+    font-size: 1rem;
+  }
+
 }
