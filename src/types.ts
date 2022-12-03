@@ -10,6 +10,24 @@ export interface ServerError {
   message: message
 }
 
+export interface PublicChaanProp {
+  user_id: number,
+  username: string,
+  likes: number,
+  url: string,
+  caption: string,
+  timestamp: string,
+};
+
+export type UserPostsProps = {
+  user_id: number,
+  username: string,
+  likes: number,
+  url: string,
+  caption: string,
+  timestamp: string,
+}
+
 export type ImageFrameProps = {
   id: string,
   key: string,
@@ -79,15 +97,6 @@ export type LoginInputFieldProps = {
 export interface GenericFunction {
   <Type>(arg: Type): Type;
 }
-
-export interface PublicChaanProp {
-  user_id: number,
-  username: string,
-  likes: number,
-  url: string,
-  caption: string,
-  timestamp: string,
-};
 
 export interface UsersData {
   username: string,

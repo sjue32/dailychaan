@@ -9,4 +9,15 @@ import Loader from './components/Loader';
 
 // import Reeact transition group
 
+const Root = () => {
 
+  return(
+    <div className='root'>
+      
+      <Outlet />
+
+    </div>
+  )
+};
+
+export default Root;
