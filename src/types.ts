@@ -28,6 +28,15 @@ export type UserPostsProps = {
   timestamp: string,
 }
 
+export type ExploreChaanListDataProps = {
+  [userName: string] : ExploreChaanUserDataProps | undefined
+};
+
+export type ExploreChaanUserDataProps = {
+  user_id: number
+  username: string
+}
+
 export type ImageFrameProps = {
   id: string,
   key: string,

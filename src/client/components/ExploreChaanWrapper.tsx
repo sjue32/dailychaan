@@ -1,23 +1,23 @@
 import React, { Suspense } from 'react';
 import { useLoaderData, Await } from 'react-router-dom';
-import Home from './Home';
+import Explore from './Explore';
 import Loader from './Loader';
 // import Error? or use parent level errorElement?
 
-import { UserPostsProps } from '../../types';
+import { ExploreChaanListDataProps } from '../../types';
 
 const ExploreChaanWrapper = () => {
 
-  const { publicPostsData } = useLoaderData() as Record<string, Promise<UserPostsProps[]> | UserPostsProps[]>;
+  const { exploreChaanListData } = useLoaderData() as Record<string, Promise<ExploreChaanListDataProps> | ExploreChaanListDataProps>;
 
-  console.log('inside HomeWrapper: data from useLoaderData / publicPostsLoader', publicPostsData);
+  console.log('inside HomeWrapper: data from useLoaderData / publicPostsLoader', exploreChaanListData);
   console.log('HomeWrapper component rendered');
 
   return(
     <Suspense fallback={<Loader />} >
       <Await 
-        resolve={publicPostsData}
-        children={(publicPostsData) => (<Home publicPostsData={publicPostsData} />)}
+        resolve={exploreChaanListData}
+        children={(exploreChaanListData) => (<Explore exploreChaanListData={exploreChaanListData} />)}
       />
     </Suspense>
   )
