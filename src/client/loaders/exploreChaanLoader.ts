@@ -4,14 +4,19 @@ import { QueryClient } from '@tanstack/query-core';
 
 const getExploreChaanListData = async () => {
   // need a try / catch block for error handling? 
-  console.log('inside of getExploreChaanListData');
-  const response = await fetch('/api/users/');
-  const data = await response.json();
-  return data;
+  try {
+    console.log('inside of getExploreChaanListData');
+    const response = await fetch('/api/users/users');
+    const data = await response.json();
+    return data;
+
+  } catch(error) {
+    console.error('ERROR in getExploreChaanListData in exploreChaanLoader: ', error);
+  }
 }
 
 export const exploreChaanQuery = () => ({
-  queryKey: ['exploreChaanData'],
+  queryKey: ['exploreChaanListData'],
   queryFn: async () => getExploreChaanListData(),
 });
 
@@ -24,8 +29,8 @@ const exploreChaanLoader = (queryClient: QueryClient) =>
     console.log('exploreChaanLoader: cachedData: ', cachedData);
 
     return(
-      cachedData ? { exploreChaanListData: cachedData} 
-      : defer({ exploreChaanListData: queryClient.fetchQuery(query)})
+      cachedData ? { userListData: cachedData } 
+      : defer({ userListData: queryClient.fetchQuery(query)})
     )
   };
 

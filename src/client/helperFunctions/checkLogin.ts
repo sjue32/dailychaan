@@ -1,9 +1,9 @@
-import { LoggedInUserProp } from "../../types";
+// import { LoggedInUserProp } from "../../types";
 import { CheckLoginProps} from '../../types';
 
 const checkLogin =  async (props: CheckLoginProps) => {
 
-  const { details, setStatus, loggedInUser, setLoggedInUser, setLoginMessage } = props;
+  const { details, setStatus, currentUser, setCurrentUser, setLoginMessage } = props;
 
   const requestOptions = {
     method: 'POST',
@@ -26,7 +26,7 @@ const checkLogin =  async (props: CheckLoginProps) => {
 
     if(message === 'user verified') {
       console.log('LOGGED IN SUCCESSFULLY');
-      setLoggedInUser({ ...loggedInUser, loggedIn: true, username: username, posts: user_posts, liked: liked, fav_users: fav_users  });
+      setCurrentUser({ ...currentUser, loggedIn: true, username: username, posts: user_posts, fav_users: fav_users  });
       console.log('response.posts', user_posts);
       setStatus('fulfilled');
       return true;

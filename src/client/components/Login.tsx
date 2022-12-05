@@ -1,16 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { LoggedInUserProp } from '../../types';
+
+import { CurrentUserContext } from './CurrentUserContext';
+
 import checkLogin from '../helperFunctions/checkLogin';
 import Loader from './Loader';
 import LoginInput from './LoginInput';
 import { loginInputUsernamePropData, loginInputPasswordPropData } from '../helperData/loginFormPropData';
 
-const Login = ( props: { loggedInUser: LoggedInUserProp, setLoggedInUser: React.Dispatch<React.SetStateAction<LoggedInUserProp>> } ) => {
+import { LoginDetailsProps } from '../../types';
 
-  const { loggedInUser, setLoggedInUser } = props;
+const Login = () => {
 
-  const [ details, setDetails ] = useState({ username: '', password: ''});
+  const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
+
+  const [ details, setDetails ] = useState<LoginDetailsProps>({ username: '', password: ''});
   const [ loginMessage, setLoginMessage ] = useState<string>('');
   const [ status, setStatus ] = useState<string>('idle');
 
@@ -19,7 +23,7 @@ const Login = ( props: { loggedInUser: LoggedInUserProp, setLoggedInUser: React.
   const submitHandler = async (event: React.FormEvent) => {
     event.preventDefault();
     setStatus('pending');
-    const response = await checkLogin({details, setStatus, loggedInUser, setLoggedInUser, setLoginMessage} );
+    const response = await checkLogin({details, setStatus, currentUser, setCurrentUser, setLoginMessage} );
     response ? setStatus('fulfilled') : setStatus('error');
     // if login fails, return to login? with error message displayed?
     response ? navigate('/user') : null;

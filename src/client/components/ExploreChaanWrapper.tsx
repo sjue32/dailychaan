@@ -8,16 +8,16 @@ import { ExploreChaanListDataProps } from '../../types';
 
 const ExploreChaanWrapper = () => {
 
-  const { exploreChaanListData } = useLoaderData() as Record<string, Promise<ExploreChaanListDataProps> | ExploreChaanListDataProps>;
+  const { userListData } = useLoaderData() as Record<string, Promise<ExploreChaanListDataProps> | ExploreChaanListDataProps>;
 
-  console.log('inside HomeWrapper: data from useLoaderData / publicPostsLoader', exploreChaanListData);
-  console.log('HomeWrapper component rendered');
+  console.log('inside ExploreChaanWrapper: data from useLoaderData / exploreChaanLoader', userListData);
+  console.log('ExploreChaanWrapper component rendered');
 
   return(
     <Suspense fallback={<Loader />} >
       <Await 
-        resolve={exploreChaanListData}
-        children={(exploreChaanListData) => (<Explore exploreChaanListData={exploreChaanListData} />)}
+        resolve={userListData}
+        children={(userChaanListData) => (<Explore userListData={userChaanListData} />)}
       />
     </Suspense>
   )

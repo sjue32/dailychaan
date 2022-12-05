@@ -8,7 +8,7 @@ import bcrypt from 'bcrypt';
   // get list of all user data for the Explore Section of Daily Chaan
   getUsers: async (req: Request, res: Response, next: NextFunction) => {
     try {
-
+      console.log('inside usersController.getUsers middleware');
       const { table_name } = req.body;
       const user_info = 'main_users';
 
@@ -22,6 +22,7 @@ import bcrypt from 'bcrypt';
       const response = await ddbDocClient.send(new GetCommand(params));
       const data = response.Item.user_list;
       res.locals = data;
+      console.log('inside usersController.getUsers: data: ', data);
       return next();
 
     } catch (err) {
@@ -141,6 +142,7 @@ import bcrypt from 'bcrypt';
             username: username,
             email: email,
             password: hashedPassword,
+            fav_users: {},
           },
           ReturnValues: 'ALL_OLD',
         };

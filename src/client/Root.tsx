@@ -5,16 +5,21 @@ import NavBar from './components/Navbar';
 
 import Loader from './components/Loader';
 
-// import wrapper components
+// import React transition group
 
-// import Reeact transition group
+// import wrapper components for routes for React transition group
+
 
 const Root = () => {
 
   return(
-    <div className='root'>
-      
-      <Outlet />
+    <div className='main'>
+      <NavBar />
+      <main>
+        <Suspense fallback={<Loader />} >
+          <Outlet />
+        </Suspense>
+      </main>
 
     </div>
   )

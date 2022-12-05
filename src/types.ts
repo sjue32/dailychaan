@@ -10,10 +10,18 @@ export interface ServerError {
   message: message
 }
 
+export type CurrentUserProps = {
+  loggedIn: boolean,
+  username: string,
+  posts: UserPostsProps[],
+  fav_users: Record<string, unknown>
+}
+
 export interface PublicChaanProp {
   user_id: number,
   username: string,
   likes: number,
+  likesData: LikesDataProp,
   url: string,
   caption: string,
   timestamp: string,
@@ -23,6 +31,7 @@ export type UserPostsProps = {
   user_id: number,
   username: string,
   likes: number,
+  likesData: LikesDataProp,
   url: string,
   caption: string,
   timestamp: string,
@@ -40,34 +49,52 @@ export type ExploreChaanUserDataProps = {
 export type ImageFrameProps = {
   id: string,
   key: string,
-  username: string,
-  user_id: number,
-  timestamp: string,
-  url: string
-  caption: string
-  likes: number,
-  home?: boolean,
-  style?: any,
-  setIsLoading?: React.Dispatch<React.SetStateAction<boolean>>
+  imagePostMetadata: ImagePostProps
+  // username: string,
+  // user_id: number,
+  // timestamp: string,
+  // url: string
+  // caption: string
+  // likes: number,
+  // likesData: LikesDataProp
+  // home?: boolean,
+  // style?: any,
+  // setIsLoading?: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-export type ImagePostProp = {
-  id: string,
+export type ImagePostProps = {
+  // id: string,
   username: string,
   user_id: number,
   timestamp: string,
   url: string,
   caption: string,
   likes: number,
+  likesData: LikesDataProp
 }
 
-export type ImagePostTextProps = {
-  username: string,
-  timestamp: string,
-  likes: number,
-  caption: string,
-  user_id: number,
+export type LikesDataProp = {
+  [username: string]: string
 }
+
+// export type ImagePostTextProps = {
+//   username: string,
+//   timestamp: string,
+//   likes: number,
+//   likesData: LikesDataProp
+//   caption: string,
+//   user_id: number,
+// }
+
+// export type ImagePostMetaDataProps = {
+//   user_id: number,
+//   username: string,
+//   timestamp: string,
+//   likes: number,
+//   likesData: LikesDataProp
+//   caption: string,
+//   url: string
+// }
 
 export type ChaanLinkButtonProps = {
   // key: string,
@@ -76,15 +103,17 @@ export type ChaanLinkButtonProps = {
 }
 
 export type CheckLoginProps = {
-  details: {
-    username: string,
-    password: String,
-  },
+  details: LoginDetailsProps,
   setStatus: React.Dispatch<React.SetStateAction<string>>,
-  loggedInUser: LoggedInUserProp, 
-  setLoggedInUser: React.Dispatch<React.SetStateAction<LoggedInUserProp>>,
+  currentUser: CurrentUserProps, 
+  setCurrentUser: React.Dispatch<React.SetStateAction<CurrentUserProps>>,
   setLoginMessage: React.Dispatch<React.SetStateAction<string>>
 }
+
+export type LoginDetailsProps = {
+  username: string,
+  password: string
+};
 
 export type LoginInputProps = {
   id: string,
@@ -112,13 +141,12 @@ export interface UsersData {
   user_id: number,
 }
 
-export interface LoggedInUserProp {
-  loggedIn: boolean,
-  username: string,
-  posts: Record<string, any>[],
-  fav_users: string[],
-  liked: Record<string, likedPosts>
-}
+// export interface CurrentUserProps {
+//   loggedIn: boolean,
+//   username: string,
+//   posts: Record<string, any>[],
+//   fav_users: string[],
+// }
 
 export type likedPosts = string[];
 
