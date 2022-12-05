@@ -1,10 +1,10 @@
 import React from 'react';
-import { ImagePostTextProps } from '../../types';
+import { ImagePostProps } from '../../types';
 import smileyFace from '../images/icons8-savouring-delicious-food-face-48.png';
 
-const ImagePostText = (props: ImagePostTextProps) => {
+const ImagePostText = (props: { imagePostMetadata: ImagePostProps }) => {
 
-  const { username, timestamp, caption, likes } = props;
+  const { user_id, username, timestamp, caption, likes, likesData } = props.imagePostMetadata;
 
   const imgDate = new Date(Number(timestamp));
   const dateString = imgDate.toLocaleDateString();

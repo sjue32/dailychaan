@@ -39,7 +39,7 @@ const postsController = {
     if(req.body.getOnePost) {
       try {
         const { table_name, timestamp } = req.body;
-        const user_id = Number(req.params.user_id);
+        const user_id = Number(req.params.user_id);        
 
         const params = {
           TableName: table_name,
@@ -68,6 +68,8 @@ const postsController = {
         const { table_name } = req.body;
         const user_id = Number(req.params.user_id);
   
+        console.log('inside postsControler.getUserPosts: user_id: ', user_id, 'typeof: ', typeof user_id);
+
         const params = {
             TableName: table_name,
             KeyConditionExpression: 'user_id = :user_id',
@@ -78,7 +80,7 @@ const postsController = {
         const response = await ddbDocClient.send(new QueryCommand(params));
         const data = response.Items;
         res.locals.user_posts = data;
-        console.log('inside getUserPosts');
+        console.log('inside getUserPosts: ', data);
         return next();
   
       } catch(err) {
@@ -111,6 +113,7 @@ const postsController = {
           url: url,
           caption: caption,
           likes: likes,
+          likesData: {},
         },
         ReturnValues: 'ALL_OLD',
       };

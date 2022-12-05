@@ -3,7 +3,7 @@
  */
 
  import React from 'react';
- import App from '../client/App';
+ import Root from '../client/Root';
  import { render, screen } from '@testing-library/react';
  import '@testing-library/jest-dom';
 
@@ -19,7 +19,7 @@
    'https://dailychaan-public-photos.s3.us-east-2.amazonaws.com/13415502_10105000518268109_2615196590672735618_o.jpeg'];
   
    beforeEach(() => {
-    render(<App />);
+    render(<Root />);
 
   });
 

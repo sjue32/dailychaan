@@ -1,12 +1,17 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-import { LoggedInUserProp } from '../../types';
+// import { LoggedInUserProp } from '../../types';
 
-const NavBar = (props: { loggedInUser:LoggedInUserProp, setLoggedInUser:React.Dispatch<React.SetStateAction<LoggedInUserProp>> }) => {
+import { CurrentUserContext } from './CurrentUserContext';
 
-  const { loggedInUser, setLoggedInUser } = props;
-  const { username } = loggedInUser;
+const NavBar = () => {
+
+  const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
+
+  const { username } = currentUser;
+  // const { loggedInUser, setLoggedInUser } = props;
+  // const { username } = loggedInUser;
 
   const navigate = useNavigate();
 
@@ -18,12 +23,11 @@ const NavBar = (props: { loggedInUser:LoggedInUserProp, setLoggedInUser:React.Di
     const { message } = data;
     console.log('handleLogout, message from server: ', message);
 
-    setLoggedInUser({
+    setCurrentUser({
       loggedIn: false,
       username: '',
       posts: [],
       fav_users: [],
-      liked: {}
     });
     navigate('/');
     // navigate('/login');
@@ -35,7 +39,7 @@ const NavBar = (props: { loggedInUser:LoggedInUserProp, setLoggedInUser:React.Di
   // otherwise logout user, and render public homepage
   const checkAuthorization = async () => {
     try {
-      const { username } = loggedInUser;
+      // const { username } = loggedInUser;
       const response = await fetch(`api/login/${username}`);
       const data = await response.json();
       const { message } = data;
@@ -52,12 +56,11 @@ const NavBar = (props: { loggedInUser:LoggedInUserProp, setLoggedInUser:React.Di
     if(status) {
       return;
     } else {
-      setLoggedInUser({
+      setCurrentUser({
         loggedIn: false,
         username: '',
         posts: [],
         fav_users: [],
-        liked: {}
       });
       navigate('/');
     }
@@ -72,12 +75,12 @@ const NavBar = (props: { loggedInUser:LoggedInUserProp, setLoggedInUser:React.Di
     <div className ="navBar">
       <div className="navBarInnerContainer">
         {
-          loggedInUser.loggedIn ? <Link className="navBarLink" to="/user" onClick={ handleLoggedInUser }>Home</Link>
+          currentUser.loggedIn ? <Link className="navBarLink" to="/user" onClick={ handleLoggedInUser }>Home</Link>
           : <Link className="navBarLink" to="/">Home </Link>
         }
         <Link className="navBarLink" to="/explore">Explore </Link>
         <Link className="navBarLink" to="/about">About </Link>
-        { !loggedInUser.loggedIn ? <Link className="navBarLink" to="/login">Login </Link>
+        { !currentUser.loggedIn ? <Link className="navBarLink" to="/login">Login </Link>
         : <Link className="navBarLink" to="/" onClick={handleLogout} >Logout</Link> }
       </div>
     </div>

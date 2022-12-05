@@ -1,10 +1,11 @@
 import React from 'react';
-import { ImageFrameProps } from '../../types';
+import { ImageFrameProps, ImagePostProps } from '../../types';
 import LazyLoad from 'react-lazy-load';
 import ImagePostText from './ImagePostText';
 
-const ImagePost = (props: ImageFrameProps) => {
-  const { username, id, user_id, timestamp, url, caption, likes, setIsLoading, home } = props;
+const ImagePost = (props: { id: string, imagePostMetadata: ImagePostProps }) => {
+  const { id, imagePostMetadata } = props;
+  const { url } = imagePostMetadata;
 
   // requires img url from parent component, caption string
   // will contain image, caption
@@ -23,16 +24,20 @@ const ImagePost = (props: ImageFrameProps) => {
         </LazyLoad>
       </div>
       <ImagePostText 
-        user_id={user_id} 
-        username={username} 
-        caption={caption} 
-        likes={likes} 
-        timestamp={timestamp} 
+        imagePostMetadata={imagePostMetadata}
+        // user_id={user_id} 
+        // username={username} 
+        // caption={caption} 
+        // likes={likes} 
+        // likesData={likesData}
+        // timestamp={timestamp} 
       />
     </div>
   );
 }
 
-const MemoImagePost = React.memo(ImagePost);
+export default ImagePost;
 
-export default MemoImagePost;
+// const MemoImagePost = React.memo(ImagePost);
+
+// export default MemoImagePost;
