@@ -343,11 +343,19 @@ body {
 
   .postsComponent {
     display: flex;
+    flex-direction: column;
+    /* flex-wrap: wrap; */
+    width: 95%;
+    margin: 0 auto;
+
+  }
+
+  .postsComponentInnerContainer {
+    display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     width: 95%;
     margin: 0 auto;
-
   }
 
   .imageContainer {

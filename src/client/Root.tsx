@@ -50,7 +50,9 @@ const Root = () => {
                 classNames="fade"
                 unmountOnExit
               >
-                {/* @ts-ignore */}
+                {/* - nodeRef is casted as RefObject<HTMLElement> at routes array to satisfy original 
+                type issue for nodeRef prop of CSSTransition */}
+                {/* @ts-ignore  */}
                 <div ref={nodeRef} className="fade">
                   <Outlet />
                 </div>
