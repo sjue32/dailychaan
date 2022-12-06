@@ -6,12 +6,12 @@ import Loader from './Loader';
 
 import { UserPostsProps } from '../../types';
 
-const HomeWrapper = () => {
+const UserPostsWrapper = () => {
 
   const { userPostsData } = useLoaderData() as Record<string, Promise<UserPostsProps[]> | UserPostsProps[]>;
 
-  console.log('inside HomeWrapper: data from useLoaderData / publicPostsLoader', userPostsData);
-  console.log('HomeWrapper component rendered');
+  console.log('inside UserPostsWrapper: data from useLoaderData / publicPostsLoader', userPostsData);
+  console.log('UserPostsWrapper component rendered');
 
   return(
     <Suspense fallback={<Loader />} >
@@ -23,4 +23,4 @@ const HomeWrapper = () => {
   )
 };
 
-export default HomeWrapper;
+export default UserPostsWrapper;
