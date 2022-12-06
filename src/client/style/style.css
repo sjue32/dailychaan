@@ -347,6 +347,8 @@ body {
     /* flex-wrap: wrap; */
     width: 95%;
     margin: 0 auto;
+    font-size: 1.3rem;
+
 
   }
 
@@ -379,7 +381,7 @@ body {
     /* width: 95%; */
     /* min-height: 100vh; */
     margin: 0 auto;
-    font-size: 1.5rem; 
+    font-size: 1.3rem; 
   }
   
   .exploreInnerContainer {

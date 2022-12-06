@@ -6,11 +6,12 @@ import ImagePost from './ImagePost';
 
 const Posts =  (props: { userPostsData: UserPostsProps[] })  => {
   const { userPostsData } = props;
+  const { username } = userPostsData[0];
 
   return(
     <div className="postsComponent">
-      {/* <h1>User Posts</h1> */}
-        {/* <div> */}
+      <h1>{username}</h1>
+        <div className="postsComponentInnerContainer">
           { 
             userPostsData?.map((imagePostMetadata: ImagePostProps, idx: number) => {
             // const { username, user_id, timestamp, url, caption, likes, likesData } = object;
@@ -21,7 +22,7 @@ const Posts =  (props: { userPostsData: UserPostsProps[] })  => {
                     />);
             })
           }
-        {/* </div>  */}
+        </div> 
     </div>
   )
 };
