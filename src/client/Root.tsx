@@ -16,18 +16,21 @@ import Login from './components/Login';
 import UserPostsWrapper from './components/UserPostsWrapper';
 import Dashboard from './components/Dashboard';
 
+
+const routes = [
+  { path: '/', name: 'Home', element: <HomeWrapper />, nodeRef: createRef() as RefObject<HTMLElement>},
+  { path: '/explore', name: 'Explore', element: <ExploreChaanWrapper />, nodeRef: createRef() as RefObject<HTMLElement>},
+  { path: '/about', name: 'About', element: <About />, nodeRef: createRef() as RefObject<HTMLElement>},
+  { path: '/login', name: 'Login', element: <Login />, nodeRef: createRef() as RefObject<HTMLElement>},
+  { path: '/user', name: 'Dashboard', element: <Dashboard />, nodeRef: createRef() as RefObject<HTMLElement>},
+  { path: '/posts/:user_id', name: 'UserPosts', element: <UserPostsWrapper />, nodeRef: createRef() as RefObject<HTMLElement>},
+];
+
 const Root = () => {
 
 // per info, useRef(null) is the functional component way of creating refs, createRef() was
 // the older class based way of creating refs???
-  const routes = [
-    { path: '/', name: 'Home', element: <HomeWrapper />, nodeRef: createRef() as RefObject<HTMLElement>},
-    { path: '/explore', name: 'Explore', element: <ExploreChaanWrapper />, nodeRef: createRef() as RefObject<HTMLElement>},
-    { path: '/about', name: 'About', element: <About />, nodeRef: createRef() as RefObject<HTMLElement>},
-    { path: '/login', name: 'Login', element: <Login />, nodeRef: createRef() as RefObject<HTMLElement>},
-    { path: '/user', name: 'Dashboard', element: <Dashboard />, nodeRef: createRef() as RefObject<HTMLElement>},
-    { path: '/posts/:user_id', name: 'UserPosts', element: <UserPostsWrapper />, nodeRef: createRef() as RefObject<HTMLElement>},
-  ];
+
 
   const location = useLocation();
 
@@ -43,11 +46,12 @@ const Root = () => {
               <CSSTransition
                 key={location.pathname}
                 nodeRef={nodeRef}
-                timeout={400}
+                timeout={200}
                 classNames="fade"
                 unmountOnExit
               >
-                <div className="fade">
+                {/* @ts-ignore */}
+                <div ref={nodeRef} className="fade">
                   <Outlet />
                 </div>
               </CSSTransition>

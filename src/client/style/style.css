@@ -60,7 +60,7 @@ body {
 .fade-enter-active {
   /* margin: 0 auto; */
   opacity: 1;
-  transition: opacity 400ms;
+  transition: opacity 200ms;
 }
 
 .fade-exit {
