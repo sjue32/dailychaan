@@ -4,6 +4,9 @@ html {
   height: 100%;
   margin: 0;
   font-family: 'Noto Sans JP', sans-serif;
+  background-image: url("../images/wood_bg_landscape.jpg");
+  background-size: contain;
+  /* background-repeat: repeat-y; */
 }
 
 body {
@@ -18,15 +21,15 @@ body {
   box-sizing: border-box;
 } */
 
-.main {
-  background-image: url("../images/wood_bg_landscape.jpg");
+.root {
+  /* background-image: url("../images/wood_bg_landscape.jpg");
   background-size: contain;
-  background-repeat: repeat-y;
-  height: 100%;
-  width: 100%;
-  display: flex;
+  background-repeat: repeat-y; */
+  height: 100vh;
+  width: 100vw;
+  /* display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: center; */
 }
 
 .routesContainer {
@@ -39,8 +42,14 @@ body {
   /* margin: 0 auto; */
 }
 
+.react-transition-container {
+  position: relative;
+  /* width: 100%; */
+}
+
 .fade {
   position: absolute;
+  width: 100vw;
 }
 
 .fade-enter {
@@ -51,7 +60,7 @@ body {
 .fade-enter-active {
   /* margin: 0 auto; */
   opacity: 1;
-  transition: opacity 300ms;
+  transition: opacity 200ms;
 }
 
 .fade-exit {
@@ -60,7 +69,7 @@ body {
 
 .fade-exit-active {
   opacity: 0;
-  transition: opacity 300ms;
+  transition: opacity 0ms;
 }
 
 .navBar {
@@ -334,11 +343,19 @@ body {
 
   .postsComponent {
     display: flex;
+    flex-direction: column;
+    /* flex-wrap: wrap; */
+    width: 95%;
+    margin: 0 auto;
+
+  }
+
+  .postsComponentInnerContainer {
+    display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     width: 95%;
     margin: 0 auto;
-
   }
 
   .imageContainer {

@@ -37,6 +37,7 @@ const userPostsLoader = (queryClient: QueryClient) =>
   async (props: { params: Record<string, string>} ) => {
 
     const { params } = props;
+    console.log('inside userPostsLoader, params: ', params, ' , user_id: ', params.user_id, ' ,type: ', typeof params.user_id);
 
     console.log('inside userPostsLoader');
 
