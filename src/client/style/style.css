@@ -33,12 +33,10 @@ body {
 .mainContainer {
   position: relative;
   width: 100%;
-  /* margin: 0 auto; */
 }
 
 .react-transition-container {
   position: relative;
-  /* width: 100%; */
 }
 
 .fade {
@@ -52,7 +50,6 @@ body {
 }
 
 .fade-enter-active {
-  /* margin: 0 auto; */
   opacity: 1;
   transition: opacity 200ms;
 }
@@ -244,8 +241,6 @@ body {
 }
 
 .spinnerContainer {
-  /* margin: 3rem auto;
-  width: 50%; */
   margin-top: 5rem;
   display: flex;
   flex-direction: column;
@@ -268,7 +263,6 @@ body {
   .homeComponent {
     display: flex;
     flex-direction: column;
-    /* flex-wrap: wrap; */
     width: 95%;
     margin: 0 auto;
     font-size: 1.3rem;
@@ -285,7 +279,6 @@ body {
   .postsComponent {
     display: flex;
     flex-direction: column;
-    /* flex-wrap: wrap; */
     width: 95%;
     margin: 0 auto;
     font-size: 1.3rem;
@@ -304,7 +297,6 @@ body {
     margin: 1.2rem auto;
     font-size: 1rem;
     padding: 16px;
-    /* border-radius: 15px; */
   }
 
   .imageFrame {
@@ -346,7 +338,6 @@ body {
   }
 
   .aboutComponentInnerContainer {
-    /* width: 85%; */
     margin: 40px auto;
     padding: 1.5rem;
     background-color: white;
