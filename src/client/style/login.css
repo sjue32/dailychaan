@@ -1,0 +1,118 @@
+.loginComponent {
+  margin: 8rem auto;
+  min-height: 100vh;
+  /* width: 60%; */
+}
+
+.loginForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 80%;
+  margin: 0 auto;
+  padding: 45px;
+  background-color: white;
+  border-radius: 25px;
+  box-shadow: 6px 6px 12px hsl(0deg 0% 0% / 0.44);
+  font-size: 2.6rem;
+}
+
+.loginInputGroup {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.loginInputGroup > input {
+  padding: 2.2rem;
+  border-radius: 25px;
+  font-size: 2.4rem;
+  background-color: rgb(239, 234, 234);
+}
+
+.loginInputGroup > input:invalid[data-focused="true"] {
+  border: 1px solid red;
+}
+
+.loginInputGroup > input:invalid[data-focused="true"] ~ div .loginInputErrorMessage {
+  display: block;
+}
+
+.loginInputErrorContainer {
+  height: 7.5rem;
+  margin: 1rem auto;
+}
+
+.loginInputErrorMessage {
+  font-size: 2rem;
+  padding: 3px;
+  color: red;
+  display: none;
+}
+
+.submitButton {
+  margin-top: 0.5rem;
+  padding: 2rem 4rem;
+  border-radius: 25px;
+  font-size: 2.4rem;
+}
+
+@media screen and (min-device-width: 768px) {
+
+  .loginComponent {
+    margin: 45px auto;
+    min-height: 100vh;
+    width: 60%;
+  }
+  
+  .loginForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 45px;
+    background-color: white;
+    border-radius: 20px;
+    box-shadow: 6px 6px 12px hsl(0deg 0% 0% / 0.44);
+    font-size: 1.8rem;
+  }
+  
+  .loginInputGroup {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .loginInputGroup > input {
+    padding: 15px;
+    border-radius: 10px;
+    font-size: 1rem;
+    background-color: rgb(239, 234, 234);
+  }
+  
+  .loginInputGroup > input:invalid[data-focused="true"] {
+    border: 1px solid red;
+  }
+  
+  .loginInputGroup > input:invalid[data-focused="true"] ~ div .loginInputErrorMessage {
+    display: block;
+  }
+  
+  .loginInputErrorContainer {
+    height: 2rem;
+    margin: 8px auto;
+  }
+  
+  .loginInputErrorMessage {
+    font-size: 12px;
+    padding: 3px;
+    color: red;
+    display: none;
+  }
+  
+  .submitButton {
+    padding: 15px 20px;
+    border-radius: 12px;
+    font-size: 1rem;
+  }
+
+}

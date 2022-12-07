@@ -4,7 +4,7 @@ import { createBrowserRouter, createRoutesFromElements, RouterProvider, Route } 
 
 import { QueryClient, QueryClientProvider} from '@tanstack/react-query';
 
-// style sheet
+// core style sheet
 import './style/style.css';
 
 // Components

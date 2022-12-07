@@ -1,6 +1,6 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const NodePolyfillPlugin = require('node-polyfill-webpack-plugin');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports = {
   mode: process.env.NODE_ENV,
@@ -40,7 +40,7 @@ module.exports = {
       filename: './index.html',
       favicon: './src/client/favicon.ico',
     }),
-    new NodePolyfillPlugin(),
+    new BundleAnalyzerPlugin(),
   ],
   devServer: {
     static: {

@@ -1,22 +1,28 @@
-import React from 'react';
-import { ThreeDots } from 'react-loader-spinner';
+import React, { CSSProperties } from 'react';
+import BeatLoader from 'react-spinners/BeatLoader';
 
-const Loader = () => {
+const LoaderNew = () => {
+
+  const color = "#C4A484";
+
+  const override: CSSProperties = {
+    display: "block",
+    margin: "0 auto",
+    width: '40%'
+  }
 
   return(
     <div className='spinnerContainer'>
-      <ThreeDots 
-        height="80"
-        width="80"
-        radius="9"
-        color="#4fa94d"
-        ariaLabel="three-dots-loading"
-        wrapperStyle={{}}
-        // wrapperClassName=""
-        visible={true}
+      <BeatLoader
+        color={color}
+        loading={true}
+        // cssOverride={override}
+        size={500}
+        aria-label="Loading Spinner"
+        data-testid="loader"
       /> 
   </div>
   )
 }
 
-export default Loader;
+export default LoaderNew;

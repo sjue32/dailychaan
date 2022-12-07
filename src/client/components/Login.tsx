@@ -10,6 +10,9 @@ import { loginInputUsernamePropData, loginInputPasswordPropData } from '../helpe
 
 import { LoginDetailsProps } from '../../types';
 
+// core style sheet
+import '../style/login.css';
+
 const Login = () => {
 
   const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
