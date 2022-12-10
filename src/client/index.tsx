@@ -37,25 +37,6 @@ const queryClient = new QueryClient();
 const Login = React.lazy(() => import(/* webpackChunkName: "Login" */'./components/Login'));
 
 
-// set a state for mobileDevice, setMobileDevice
-// anywhere images are needed, will need to check for status to determine whether to use
-// the image url link for full-size images or smaller images for mobile
-// wrap the state in a useContext??? Home, Posts and Dashboard? will need this state
-// const [isMobile, setIsMobile] = useState<boolean>(false);
-
-// check for mobile devices 
-// console.log('navigator.userAgent', navigator.userAgent);
-// const mobileDevice = /Android|iPhone/i.test(navigator.userAgent);
-// if(mobileDevice) {
-//   console.log('Mobile device detected: ', navigator.userAgent);
-//   setIsMobile(true);
-//   console.log('isMobile: ', isMobile);
-// }
-
-// const mobiCheck = /Mobi/i.test(navigator.userAgent);
-// console.log('mobiCheck boolean: ', mobiCheck);
-
-
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path='/' element={
@@ -78,7 +59,6 @@ const router = createBrowserRouter(
     </Route>
   )
 )
-
 
 const container = document.getElementById('root')
 const root = createRoot(container!);

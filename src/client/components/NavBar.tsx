@@ -4,9 +4,11 @@ import { Link } from 'react-router-dom';
 
 import { CurrentUserContext } from './CurrentUserContext';
 
+import { CurrentUserContextValue } from '../../types';
+
 const NavBar = () => {
 
-  const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
+  const { currentUser, setCurrentUser } = useContext(CurrentUserContext) as CurrentUserContextValue;
 
   const { username } = currentUser;
 
@@ -24,7 +26,7 @@ const NavBar = () => {
       loggedIn: false,
       username: '',
       posts: [],
-      fav_users: [],
+      fav_users: {},
     });
     navigate('/');
     // navigate('/login');
@@ -57,7 +59,7 @@ const NavBar = () => {
         loggedIn: false,
         username: '',
         posts: [],
-        fav_users: [],
+        fav_users: {},
       });
       navigate('/');
     }

@@ -1,16 +1,16 @@
 import React, { useContext } from 'react';
 import ImagePost from './ImagePost';
-import type { ImagePostProps } from '../../types';
+import type { ImagePostProps, CurrentUserProps, CurrentUserContextValue, MobileContextValue } from '../../types';
 import { MobileContext } from './MobileContext';
 
 import { CurrentUserContext } from './CurrentUserContext';
 
 const Dashboard = () => {
 
-  const { currentUser } = useContext(CurrentUserContext);
-  const { isMobile } = useContext(MobileContext);
+  const { currentUser } = useContext(CurrentUserContext) as CurrentUserContextValue;
+  const { isMobile } = useContext(MobileContext) as MobileContextValue;
 
-  const { loggedIn, username, posts, fav_users } = currentUser;
+  const { loggedIn, username, posts, fav_users } = currentUser as CurrentUserProps;
 
   return(
     <div className='postsComponent'>

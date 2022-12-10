@@ -1,7 +1,7 @@
 import React, { useState, createContext, ReactNode } from 'react';
-import type { CurrentUserProps } from '../../types';
+import type { CurrentUserProps, CurrentUserContextValue } from '../../types';
 
-export const CurrentUserContext = createContext(undefined);
+export const CurrentUserContext = createContext<CurrentUserContextValue | undefined>(undefined);
 
 // ReactNode is more generic than ReactElement
 export const CurrentUserProvider = (props: { children: ReactNode }) => {
@@ -18,6 +18,7 @@ export const CurrentUserProvider = (props: { children: ReactNode }) => {
     </CurrentUserContext.Provider>
   )
 };
+
 
 
 

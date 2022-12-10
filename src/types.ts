@@ -17,6 +17,16 @@ export type CurrentUserProps = {
   fav_users: Record<string, unknown>
 }
 
+export interface CurrentUserContextValue {
+  currentUser: CurrentUserProps,
+  setCurrentUser: React.Dispatch<React.SetStateAction<CurrentUserProps>>,
+}
+
+export type MobileContextValue = {
+  isMobile: boolean,
+  setIsMobile: React.Dispatch<React.SetStateAction<boolean>>,
+}
+
 export interface PublicChaanProp {
   user_id: number,
   username: string,
