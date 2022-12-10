@@ -9,8 +9,6 @@ const NavBar = () => {
   const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
 
   const { username } = currentUser;
-  // const { loggedInUser, setLoggedInUser } = props;
-  // const { username } = loggedInUser;
 
   const navigate = useNavigate();
 

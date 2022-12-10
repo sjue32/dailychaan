@@ -15,7 +15,6 @@ const ImagePost = (props: { id: string, imagePostMetadata: ImagePostProps, isMob
         <LazyLoad className="lazyLoadImg" offset={500} height ={525} onContentVisible={
           () => {console.log('image loaded');
           const currentImg: HTMLElement = document.querySelector(`#${id} .lazyLoadImg`);
-          // console.log('currentImg: ', currentImg);
           currentImg.style.height = 'auto';
         }} 
         >
