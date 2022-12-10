@@ -1,15 +1,20 @@
 import React from 'react';
-import { ImagePostProps } from '../../types';
+import type { ImagePostProps, UserPostsProps } from '../../types';
 import ImagePost from './ImagePost';
 
-import { UserPostsProps } from '../../types';
+import { useContext } from 'react';
+import { MobileContext } from './MobileContext';
+
 
 const Home = (props: { publicPostsData: UserPostsProps[] })  => {
 
   const { publicPostsData } = props;
 
+  const { isMobile } = useContext(MobileContext);
+
   console.log('Home component rendered');
   console.log('Home Component: publicPostsData: ', publicPostsData);
+  console.log('Home component, isMobile: ', isMobile)
 
   return(
     <div className="homeComponent">
@@ -21,6 +26,7 @@ const Home = (props: { publicPostsData: UserPostsProps[] })  => {
                     id={`img${idx}`} 
                     key={`key${idx}`} 
                     imagePostMetadata={imagePostMetadata}
+                    isMobile={isMobile}
                   />)
           })
         }

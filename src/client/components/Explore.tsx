@@ -1,5 +1,5 @@
 import React from 'react';
-import { UsersData, ExploreChaanListDataProps, ExploreChaanUserDataProps } from '../../types';
+import type { UsersData, ExploreChaanListDataProps, ExploreChaanUserDataProps } from '../../types';
 // import useFetch from '../custom_hooks/useFetch';
 
 import ChaanLinkButton from './ChaanLinkButton';

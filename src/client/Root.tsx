@@ -1,9 +1,8 @@
-import React, { Suspense, createRef, RefObject } from 'react';
+import React, { Suspense, createRef, RefObject, useContext, useEffect } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 
 import NavBar from './components/Navbar';
 
-// import Loader from './components/Loader';
 import Loader from './components/Loader';
 
 // import React transition group
@@ -13,9 +12,14 @@ import { SwitchTransition, CSSTransition } from 'react-transition-group';
 import HomeWrapper from './components/HomeWrapper';
 import ExploreChaanWrapper from './components/ExploreChaanWrapper';
 import About from './components/About';
-import Login from './components/Login';
+// import Login from './components/Login';
+const Login = React.lazy(() => import('./components/Login'));
 import UserPostsWrapper from './components/UserPostsWrapper';
 import Dashboard from './components/Dashboard';
+
+import { MobileContext } from './components/MobileContext';
+
+
 
 
 const routes = [
@@ -29,8 +33,25 @@ const routes = [
 
 const Root = () => {
 
-// per info, useRef(null) is the functional component way of creating refs, createRef() was
-// the older class based way of creating refs???
+  const { setIsMobile } = useContext(MobileContext)
+
+  useEffect(() => {
+
+    // check for mobile devices 
+    const mobileDevice = /Android|iPhone/i.test(navigator.userAgent);
+    if(mobileDevice) {
+      console.log('Mobile device detected: ', navigator.userAgent);
+      setIsMobile(true);
+      // console.log('isMobile: ', isMobile);
+    }
+
+    const mobiCheck = /Mobi/i.test(navigator.userAgent);
+    console.log('mobiCheck boolean: ', mobiCheck);
+
+  }, [])
+
+  // per info, useRef(null) is the functional component way of creating refs, createRef() was
+  // the older class based way of creating refs???
 
 
   const location = useLocation();
@@ -47,7 +68,7 @@ const Root = () => {
               <CSSTransition
                 key={location.pathname}
                 nodeRef={nodeRef}
-                timeout={200}
+                timeout={300}
                 classNames="fade"
                 unmountOnExit
               >

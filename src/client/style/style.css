@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap'); */
 
 html {
   height: 100%;
@@ -51,7 +51,7 @@ body {
 
 .fade-enter-active {
   opacity: 1;
-  transition: opacity 200ms;
+  transition: opacity 0ms;
 }
 
 .fade-exit {
@@ -66,12 +66,12 @@ body {
 .navBar {
   display: flex;
   width: 88%;
-  margin: 2rem auto 0.5rem auto;
+  margin: 1rem auto 0rem auto;
   /* position: relative; */
   background-image: url("../images/brown-wooden-textured-flooring-background-800-v2.jpg");
   background-size: contain;
-  padding: 1.8rem;
-  border-radius: 20px;
+  padding: 0.8rem;
+  border-radius: 0.8rem;
   border-color: black;
   box-shadow: 6px 6px 12px hsl(0deg 0% 0% / 0.44);
 }
@@ -86,24 +86,24 @@ body {
 
 .navBarLink {
   background-color: white;
-  padding: 0.6rem 1.5rem;
-  border-radius: 25px;
+  padding: 0.6rem 0.7rem;
+  border-radius: 0.8rem;
   box-shadow: 6px 6px 12px hsl(0deg 0% 0% / 0.44);
 
   text-decoration: none;
   border-style: solid;
   color: black;
-  font-size: 3rem;
+  font-size: 1.2rem;
 }
 
 .homeComponent {
   min-height: 100vh;
   width: 92%;
-  margin: 2rem auto;
+  margin: 0.8rem auto;
   display: flex;
   flex-direction: column;
   align-items: center;
-  font-size: 2rem;
+  font-size: 1rem;
 }
 
 .homeComponentInnerContainer {
@@ -115,12 +115,12 @@ body {
 .postsComponent {
   min-height: 100vh;
   width: 92%;
-  margin: 2rem auto;
+  margin: 0.8rem auto;
 
   display: flex;
   flex-direction: column;
   align-items: center;
-  font-size: 2rem;
+  font-size: 1rem;
 }
 
 .postsComponentInnerContainer {
@@ -134,7 +134,7 @@ body {
   width: 95%;
   min-height: 100vh;
   margin: 2rem auto;
-  font-size: 2rem; 
+  font-size: 1rem; 
 
   display: flex;
   flex-direction: column;
@@ -148,13 +148,13 @@ body {
 }
 
 .chaanLinkButton {
-  border-radius: 20px;
+  border-radius: 1rem;
   background-color: #8b6254;
   /* text-decoration: none; */
   width: 85%;
-  margin: 3rem auto;
-  font-size: 2.5rem;
-  padding: 25px;
+  margin: 1.5rem auto;
+  font-size: 1.2rem;
+  padding: 1rem;
   box-shadow: 6px 6px 12px hsl(0deg 0% 0% / 0.44);
 }
 
@@ -167,9 +167,9 @@ body {
   border-radius: 15px;
   /* width: 94%; */
   box-shadow: 6px 6px 12px hsl(0deg 0% 0% / 0.44);
-  margin: 2rem auto;
-  padding: 2.2rem;
-  font-size: 2.2rem;
+  margin: 0.8rem auto;
+  padding: 1rem;
+  font-size: 1rem;
 }
 
 .imageFrame {
@@ -220,16 +220,16 @@ body {
 .aboutComponent {
   min-height: 100vh;
   width: 85%;
-  margin: 3rem auto;
-  font-size: 2rem;
+  margin: 2rem auto;
+  font-size: 1rem;
 }
 
 .aboutComponentInnerContainer {
   /* width: 85%; */
-  margin: 40px auto;
-  padding: 3rem;
+  margin: 1rem auto;
+  padding: 2rem;
   background-color: white;
-  border-radius: 20px;
+  border-radius: 0.8rem;
   box-shadow: 6px 6px 12px hsl(0deg 0% 0% / 0.44);
 }
 

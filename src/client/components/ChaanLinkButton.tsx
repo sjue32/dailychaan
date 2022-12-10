@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ChaanLinkButtonProps } from '../../types';
+import type { ChaanLinkButtonProps } from '../../types';
 
 // props: user_id, username
 // a div, that is a React Router Link, that contains a div containing text 

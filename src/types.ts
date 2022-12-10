@@ -32,7 +32,8 @@ export type UserPostsProps = {
   username: string,
   likes: number,
   likesData: LikesDataProp,
-  url: string,
+  url_small: string,
+  url_large: string,
   caption: string,
   timestamp: string,
 }
@@ -67,7 +68,8 @@ export type ImagePostProps = {
   username: string,
   user_id: number,
   timestamp: string,
-  url: string,
+  url_small: string,
+  url_large: string,
   caption: string,
   likes: number,
   likesData: LikesDataProp

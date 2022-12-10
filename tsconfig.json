@@ -1,10 +1,22 @@
 {
   "compilerOptions":{
     "jsx": "react",
-    "module": "commonjs",
+    // "module": "commonjs",
+    "module": "ESNext",
+    "moduleResolution": "node",
     "esModuleInterop": true,
     "noImplicitAny": true,
+    // "removeComments": false
+    // "sourceMap": false
+    // "preserveConstEnums": false
+  },
+  "ts-node": {
+    "compilerOptions": {
+      "module": "commonJS",
+    },
   },
   "include": ["src/**/*"],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules"],
+  // This is an alias to @tsconfig/node16: https://github.com/tsconfig/bases
+  // "extends": "ts-node/node16/tsconfig.json"
 }

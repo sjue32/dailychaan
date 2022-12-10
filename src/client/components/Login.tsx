@@ -8,7 +8,7 @@ import Loader from './Loader';
 import LoginInput from './LoginInput';
 import { loginInputUsernamePropData, loginInputPasswordPropData } from '../helperData/loginFormPropData';
 
-import { LoginDetailsProps } from '../../types';
+import type { LoginDetailsProps } from '../../types';
 
 // core style sheet
 import '../style/login.css';

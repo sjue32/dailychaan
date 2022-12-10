@@ -1,6 +1,5 @@
-import { BlockList } from 'net';
 import React, { useState } from 'react';
-import { LoginInputProps } from '../../types';
+import type { LoginInputProps } from '../../types';
 
  const LoginInput = (props: LoginInputProps) => {
   const { id, value, onChange, loginInputData } = props;

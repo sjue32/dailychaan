@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import { createBrowserRouter, createRoutesFromElements, RouterProvider, Route } from 'react-router-dom';
 
@@ -10,12 +10,15 @@ import './style/style.css';
 // Components
 import Root from './Root';
 import About from './components/About';
-import Login from './components/Login';
+// import Login from './components/Login';
 import Dashboard from './components/Dashboard';
+import Loader from './components/Loader';
 import Error from './components/Error';
 
 // useContext
 import { CurrentUserProvider } from './components/CurrentUserContext';
+import { MobileProvider } from './components/MobileContext';
+
 
 // wrapper
 import HomeWrapper from './components/HomeWrapper';
@@ -30,12 +33,37 @@ import userPostsLoader from './loaders/userPostsLoader';
 // instantiate queryClient
 const queryClient = new QueryClient();
 
+// dynamic import of components
+const Login = React.lazy(() => import(/* webpackChunkName: "Login" */'./components/Login'));
+
+
+// set a state for mobileDevice, setMobileDevice
+// anywhere images are needed, will need to check for status to determine whether to use
+// the image url link for full-size images or smaller images for mobile
+// wrap the state in a useContext??? Home, Posts and Dashboard? will need this state
+// const [isMobile, setIsMobile] = useState<boolean>(false);
+
+// check for mobile devices 
+// console.log('navigator.userAgent', navigator.userAgent);
+// const mobileDevice = /Android|iPhone/i.test(navigator.userAgent);
+// if(mobileDevice) {
+//   console.log('Mobile device detected: ', navigator.userAgent);
+//   setIsMobile(true);
+//   console.log('isMobile: ', isMobile);
+// }
+
+// const mobiCheck = /Mobi/i.test(navigator.userAgent);
+// console.log('mobiCheck boolean: ', mobiCheck);
+
+
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path='/' element={
       <QueryClientProvider client={queryClient} >
         <CurrentUserProvider>
-          <Root />
+          <MobileProvider>
+            <Root />
+          </MobileProvider>
         </CurrentUserProvider>
       </QueryClientProvider>
     }>
@@ -45,7 +73,7 @@ const router = createBrowserRouter(
         <Route path="/about" element={<About />} />
         <Route path="/user" element={<Dashboard />} />
         <Route path="/posts/:user_id" loader={userPostsLoader(queryClient)} element={<UserPostsWrapper />} />
-        <Route path="/login" element={<Login />} />
+        <Route path="/login" element={<Suspense fallback={<Loader />} > <Login /> </Suspense>} />
       </Route>
     </Route>
   )

@@ -1,12 +1,16 @@
 import React, { useState, useEffect, useLayoutEffect } from 'react';
 // import { useParams } from 'react-router-dom';
-import { UserPostsProps, ImagePostProps } from '../../types';
+import type { UserPostsProps, ImagePostProps } from '../../types';
 import ImagePost from './ImagePost';
-
+import { useContext } from 'react';
+import { MobileContext } from './MobileContext';
 
 const Posts =  (props: { userPostsData: UserPostsProps[] })  => {
   const { userPostsData } = props;
   const { username } = userPostsData[0];
+
+  const { isMobile } = useContext(MobileContext);
+
 
   return(
     <div className="postsComponent">
@@ -18,6 +22,7 @@ const Posts =  (props: { userPostsData: UserPostsProps[] })  => {
             return(<ImagePost 
                       key={`key${idx}`} 
                       id={`img${idx}`} 
+                      isMobile={isMobile}
                       imagePostMetadata={imagePostMetadata}
                     />);
             })
