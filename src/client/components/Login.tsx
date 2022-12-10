@@ -7,14 +7,17 @@ import Loader from './Loader';
 import LoginInput from './LoginInput';
 import { loginInputUsernamePropData, loginInputPasswordPropData } from '../helperData/loginFormPropData';
 
-import type { LoginDetailsProps } from '../../types';
+import type { LoginDetailsProps, CurrentUserContextValue } from '../../types';
 
 // core style sheet
 import '../style/login.css';
 
 const Login = () => {
 
-  const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
+  const { currentUser, setCurrentUser } = useContext(CurrentUserContext) as CurrentUserContextValue;
+  console.log('LOGIN: useContext(CurrentUserContext)', useContext(CurrentUserContext));
+  console.log('LOGIN: CurrentUserContext', CurrentUserContext);
+
 
   const [ details, setDetails ] = useState<LoginDetailsProps>({ username: '', password: ''});
   const [ loginMessage, setLoginMessage ] = useState<string>('');

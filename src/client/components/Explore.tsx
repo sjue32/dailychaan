@@ -8,7 +8,7 @@ const Explore = (props: { userListData: ExploreChaanListDataProps }) => {
 
   console.log('inside Explore Comp: exploreChaanListData: ', userListData);
 
-  const usersListArray: ExploreChaanUserDataProps[] = Object.values(userListData);
+  const usersListArray = Object.values(userListData) as ExploreChaanUserDataProps[];
   console.log('inside Explore, usersListArray: ', usersListArray);
 
   return(

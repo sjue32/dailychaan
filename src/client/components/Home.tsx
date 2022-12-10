@@ -1,5 +1,5 @@
 import React from 'react';
-import type { ImagePostProps, UserPostsProps } from '../../types';
+import type { ImagePostProps, UserPostsProps, MobileContextValue } from '../../types';
 import ImagePost from './ImagePost';
 
 import { useContext } from 'react';
@@ -10,7 +10,7 @@ const Home = (props: { publicPostsData: UserPostsProps[] })  => {
 
   const { publicPostsData } = props;
 
-  const { isMobile } = useContext(MobileContext);
+  const { isMobile } = useContext(MobileContext) as MobileContextValue;
 
   console.log('Home component rendered');
   console.log('Home Component: publicPostsData: ', publicPostsData);

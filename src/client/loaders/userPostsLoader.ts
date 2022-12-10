@@ -1,4 +1,4 @@
-import { defer } from 'react-router-dom';
+import { defer, Params, LoaderFunction } from 'react-router-dom';
 // imported solely to provide type annotation for queryClient param at loader
 import { QueryClient } from '@tanstack/query-core';
 
@@ -32,25 +32,36 @@ export const userPostsQuery = (user_id: string) => ({
 //   user_id: string
 // }
 
+type userIdParams = {
+  user_id: string
+}
+
 // fix the type annotation later - issue with QueryClient 
-const userPostsLoader = (queryClient: QueryClient) => 
-  async (props: { params: Record<string, string>} ) => {
+// const userPostsLoader = ({params}) => 
 
-    const { params } = props;
-    console.log('inside userPostsLoader, params: ', params, ' , user_id: ', params.user_id, ' ,type: ', typeof params.user_id);
+const userPostsLoader = (queryClient: QueryClient): LoaderFunction => 
+  // async (props: { params: userIdParams } ) => {
+  // originally the code below threw TS errors, so at some point I switched to something similar to
+  // the code above, but now it causes issues with the LoaderFunction and LoaderFunctionArgs as per
+  // the error that was thrown on index.tsx, so now I keep params typed as any. 
+  async ({params}) => {
 
-    console.log('inside userPostsLoader');
 
-    const query = userPostsQuery(params.user_id);
+  const { user_id } = params;
+  console.log('inside userPostsLoader, params: ', params, ' , user_id: ', user_id, ' ,type: ', typeof user_id);
 
-    const cachedData = queryClient.getQueryData(query.queryKey);
-    console.log('userPostsLoader: cachedData: ', cachedData);
+  console.log('inside userPostsLoader');
 
-    return(
-      cachedData ? { userPostsData: cachedData } 
-      : defer({ userPostsData: queryClient.fetchQuery(query)})
-    );
+  const query = userPostsQuery(user_id as string);
 
-  }
+  const cachedData = queryClient.getQueryData(query.queryKey);
+  console.log('userPostsLoader: cachedData: ', cachedData);
 
-  export default userPostsLoader;
+  return(
+    cachedData ? { userPostsData: cachedData } 
+    : defer({ userPostsData: queryClient.fetchQuery(query)})
+  );
+
+}
+
+export default userPostsLoader;

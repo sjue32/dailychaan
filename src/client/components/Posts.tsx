@@ -1,5 +1,5 @@
 import React from 'react';
-import type { UserPostsProps, ImagePostProps } from '../../types';
+import type { UserPostsProps, ImagePostProps, MobileContextValue } from '../../types';
 import ImagePost from './ImagePost';
 import { useContext } from 'react';
 import { MobileContext } from './MobileContext';
@@ -7,7 +7,7 @@ import { MobileContext } from './MobileContext';
 const Posts =  (props: { userPostsData: UserPostsProps[] })  => {
   const { userPostsData } = props;
   const { username } = userPostsData[0];
-  const { isMobile } = useContext(MobileContext);
+  const { isMobile } = useContext(MobileContext) as MobileContextValue;
 
 
   return(
