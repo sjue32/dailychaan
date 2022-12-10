@@ -4,7 +4,7 @@ import Home from './Home';
 import Loader from './Loader';
 // import Error? or use parent level errorElement?
 
-import { UserPostsProps } from '../../types';
+import type { UserPostsProps } from '../../types';
 
 const HomeWrapper = () => {
 

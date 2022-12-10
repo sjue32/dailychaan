@@ -1,5 +1,5 @@
 import React from 'react';
-import { ImagePostProps } from '../../types';
+import type { ImagePostProps } from '../../types';
 import smileyFace from '../images/icons8-savouring-delicious-food-face-48.png';
 
 const ImagePostText = (props: { imagePostMetadata: ImagePostProps }) => {

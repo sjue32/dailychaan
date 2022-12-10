@@ -1,6 +1,5 @@
-import { BlockList } from 'net';
 import React, { useState } from 'react';
-import { LoginInputProps } from '../../types';
+import type { LoginInputProps } from '../../types';
 
  const LoginInput = (props: LoginInputProps) => {
   const { id, value, onChange, loginInputData } = props;
@@ -14,8 +13,6 @@ import { LoginInputProps } from '../../types';
 
   return(
     <div className="loginInputGroup">
-      {/* <div className="loginInputGroupTopRow"> */}
-        {/* <label htmlFor={htmlFor}>{placeholder}</label> */}
         <input 
           id={id}
           name={name}
@@ -28,7 +25,6 @@ import { LoginInputProps } from '../../types';
           onChange={onChange}
           onBlur={handleFocus}
         />
-      {/* </div> */}
       <div className="loginInputErrorContainer">
         <span className="loginInputErrorMessage" >{errorMessage}</span>
       </div>

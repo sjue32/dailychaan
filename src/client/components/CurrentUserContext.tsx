@@ -1,5 +1,5 @@
 import React, { useState, createContext, ReactNode } from 'react';
-import { CurrentUserProps } from '../../types';
+import type { CurrentUserProps } from '../../types';
 
 export const CurrentUserContext = createContext(undefined);
 

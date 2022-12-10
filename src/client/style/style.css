@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap'); */
 
 html {
   height: 100%;
@@ -22,14 +22,8 @@ body {
 } */
 
 .root {
-  /* background-image: url("../images/wood_bg_landscape.jpg");
-  background-size: contain;
-  background-repeat: repeat-y; */
   height: 100vh;
   width: 100vw;
-  /* display: flex;
-  flex-direction: column;
-  align-items: center; */
 }
 
 .routesContainer {
@@ -39,12 +33,10 @@ body {
 .mainContainer {
   position: relative;
   width: 100%;
-  /* margin: 0 auto; */
 }
 
 .react-transition-container {
   position: relative;
-  /* width: 100%; */
 }
 
 .fade {
@@ -58,9 +50,8 @@ body {
 }
 
 .fade-enter-active {
-  /* margin: 0 auto; */
   opacity: 1;
-  transition: opacity 200ms;
+  transition: opacity 0ms;
 }
 
 .fade-exit {
@@ -75,12 +66,12 @@ body {
 .navBar {
   display: flex;
   width: 88%;
-  margin: 2rem auto 0.5rem auto;
+  margin: 1rem auto 0rem auto;
   /* position: relative; */
   background-image: url("../images/brown-wooden-textured-flooring-background-800-v2.jpg");
   background-size: contain;
-  padding: 1.8rem;
-  border-radius: 20px;
+  padding: 0.8rem;
+  border-radius: 0.8rem;
   border-color: black;
   box-shadow: 6px 6px 12px hsl(0deg 0% 0% / 0.44);
 }
@@ -95,28 +86,25 @@ body {
 
 .navBarLink {
   background-color: white;
-  padding: 0.6rem 1.5rem;
-  border-radius: 25px;
+  padding: 0.6rem 0.7rem;
+  border-radius: 0.8rem;
   box-shadow: 6px 6px 12px hsl(0deg 0% 0% / 0.44);
 
   text-decoration: none;
   border-style: solid;
   color: black;
-  font-size: 3rem;
+  font-size: 1.2rem;
 }
-
 
 .homeComponent {
   min-height: 100vh;
   width: 92%;
-  margin: 2rem auto;
+  margin: 0.8rem auto;
   display: flex;
   flex-direction: column;
   align-items: center;
-  font-size: 2rem;
+  font-size: 1rem;
 }
-
-
 
 .homeComponentInnerContainer {
   display: flex;
@@ -127,12 +115,12 @@ body {
 .postsComponent {
   min-height: 100vh;
   width: 92%;
-  margin: 2rem auto;
+  margin: 0.8rem auto;
 
   display: flex;
   flex-direction: column;
   align-items: center;
-  font-size: 2rem;
+  font-size: 1rem;
 }
 
 .postsComponentInnerContainer {
@@ -146,7 +134,7 @@ body {
   width: 95%;
   min-height: 100vh;
   margin: 2rem auto;
-  font-size: 2rem; 
+  font-size: 1rem; 
 
   display: flex;
   flex-direction: column;
@@ -160,13 +148,13 @@ body {
 }
 
 .chaanLinkButton {
-  border-radius: 20px;
+  border-radius: 1rem;
   background-color: #8b6254;
   /* text-decoration: none; */
   width: 85%;
-  margin: 3rem auto;
-  font-size: 2.5rem;
-  padding: 25px;
+  margin: 1.5rem auto;
+  font-size: 1.2rem;
+  padding: 1rem;
   box-shadow: 6px 6px 12px hsl(0deg 0% 0% / 0.44);
 }
 
@@ -179,9 +167,9 @@ body {
   border-radius: 15px;
   /* width: 94%; */
   box-shadow: 6px 6px 12px hsl(0deg 0% 0% / 0.44);
-  margin: 2rem auto;
-  padding: 2.2rem;
-  font-size: 2.2rem;
+  margin: 0.8rem auto;
+  padding: 1rem;
+  font-size: 1rem;
 }
 
 .imageFrame {
@@ -232,76 +220,17 @@ body {
 .aboutComponent {
   min-height: 100vh;
   width: 85%;
-  margin: 3rem auto;
-  font-size: 2rem;
+  margin: 2rem auto;
+  font-size: 1rem;
 }
 
 .aboutComponentInnerContainer {
   /* width: 85%; */
-  margin: 40px auto;
-  padding: 3rem;
-  background-color: white;
-  border-radius: 20px;
-  box-shadow: 6px 6px 12px hsl(0deg 0% 0% / 0.44);
-}
-
-.loginComponent {
-  margin: 8rem auto;
-  min-height: 100vh;
-  /* width: 60%; */
-}
-
-.loginForm {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 80%;
-  margin: 0 auto;
-  padding: 45px;
-  background-color: white;
-  border-radius: 25px;
-  box-shadow: 6px 6px 12px hsl(0deg 0% 0% / 0.44);
-  font-size: 2.6rem;
-}
-
-.loginInputGroup {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.loginInputGroup > input {
-  padding: 2.2rem;
-  border-radius: 25px;
-  font-size: 2.4rem;
-  background-color: rgb(239, 234, 234);
-}
-
-.loginInputGroup > input:invalid[data-focused="true"] {
-  border: 1px solid red;
-}
-
-.loginInputGroup > input:invalid[data-focused="true"] ~ div .loginInputErrorMessage {
-  display: block;
-}
-
-.loginInputErrorContainer {
-  height: 7.5rem;
   margin: 1rem auto;
-}
-
-.loginInputErrorMessage {
-  font-size: 2rem;
-  padding: 3px;
-  color: red;
-  display: none;
-}
-
-.submitButton {
-  margin-top: 0.5rem;
-  padding: 2rem 4rem;
-  border-radius: 25px;
-  font-size: 2.4rem;
+  padding: 2rem;
+  background-color: white;
+  border-radius: 0.8rem;
+  box-shadow: 6px 6px 12px hsl(0deg 0% 0% / 0.44);
 }
 
 .errorComponent {
@@ -309,6 +238,13 @@ body {
   width: 75%;
   border-radius: 20px;
   padding: 25px 40px 40px 40px;
+}
+
+.spinnerContainer {
+  margin-top: 5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 @media screen and (min-device-width: 768px) {
@@ -327,7 +263,6 @@ body {
   .homeComponent {
     display: flex;
     flex-direction: column;
-    /* flex-wrap: wrap; */
     width: 95%;
     margin: 0 auto;
     font-size: 1.3rem;
@@ -344,12 +279,9 @@ body {
   .postsComponent {
     display: flex;
     flex-direction: column;
-    /* flex-wrap: wrap; */
     width: 95%;
     margin: 0 auto;
     font-size: 1.3rem;
-
-
   }
 
   .postsComponentInnerContainer {
@@ -365,7 +297,6 @@ body {
     margin: 1.2rem auto;
     font-size: 1rem;
     padding: 16px;
-    /* border-radius: 15px; */
   }
 
   .imageFrame {
@@ -377,9 +308,6 @@ body {
   }
 
   .exploreComponent {
-    /* min-width: 95%; */
-    /* width: 95%; */
-    /* min-height: 100vh; */
     margin: 0 auto;
     font-size: 1.3rem; 
   }
@@ -393,7 +321,6 @@ body {
   .chaanLinkButton {
     border-radius: 20px;
     background-color: #8b6254;
-    /* text-decoration: none; */
     width: 85%;
     margin: 2rem auto;
     font-size: 1.5rem;
@@ -401,7 +328,6 @@ body {
   }
   
   .chaanLinkButton > a {
-    /* text-decoration: none; */
     color:white;
   }
 
@@ -412,7 +338,6 @@ body {
   }
 
   .aboutComponentInnerContainer {
-    /* width: 85%; */
     margin: 40px auto;
     padding: 1.5rem;
     background-color: white;
@@ -426,57 +351,6 @@ body {
     margin: 45px auto;
     min-height: 100vh;
     width: 60%;
-  }
-  
-  
-  .loginForm {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 45px;
-    background-color: white;
-    border-radius: 20px;
-    box-shadow: 6px 6px 12px hsl(0deg 0% 0% / 0.44);
-    font-size: 1.8rem;
-  }
-  
-  .loginInputGroup {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .loginInputGroup > input {
-    padding: 15px;
-    border-radius: 10px;
-    font-size: 1rem;
-    background-color: rgb(239, 234, 234);
-  }
-  
-  .loginInputGroup > input:invalid[data-focused="true"] {
-    border: 1px solid red;
-  }
-  
-  .loginInputGroup > input:invalid[data-focused="true"] ~ div .loginInputErrorMessage {
-    display: block;
-  }
-  
-  .loginInputErrorContainer {
-    height: 2rem;
-    margin: 8px auto;
-  }
-  
-  .loginInputErrorMessage {
-    font-size: 12px;
-    padding: 3px;
-    color: red;
-    display: none;
-  }
-  
-  .submitButton {
-    padding: 15px 20px;
-    border-radius: 12px;
-    font-size: 1rem;
   }
 
 }

@@ -1,10 +1,7 @@
 import React from 'react';
-import { UsersData, ExploreChaanListDataProps, ExploreChaanUserDataProps } from '../../types';
-// import useFetch from '../custom_hooks/useFetch';
-
+import type { UsersData, ExploreChaanListDataProps, ExploreChaanUserDataProps } from '../../types';
 import ChaanLinkButton from './ChaanLinkButton';
 
-// const Explore = ({ exploreChaanListData }: ExploreChaanListDataProps) => {
 const Explore = (props: { userListData: ExploreChaanListDataProps }) => {
 
   const { userListData } = props;

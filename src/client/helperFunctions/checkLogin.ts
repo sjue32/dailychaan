@@ -1,5 +1,4 @@
-// import { LoggedInUserProp } from "../../types";
-import { CheckLoginProps} from '../../types';
+import type { CheckLoginProps} from '../../types';
 
 const checkLogin =  async (props: CheckLoginProps) => {
 

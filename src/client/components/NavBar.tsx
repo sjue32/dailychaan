@@ -1,7 +1,6 @@
 import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-// import { LoggedInUserProp } from '../../types';
 
 import { CurrentUserContext } from './CurrentUserContext';
 
@@ -10,8 +9,6 @@ const NavBar = () => {
   const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
 
   const { username } = currentUser;
-  // const { loggedInUser, setLoggedInUser } = props;
-  // const { username } = loggedInUser;
 
   const navigate = useNavigate();
 

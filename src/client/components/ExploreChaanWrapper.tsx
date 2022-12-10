@@ -4,7 +4,7 @@ import Explore from './Explore';
 import Loader from './Loader';
 // import Error? or use parent level errorElement?
 
-import { ExploreChaanListDataProps } from '../../types';
+import type { ExploreChaanListDataProps } from '../../types';
 
 const ExploreChaanWrapper = () => {
 

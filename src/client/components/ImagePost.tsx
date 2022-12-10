@@ -1,43 +1,31 @@
 import React from 'react';
-import { ImageFrameProps, ImagePostProps } from '../../types';
+import type { ImageFrameProps, ImagePostProps } from '../../types';
 import LazyLoad from 'react-lazy-load';
 import ImagePostText from './ImagePostText';
 
-const ImagePost = (props: { id: string, imagePostMetadata: ImagePostProps }) => {
-  const { id, imagePostMetadata } = props;
-  const { url } = imagePostMetadata;
+const ImagePost = (props: { id: string, imagePostMetadata: ImagePostProps, isMobile: boolean }) => {
+  const { id, isMobile, imagePostMetadata } = props;
+  const { url_small, url_large } = imagePostMetadata;
 
-  // requires img url from parent component, caption string
-  // will contain image, caption
-
+  // check mobile state, if mobile, use url_small, otherwise pass in url_small to img src in LazyLoad
+  console.log('imagePost: isMobile: ', isMobile);
   return (
     <div className="imageContainer">
       <div id={id} className="imageFrame">
         <LazyLoad className="lazyLoadImg" offset={500} height ={525} onContentVisible={
           () => {console.log('image loaded');
           const currentImg: HTMLElement = document.querySelector(`#${id} .lazyLoadImg`);
-          // console.log('currentImg: ', currentImg);
           currentImg.style.height = 'auto';
         }} 
         >
-          <img src={url} width="94%" className="postImg" />
+          <img src={isMobile ? url_small : url_large} width="94%" className="postImg" />
         </LazyLoad>
       </div>
       <ImagePostText 
         imagePostMetadata={imagePostMetadata}
-        // user_id={user_id} 
-        // username={username} 
-        // caption={caption} 
-        // likes={likes} 
-        // likesData={likesData}
-        // timestamp={timestamp} 
       />
     </div>
   );
 }
 
 export default ImagePost;
-
-// const MemoImagePost = React.memo(ImagePost);
-
-// export default MemoImagePost;
