@@ -13,7 +13,7 @@ const getExploreChaanListData = async () => {
   } catch(error) {
     console.error('ERROR in getExploreChaanListData in exploreChaanLoader: ', error);
   }
-}
+};
 
 export const exploreChaanQuery = () => ({
   queryKey: ['exploreChaanListData'],
@@ -30,8 +30,8 @@ const exploreChaanLoader = (queryClient: QueryClient) =>
 
     return(
       cachedData ? { userListData: cachedData } 
-      : defer({ userListData: queryClient.fetchQuery(query)})
-    )
+        : defer({ userListData: queryClient.fetchQuery(query)})
+    );
   };
 
-  export default exploreChaanLoader;
+export default exploreChaanLoader;

@@ -1,12 +1,12 @@
 const timeStampArr: string[] = [];
-const sampleDate = new Date();
+// const sampleDate = new Date();
 
 
 export const testData = {
   user_id: [1,1,1,1,1,1,1,1,
-      2,2,2,2,2,2,2,
-      3,3,3,3,3,3,3,3,
-      4,4],
+    2,2,2,2,2,2,2,
+    3,3,3,3,3,3,3,3,
+    4,4],
   timestamp: timeStampArr,
   url: [
     'https://dailychaan-public.s3.amazonaws.com/11802736_10104167012944459_5302688321690486926_o.jpg',
@@ -75,4 +75,4 @@ export const testData = {
     url: 'https://dailychaan-public.s3.amazonaws.com/IMG_1331-2.jpg',
     caption: 'Delete this temp food post',
   },
-}
+};

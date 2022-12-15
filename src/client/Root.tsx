@@ -33,7 +33,7 @@ const routes = [
 
 const Root = () => {
 
-  const { setIsMobile } = useContext(MobileContext)
+  const { setIsMobile } = useContext(MobileContext);
 
   useEffect(() => {
 
@@ -48,7 +48,7 @@ const Root = () => {
     const mobiCheck = /Mobi/i.test(navigator.userAgent);
     console.log('mobiCheck boolean: ', mobiCheck);
 
-  }, [])
+  }, []);
 
   // per info, useRef(null) is the functional component way of creating refs, createRef() was
   // the older class based way of creating refs???
@@ -85,7 +85,7 @@ const Root = () => {
       </main>
 
     </div>
-  )
+  );
 };
 
 export default Root;

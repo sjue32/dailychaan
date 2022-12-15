@@ -15,12 +15,17 @@ const ExploreChaanWrapper = () => {
 
   return(
     <Suspense fallback={<Loader />} >
-      <Await 
+      {/* <Await 
         resolve={userListData}
         children={(userChaanListData) => (<Explore userListData={userChaanListData} />)}
-      />
+      /> */}
+      <Await resolve={userListData} >
+        {
+          (userChaanListData) => (<Explore userListData={userChaanListData} />)
+        }
+      </Await>
     </Suspense>
-  )
+  );
 };
 
 export default ExploreChaanWrapper;

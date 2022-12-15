@@ -10,7 +10,8 @@ const Dashboard = () => {
   const { currentUser } = useContext(CurrentUserContext) as CurrentUserContextValue;
   const { isMobile } = useContext(MobileContext) as MobileContextValue;
 
-  const { loggedIn, username, posts, fav_users } = currentUser as CurrentUserProps;
+  const { username, posts } = currentUser as CurrentUserProps;
+  // unused var: loggedIn, fav_users
 
   return(
     <div className='postsComponent'>
@@ -19,15 +20,15 @@ const Dashboard = () => {
         { posts.map((imagePostMetadata: ImagePostProps, idx: number) => {
 
           return (<ImagePost 
-                    id={`img${idx}`} 
-                    key={`key${idx}`} 
-                    isMobile={isMobile}
-                    imagePostMetadata={imagePostMetadata}
-                  />);
+            id={`img${idx}`} 
+            key={`key${idx}`} 
+            isMobile={isMobile}
+            imagePostMetadata={imagePostMetadata}
+          />);
         })}
       </div>
     </div>
-  )
+  );
 };
 
 export default Dashboard;

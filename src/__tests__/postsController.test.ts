@@ -2,7 +2,8 @@
 import postsController from '../server/controllers/postsController';
 import { Request, Response, NextFunction } from 'express';
 import { ddbDocClient } from '../../libs/ddbDocClient';
-import { QueryCommand, PutCommand } from '@aws-sdk/lib-dynamodb';
+import { QueryCommand } from '@aws-sdk/lib-dynamodb';
+// PutCommand
 
 import '@jest/globals';
 import sampleGetPostData, { sampleAddUserPostData, 
@@ -13,13 +14,13 @@ import sampleGetPostData, { sampleAddUserPostData,
 describe('getPublicPosts returns public posts', () => {
   const queryMock = jest.spyOn(ddbDocClient, 'send');
   
-  let mockReq: Partial<Request> = {
+  const mockReq: Partial<Request> = {
     body: {
       table_name: 'test_user_posts',
     }
   };
-  let mockRes: Partial<Response> = {};
-  let mockNext: Partial<NextFunction> = function() { return mockRes as any;};
+  const mockRes: Partial<Response> = {};
+  const mockNext: Partial<NextFunction> = function() { return mockRes as unknown;};
 
   beforeAll( async () => {
     queryMock.mockResolvedValue(sampleGetPostData as never);
@@ -41,7 +42,7 @@ describe('getPublicPosts returns public posts', () => {
 
   it('was given a QueryCommand instance', () => {
     expect(queryMock.mock.calls[0][0]).toBeInstanceOf(QueryCommand);
-  })
+  });
 
   it('res.locals to contain an array', () => {
     expect(mockRes.locals).toBeInstanceOf(Array);
@@ -69,12 +70,12 @@ describe('getPublicPosts throws error and triggers error handler', () => {
       user_id: 1,
     },
   };
-  let mockRes: Partial<Response> = {};
-  let mockNext: Partial<NextFunction> = function() { };
+  const mockRes: Partial<Response> = {};
+  const mockNext: Partial<NextFunction> = function() { return; };
 
   afterAll(() => {
     queryMock.mockReset();
-  })
+  });
 
   it('throws an error when db.query returns an error', async () => {
     try {
@@ -91,7 +92,7 @@ describe('get posts for specific user', () => {
 
   const queryMock = jest.spyOn(ddbDocClient, 'send');
 
-  const test_req_param: string = '1';
+  const test_req_param = '1';
   const mockReq: Partial<Request> = { 
     params: {
       user_id: test_req_param,
@@ -99,9 +100,9 @@ describe('get posts for specific user', () => {
     body: {
       table_name: 'test_user_posts',
     }
-   };
+  };
   const mockRes: Partial<Response> = {};
-  const mockNext: Partial<NextFunction> = function() { return mockRes as any;};
+  const mockNext: Partial<NextFunction> = function() { return mockRes as unknown;};
 
   beforeAll( async () => {
     queryMock.mockResolvedValue(sampleGetPostData as never);
@@ -114,7 +115,7 @@ describe('get posts for specific user', () => {
 
   it('returns expected response data from queryMock', async () => {
     expect(await queryMock.mock.results[0].value).toBeInstanceOf(Object);
-  })
+  });
 
   it('stores an array at mockRes.locals', () => {
     expect(mockRes.locals).toBeInstanceOf(Array);
@@ -145,12 +146,12 @@ describe('getUserPosts throws error and triggers error handler', () => {
       user_id: user_id,
     },
   };
-  let mockRes: Partial<Response> = {};
-  let mockNext: Partial<NextFunction> = function() { };
+  const mockRes: Partial<Response> = {};
+  const mockNext: Partial<NextFunction> = function() { return; };
 
   afterAll(() => {
     queryMock.mockReset();
-  })
+  });
 
   it('throws an error when ddbDocClient.send returns an error', async () => {
     try {
@@ -172,8 +173,8 @@ describe('add post for specific user', () => {
     user_id: sampleData.user_id,
     url: sampleData.url,
     caption: sampleData.caption
-  }
-  const id: number = 2;
+  };
+  const id = 2;
   //  when making a addPost, should we still use req.params, or store user_id in the body or both?
   // all requests seem to be related to a specific user at this time, so it makes sense to keep params
   // to organize the path of our requests
@@ -222,20 +223,20 @@ describe('add user post with error triggers error handler', () => {
     user_id: sampleData.user_id,
     url: sampleData.url,
     caption: sampleData.caption
-  }
-  const id: number = 2;
+  };
+  const id = 2;
   const mockReq: Partial<Request> = {
     params: {
       user_id: `${id}`,
     },
     body: user_data,
   };
-  let mockRes: Partial<Response> = {};
-  let mockNext: Partial<NextFunction> = function() { };
+  const mockRes: Partial<Response> = {};
+  const mockNext: Partial<NextFunction> = function() { return; };
 
   afterAll(() => {
     queryMock.mockReset();
-  })
+  });
 
   it('throws an error when db.query returns an error', async () => {
     try {
@@ -268,7 +269,7 @@ describe('Update post successful', () => {
     }
   };
   const mockRes: Partial<Response> = {};
-  const mockNext: Partial<NextFunction> = function() { return };
+  const mockNext: Partial<NextFunction> = function() { return; };
 
   beforeAll( async () => {
     queryMock.mockResolvedValue(sampleUpdateUserPostResponse as never);
@@ -307,8 +308,8 @@ describe('update user post with error triggers error handler', () => {
       caption: caption,
     }
   };
-  let mockRes: Partial<Response> = {};
-  let mockNext: Partial<NextFunction> = function() { };
+  const mockRes: Partial<Response> = {};
+  const mockNext: Partial<NextFunction> = function() { return;};
 
   afterAll( async () => {
     queryMock.mockReset();
@@ -335,9 +336,9 @@ describe('Delete post successful', () => {
       user_id: user_id,
       timestamp: timestamp,
     },
-  }
+  };
   const mockRes: Partial<Response> = {};
-  const mockNext: Partial<NextFunction> = function() { return };
+  const mockNext: Partial<NextFunction> = function() { return; };
 
   beforeAll( async () => {
     queryMock.mockResolvedValue(sampleDeleteUserPostResponse as never);
@@ -350,7 +351,7 @@ describe('Delete post successful', () => {
     expect(queryMock).toHaveBeenCalledTimes(1);
   });
   it('returns an object when ddbDocClient.send is called', async () => {
-    const response = await queryMock.mock.results[0].value
+    const response = await queryMock.mock.results[0].value;
     expect(response).toBeInstanceOf(Object);
   });
   it('returns a status code of 200', async () => {
@@ -379,8 +380,8 @@ describe('delete user post with error triggers error handler', () => {
       timestamp: timestamp,
     }
   };
-  let mockRes: Partial<Response> = {};
-  let mockNext: Partial<NextFunction> = function() { };
+  const mockRes: Partial<Response> = {};
+  const mockNext: Partial<NextFunction> = function() { return; };
 
   afterAll( async () => {
     queryMock.mockReset();

@@ -15,12 +15,13 @@ const UserPostsWrapper = () => {
 
   return(
     <Suspense fallback={<Loader />} >
-      <Await 
-        resolve={userPostsData}
-        children={(userPostsData) => (<Posts userPostsData={userPostsData} />)}
-      />
+      <Await resolve={userPostsData}>
+        {
+          (userPostsData) => (<Posts userPostsData={userPostsData} />)
+        }
+      </Await>
     </Suspense>
-  )
+  );
 };
 
 export default UserPostsWrapper;

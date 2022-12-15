@@ -1,4 +1,4 @@
-import { defer, Params, LoaderFunction } from 'react-router-dom';
+import { defer, LoaderFunction } from 'react-router-dom';
 // imported solely to provide type annotation for queryClient param at loader
 import { QueryClient } from '@tanstack/query-core';
 
@@ -6,7 +6,7 @@ const getUserPostsData = async (user_id: string) => {
 
   try {
     console.log('inside of getUserPostsData: user_id: ', user_id);
-    console.log('getUserPostsData: typeof user_id: ', typeof user_id)
+    console.log('getUserPostsData: typeof user_id: ', typeof user_id);
     const response = await fetch(`/api/posts/${user_id}`);
     const data = await response.json();
     return data;
@@ -14,7 +14,7 @@ const getUserPostsData = async (user_id: string) => {
   } catch(error) {
     console.log('ERROR inside getUserPostsData in userPostsLoader: ', error);
   }
-}
+};
 
 export const userPostsQuery = (user_id: string) => ({
   queryKey: ['userPostsData', user_id],
@@ -32,9 +32,9 @@ export const userPostsQuery = (user_id: string) => ({
 //   user_id: string
 // }
 
-type userIdParams = {
-  user_id: string
-}
+// type userIdParams = {
+//   user_id: string
+// }
 
 // fix the type annotation later - issue with QueryClient 
 // const userPostsLoader = ({params}) => 
@@ -47,21 +47,21 @@ const userPostsLoader = (queryClient: QueryClient): LoaderFunction =>
   async ({params}) => {
 
 
-  const { user_id } = params;
-  console.log('inside userPostsLoader, params: ', params, ' , user_id: ', user_id, ' ,type: ', typeof user_id);
+    const { user_id } = params;
+    console.log('inside userPostsLoader, params: ', params, ' , user_id: ', user_id, ' ,type: ', typeof user_id);
 
-  console.log('inside userPostsLoader');
+    console.log('inside userPostsLoader');
 
-  const query = userPostsQuery(user_id as string);
+    const query = userPostsQuery(user_id as string);
 
-  const cachedData = queryClient.getQueryData(query.queryKey);
-  console.log('userPostsLoader: cachedData: ', cachedData);
+    const cachedData = queryClient.getQueryData(query.queryKey);
+    console.log('userPostsLoader: cachedData: ', cachedData);
 
-  return(
-    cachedData ? { userPostsData: cachedData } 
-    : defer({ userPostsData: queryClient.fetchQuery(query)})
-  );
+    return(
+      cachedData ? { userPostsData: cachedData } 
+        : defer({ userPostsData: queryClient.fetchQuery(query)})
+    );
 
-}
+  };
 
 export default userPostsLoader;

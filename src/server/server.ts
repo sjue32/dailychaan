@@ -1,10 +1,10 @@
-import express, { Request, Response, NextFunction, RequestHandler } from 'express';
+import express, { Request, Response, NextFunction } from 'express';
 import path from 'path';
 import morgan from 'morgan';
 import { ServerError } from '../types';
 import apiRouter from './routes/apiRouter';
 import session from 'express-session';
-import redis, { createClient } from 'redis';
+import { createClient } from 'redis';
 export type RedisClientType = ReturnType<typeof createClient>
 
 import connect_redis from 'connect-redis';
@@ -20,14 +20,14 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 redisClient.connect()
-.then(res => console.log('Connected to Redis'));
+  .then(() => console.log('Connected to Redis'));
 
 redisClient.on('error', (err) => {
   console.log('Redis error: ERR: ', err);
 });
 
-redisClient.on('connect', (err) => {
-  console.log('Connected to Redis successfully')
+redisClient.on('connect', () => {
+  console.log('Connected to Redis successfully');
 });
 
 app.use(session({
@@ -81,7 +81,7 @@ app.use('*', (req: Request, res: Response) => {
 });
 
 // global error handler
-app.use('/', (err: ServerError, req: Request, res: Response, next: NextFunction) => {
+app.use('/', (err: ServerError, req: Request, res: Response) => {
   const defaultErr: ServerError = {
     log: 'Express error handler caught unknown middleware error',
     status: 400,

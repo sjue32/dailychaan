@@ -1,4 +1,4 @@
-import { ChangeEvent } from "react"
+import { ChangeEvent } from 'react';
 
 interface message {
   err: string
@@ -35,7 +35,7 @@ export interface PublicChaanProp {
   url: string,
   caption: string,
   timestamp: string,
-};
+}
 
 export type UserPostsProps = {
   user_id: number,

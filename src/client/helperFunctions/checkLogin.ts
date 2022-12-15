@@ -20,7 +20,9 @@ const checkLogin =  async (props: CheckLoginProps) => {
     const response = await fetch('/api/login', requestOptions);
     const data = await response.json();
     const { message, user_posts, user_data } = data;
-    const { username, user_id, fav_users, liked } = user_data;
+    const { username, fav_users } = user_data;
+    // unused var: user_id, liked
+    
     console.log('message from login server: ', message);
 
     if(message === 'user verified') {

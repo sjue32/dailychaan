@@ -62,21 +62,21 @@ const sampleAddUserPostData = {
       likes: 0
     }
   ]
-}
+};
 
 const sampleAddUserPostResponse: Record<string, undefined> = {
   Attributes: undefined,
-}
+};
 
 
 
 const sampleUpdateUserPostData = {
-      user_id: 3,
-      timestamp: '123',
-      url: 'https://dailychaan-public-photos.s3.us-east-2.amazonaws.com/11802736_10104167012944459_5302688321690486926_o.jpeg',
-      caption: 'Old caption!',
-      likes: 1
-}
+  user_id: 3,
+  timestamp: '123',
+  url: 'https://dailychaan-public-photos.s3.us-east-2.amazonaws.com/11802736_10104167012944459_5302688321690486926_o.jpeg',
+  caption: 'Old caption!',
+  likes: 1
+};
 
 const sampleUpdateUserPostResponse = {
   Attributes: {
@@ -86,12 +86,12 @@ const sampleUpdateUserPostResponse = {
     caption: 'NEW UPDATED CAPTION!!!',
     likes: 1
   }
-}
+};
 
 const sampleDeleteUserPostData = {
   user_id: 3,
   timestamp: '123456',
-}
+};
 
 const sampleDeleteUserPostResponse = {
   '$metadata': {
@@ -104,7 +104,7 @@ const sampleDeleteUserPostResponse = {
     caption: 'Delete this post',
     likes: 5,
   }
-}
+};
 
 export default sampleGetPostData;
 export { sampleAddUserPostData, sampleUpdateUserPostData, sampleAddUserPostResponse, 

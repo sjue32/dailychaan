@@ -1,4 +1,4 @@
-import React, { Suspense, useState } from 'react';
+import React, { Suspense } from 'react';
 import { createRoot } from 'react-dom/client';
 import { createBrowserRouter, createRoutesFromElements, RouterProvider, Route } from 'react-router-dom';
 
@@ -58,9 +58,9 @@ const router = createBrowserRouter(
       </Route>
     </Route>
   )
-)
+);
 
-const container = document.getElementById('root')
+const container = document.getElementById('root');
 const root = createRoot(container!);
 root.render(
   <RouterProvider router={router} />

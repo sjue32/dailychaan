@@ -1,4 +1,4 @@
-import express, { Request, Response, NextFunction } from 'express';
+import express, { Request, Response } from 'express';
 import usersController from '../controllers/usersController';
 import sessionController from '../controllers/sessionController';
 import tableNameController from '../controllers/tableNameController';
@@ -15,8 +15,8 @@ loginRouter.get('/:username', sessionController.isLoggedIn, (req: Request, res: 
 // [] then send back { message: 'user is verified, posts: [ ] }
 
 loginRouter.post('/', usersController.verifyUser, sessionController.startSession, 
-  tableNameController.assignPosts, postsController.getUserPosts, (req: Request, res: Response, next: NextFunction) => {
-  res.status(201).json({ message: res.locals.message, user_posts: res.locals.user_posts, user_data: res.locals.user_data });
-});
+  tableNameController.assignPosts, postsController.getUserPosts, (req: Request, res: Response) => {
+    res.status(201).json({ message: res.locals.message, user_posts: res.locals.user_posts, user_data: res.locals.user_data });
+  });
 
 export default loginRouter;

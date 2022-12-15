@@ -1,5 +1,5 @@
 import React from 'react';
-import type { ImageFrameProps, ImagePostProps } from '../../types';
+import type { ImagePostProps } from '../../types';
 import LazyLoad from 'react-lazy-load';
 import ImagePostText from './ImagePostText';
 
@@ -14,9 +14,9 @@ const ImagePost = (props: { id: string, imagePostMetadata: ImagePostProps, isMob
       <div id={id} className="imageFrame">
         <LazyLoad className="lazyLoadImg" offset={500} height ={525} onContentVisible={
           () => {console.log('image loaded');
-          const currentImg = document.querySelector(`#${id} .lazyLoadImg`) as HTMLElement;
-          currentImg.style.height = 'auto';
-        }} 
+            const currentImg = document.querySelector(`#${id} .lazyLoadImg`) as HTMLElement;
+            currentImg.style.height = 'auto';
+          }} 
         >
           <img src={isMobile ? url_small : url_large} width="94%" className="postImg" />
         </LazyLoad>
@@ -26,6 +26,6 @@ const ImagePost = (props: { id: string, imagePostMetadata: ImagePostProps, isMob
       />
     </div>
   );
-}
+};
 
 export default ImagePost;

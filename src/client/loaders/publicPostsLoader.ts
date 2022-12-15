@@ -8,7 +8,7 @@ const getPublicPostsData = async () => {
   const response = await fetch('/api/posts/1');
   const data = await response.json();
   return data;
-}
+};
 
 export const publicPostsQuery = () => ({
   queryKey: ['publicPostsData'],
@@ -25,8 +25,8 @@ const publicPostsLoader = (queryClient: QueryClient) =>
 
     return(
       cachedData ? { publicPostsData: cachedData} 
-      : defer({ publicPostsData: queryClient.fetchQuery(query)})
-    )
+        : defer({ publicPostsData: queryClient.fetchQuery(query)})
+    );
   };
 
-  export default publicPostsLoader;
+export default publicPostsLoader;

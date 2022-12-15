@@ -1,10 +1,11 @@
 import { Request, Response, NextFunction } from 'express';
 import { ddbDocClient } from '../../../libs/ddbDocClient';
-import { QueryCommand, PutCommand, UpdateCommand, DeleteCommand, GetCommand } from '@aws-sdk/lib-dynamodb';
+import { PutCommand, GetCommand } from '@aws-sdk/lib-dynamodb';
+// QueryCommand, UpdateCommand, DeleteCommand
 import bcrypt from 'bcrypt';
 
 // Middleware controller making all queries to user_data table in DynamoDB
- const usersController = {
+const usersController = {
   // get list of all user data for the Explore Section of Daily Chaan
   getUsers: async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -30,7 +31,7 @@ import bcrypt from 'bcrypt';
         log: `usersController.getUsers: ERROR : ${err}`,
         status: 404,
         message: { err: 'usersController.getUser: ERROR: Check server logs for details'}
-      }
+      };
       return next(errObj);
     }
   },
@@ -64,7 +65,7 @@ import bcrypt from 'bcrypt';
       // if it doesn't match, send back generic message to client
       if(!comparison) {
         console.log('Password does not match');
-        res.locals.message = `username / password does not match`;
+        res.locals.message = 'username / password does not match';
         // send response to client
         return res.status(401).json({ message: res.locals.message });
       }
@@ -83,19 +84,19 @@ import bcrypt from 'bcrypt';
       // console.log('userPosts', userPosts);
       // create session - pass to sessionController
       // send cookie with sessionId and user data back to client
-      console.log('successful login');
-      res.locals.message = 'user verified';
+        console.log('successful login');
+        res.locals.message = 'user verified';
 
-      const { user_id, fav_users, liked } = data;
-      req.params.user_id = user_id.toString();
-      req.params.username = username;
-      // res.locals.user_posts = userPosts;
-      res.locals.user_data = { 
-        user_id: user_id,
-        username: username,
-        fav_users: fav_users,
-        liked: liked,
-      };
+        const { user_id, fav_users, liked } = data;
+        req.params.user_id = user_id.toString();
+        req.params.username = username;
+        // res.locals.user_posts = userPosts;
+        res.locals.user_data = { 
+          user_id: user_id,
+          username: username,
+          fav_users: fav_users,
+          liked: liked,
+        };
 
       }
       
@@ -106,7 +107,7 @@ import bcrypt from 'bcrypt';
         log: `usersController.verifyUser : ERROR : ${err}`,
         status: 400,
         message: { err: 'usersController.verifyUser: ERROR: Check server logs for details'}
-      }
+      };
       return next(errObj);
     }
   },
@@ -128,7 +129,7 @@ import bcrypt from 'bcrypt';
       console.log('check', check);
       // if username/email already exists, send response, client should display message that username/email exists 
       if(check) {
-        res.locals.message = "user already exists";
+        res.locals.message = 'user already exists';
         return next();
       }
       else {
@@ -162,11 +163,11 @@ import bcrypt from 'bcrypt';
         log: `usersController.createUser : ERROR : ${err}`,
         status: 400,
         message: { err: 'usersController.createUser: ERROR: Check server logs for details'}
-      }
+      };
       return next(errObj);
     }
     
   },
- };
+};
 
- export default usersController;
+export default usersController;

@@ -13,20 +13,20 @@ const Posts =  (props: { userPostsData: UserPostsProps[] })  => {
   return(
     <div className="postsComponent">
       <h1>{username}</h1>
-        <div className="postsComponentInnerContainer">
-          { 
-            userPostsData?.map((imagePostMetadata: ImagePostProps, idx: number) => {
+      <div className="postsComponentInnerContainer">
+        { 
+          userPostsData?.map((imagePostMetadata: ImagePostProps, idx: number) => {
             return(<ImagePost 
-                      key={`key${idx}`} 
-                      id={`img${idx}`} 
-                      isMobile={isMobile}
-                      imagePostMetadata={imagePostMetadata}
-                    />);
-            })
-          }
-        </div> 
+              key={`key${idx}`} 
+              id={`img${idx}`} 
+              isMobile={isMobile}
+              imagePostMetadata={imagePostMetadata}
+            />);
+          })
+        }
+      </div> 
     </div>
-  )
+  );
 };
 
 export default Posts;

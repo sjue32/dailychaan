@@ -3,13 +3,13 @@ import BeatLoader from 'react-spinners/BeatLoader';
 
 const LoaderNew = () => {
 
-  const color = "#C4A484";
+  const color = '#C4A484';
 
   const override: CSSProperties = {
-    display: "block",
-    margin: "0 auto",
+    display: 'block',
+    margin: '0 auto',
     width: '40%'
-  }
+  };
 
   return(
     <div className='spinnerContainer'>
@@ -21,8 +21,8 @@ const LoaderNew = () => {
         aria-label="Loading Spinner"
         data-testid="loader"
       /> 
-  </div>
-  )
-}
+    </div>
+  );
+};
 
 export default LoaderNew;

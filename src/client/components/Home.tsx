@@ -14,7 +14,7 @@ const Home = (props: { publicPostsData: UserPostsProps[] })  => {
 
   console.log('Home component rendered');
   console.log('Home Component: publicPostsData: ', publicPostsData);
-  console.log('Home component, isMobile: ', isMobile)
+  console.log('Home component, isMobile: ', isMobile);
 
   return(
     <div className="homeComponent">
@@ -23,16 +23,16 @@ const Home = (props: { publicPostsData: UserPostsProps[] })  => {
         {
           publicPostsData.map((imagePostMetadata: ImagePostProps, idx: number) => {
             return(<ImagePost 
-                    id={`img${idx}`} 
-                    key={`key${idx}`} 
-                    imagePostMetadata={imagePostMetadata}
-                    isMobile={isMobile}
-                  />)
+              id={`img${idx}`} 
+              key={`key${idx}`} 
+              imagePostMetadata={imagePostMetadata}
+              isMobile={isMobile}
+            />);
           })
         }
       </div>
     </div>
-  )
+  );
 };
 
 export default Home;
