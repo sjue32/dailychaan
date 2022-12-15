@@ -3,10 +3,10 @@ import { app } from '../server/test_server';
 import { ddbDocClient } from '../../libs/ddbDocClient';
 import { BatchWriteCommand } from '@aws-sdk/lib-dynamodb';
 import { testData } from '../sample/test_user_posts_data';
-import { sampleDeleteUserPostData } from '../sample/sampleGetPostData';
+// import { sampleDeleteUserPostData } from '../sample/sampleGetPostData';
 
 
-const server = 'http://localhost:3000';
+// const server = 'http://localhost:3000';
 
 describe('Route integration', () => {
   describe('*', () => {

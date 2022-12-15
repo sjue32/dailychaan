@@ -4,7 +4,8 @@ import smileyFace from '../images/icons8-savouring-delicious-food-face-48.png';
 
 const ImagePostText = (props: { imagePostMetadata: ImagePostProps }) => {
 
-  const { user_id, username, timestamp, caption, likes, likesData } = props.imagePostMetadata;
+  const { username, timestamp, caption, likes } = props.imagePostMetadata;
+  // usused var: user_id, likesData
 
   const imgDate = new Date(Number(timestamp));
   const dateString = imgDate.toLocaleDateString();

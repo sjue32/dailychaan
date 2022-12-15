@@ -15,11 +15,11 @@ const UserPostsWrapper = () => {
 
   return(
     <Suspense fallback={<Loader />} >
-      <Await 
-        resolve={userPostsData}
-        // eslint-disable-next-line
-        children={(userPostsData) => (<Posts userPostsData={userPostsData} />)}
-      />
+      <Await resolve={userPostsData}>
+        {
+          (userPostsData) => (<Posts userPostsData={userPostsData} />)
+        }
+      </Await>
     </Suspense>
   );
 };

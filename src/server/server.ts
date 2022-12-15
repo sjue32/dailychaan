@@ -20,13 +20,13 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 redisClient.connect()
-  .then(res => console.log('Connected to Redis'));
+  .then(() => console.log('Connected to Redis'));
 
 redisClient.on('error', (err) => {
   console.log('Redis error: ERR: ', err);
 });
 
-redisClient.on('connect', (err) => {
+redisClient.on('connect', () => {
   console.log('Connected to Redis successfully');
 });
 

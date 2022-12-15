@@ -3,7 +3,8 @@ import type { LoginInputProps } from '../../types';
 
 const LoginInput = (props: LoginInputProps) => {
   const { id, value, onChange, loginInputData } = props;
-  const { name, type, placeholder, pattern, errorMessage, required, htmlFor } = loginInputData;
+  const { name, type, placeholder, pattern, errorMessage, required } = loginInputData;
+  // unused var: htmlFor
 
   const [ focused, setFocused ] = useState<boolean>(false);
 

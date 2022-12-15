@@ -15,11 +15,11 @@ const HomeWrapper = () => {
 
   return(
     <Suspense fallback={<Loader />} >
-      <Await 
-        resolve={publicPostsData}
-        // eslint-disable-next-line
-        children={(publicPostsData) => (<Home publicPostsData={publicPostsData} />)}
-      />
+      <Await resolve={publicPostsData}>
+        {
+          (publicPostsData) => (<Home publicPostsData={publicPostsData} />)
+        }
+      </Await>
     </Suspense>
   );
 };

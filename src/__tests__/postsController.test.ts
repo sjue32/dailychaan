@@ -20,7 +20,7 @@ describe('getPublicPosts returns public posts', () => {
     }
   };
   const mockRes: Partial<Response> = {};
-  const mockNext: Partial<NextFunction> = function() { return mockRes as any;};
+  const mockNext: Partial<NextFunction> = function() { return mockRes as unknown;};
 
   beforeAll( async () => {
     queryMock.mockResolvedValue(sampleGetPostData as never);
@@ -102,7 +102,7 @@ describe('get posts for specific user', () => {
     }
   };
   const mockRes: Partial<Response> = {};
-  const mockNext: Partial<NextFunction> = function() { return mockRes as any;};
+  const mockNext: Partial<NextFunction> = function() { return mockRes as unknown;};
 
   beforeAll( async () => {
     queryMock.mockResolvedValue(sampleGetPostData as never);

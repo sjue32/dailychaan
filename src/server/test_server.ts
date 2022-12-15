@@ -1,4 +1,4 @@
-import express, { Request, Response, NextFunction, RequestHandler } from 'express';
+import express, { Request, Response, NextFunction } from 'express';
 import path from 'path';
 import morgan from 'morgan';
 import { ServerError } from '../types';
@@ -39,7 +39,7 @@ app.use('*', (req: Request, res: Response) => {
 });
 
 // global error handler
-app.use('/', (err: ServerError, req: Request, res: Response, next: NextFunction) => {
+app.use('/', (err: ServerError, req: Request, res: Response) => {
   const defaultErr: ServerError = {
     log: 'Express error handler caught unknown middleware error',
     status: 400,
