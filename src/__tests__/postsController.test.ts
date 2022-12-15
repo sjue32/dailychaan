@@ -14,13 +14,13 @@ import sampleGetPostData, { sampleAddUserPostData,
 describe('getPublicPosts returns public posts', () => {
   const queryMock = jest.spyOn(ddbDocClient, 'send');
   
-  let mockReq: Partial<Request> = {
+  const mockReq: Partial<Request> = {
     body: {
       table_name: 'test_user_posts',
     }
   };
-  let mockRes: Partial<Response> = {};
-  let mockNext: Partial<NextFunction> = function() { return mockRes as any;};
+  const mockRes: Partial<Response> = {};
+  const mockNext: Partial<NextFunction> = function() { return mockRes as any;};
 
   beforeAll( async () => {
     queryMock.mockResolvedValue(sampleGetPostData as never);
@@ -70,8 +70,8 @@ describe('getPublicPosts throws error and triggers error handler', () => {
       user_id: 1,
     },
   };
-  let mockRes: Partial<Response> = {};
-  let mockNext: Partial<NextFunction> = function() { };
+  const mockRes: Partial<Response> = {};
+  const mockNext: Partial<NextFunction> = function() { return; };
 
   afterAll(() => {
     queryMock.mockReset();
@@ -146,8 +146,8 @@ describe('getUserPosts throws error and triggers error handler', () => {
       user_id: user_id,
     },
   };
-  let mockRes: Partial<Response> = {};
-  let mockNext: Partial<NextFunction> = function() { };
+  const mockRes: Partial<Response> = {};
+  const mockNext: Partial<NextFunction> = function() { return; };
 
   afterAll(() => {
     queryMock.mockReset();
@@ -231,8 +231,8 @@ describe('add user post with error triggers error handler', () => {
     },
     body: user_data,
   };
-  let mockRes: Partial<Response> = {};
-  let mockNext: Partial<NextFunction> = function() { };
+  const mockRes: Partial<Response> = {};
+  const mockNext: Partial<NextFunction> = function() { return; };
 
   afterAll(() => {
     queryMock.mockReset();
@@ -269,7 +269,7 @@ describe('Update post successful', () => {
     }
   };
   const mockRes: Partial<Response> = {};
-  const mockNext: Partial<NextFunction> = function() { return };
+  const mockNext: Partial<NextFunction> = function() { return; };
 
   beforeAll( async () => {
     queryMock.mockResolvedValue(sampleUpdateUserPostResponse as never);
@@ -308,8 +308,8 @@ describe('update user post with error triggers error handler', () => {
       caption: caption,
     }
   };
-  let mockRes: Partial<Response> = {};
-  let mockNext: Partial<NextFunction> = function() { };
+  const mockRes: Partial<Response> = {};
+  const mockNext: Partial<NextFunction> = function() { return;};
 
   afterAll( async () => {
     queryMock.mockReset();
@@ -338,7 +338,7 @@ describe('Delete post successful', () => {
     },
   };
   const mockRes: Partial<Response> = {};
-  const mockNext: Partial<NextFunction> = function() { return };
+  const mockNext: Partial<NextFunction> = function() { return; };
 
   beforeAll( async () => {
     queryMock.mockResolvedValue(sampleDeleteUserPostResponse as never);
@@ -351,7 +351,7 @@ describe('Delete post successful', () => {
     expect(queryMock).toHaveBeenCalledTimes(1);
   });
   it('returns an object when ddbDocClient.send is called', async () => {
-    const response = await queryMock.mock.results[0].value
+    const response = await queryMock.mock.results[0].value;
     expect(response).toBeInstanceOf(Object);
   });
   it('returns a status code of 200', async () => {
@@ -380,8 +380,8 @@ describe('delete user post with error triggers error handler', () => {
       timestamp: timestamp,
     }
   };
-  let mockRes: Partial<Response> = {};
-  let mockNext: Partial<NextFunction> = function() { };
+  const mockRes: Partial<Response> = {};
+  const mockNext: Partial<NextFunction> = function() { return; };
 
   afterAll( async () => {
     queryMock.mockReset();

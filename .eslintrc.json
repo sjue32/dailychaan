@@ -35,6 +35,8 @@
         "semi": [
             "error",
             "always"
-        ]
+        ],
+        "react/no-unescaped-entities": "off",
+        "@typescript-eslint/ban-ts-comment": "warn"
     }
 }
