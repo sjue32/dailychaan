@@ -22,7 +22,7 @@ describe.skip('Unit testing ImagePost', () => {
       likes: 1,
       likesData: {},
     },
-  }
+  };
 
   beforeEach(() => {
     const { id, isMobile, imagePostMetadata } = props;
@@ -38,5 +38,5 @@ describe.skip('Unit testing ImagePost', () => {
 
   it('it renders a paragraph element', () => {
     expect(screen.getByText(/Testing 123/)).toBeDefined();
-  })
+  });
 });

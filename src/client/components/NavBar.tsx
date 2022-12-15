@@ -63,7 +63,7 @@ const NavBar = () => {
       });
       navigate('/');
     }
-  }
+  };
 
   // if loggedInUser.loggedIn is false, render Home, with public posts
   // if loggedInUser.loggedIn is true, Link is originally pointed at '/user', check if user is still authorized with onClick function
@@ -75,15 +75,15 @@ const NavBar = () => {
       <div className="navBarInnerContainer">
         {
           currentUser.loggedIn ? <Link className="navBarLink" to="/user" onClick={ handleLoggedInUser }>Home</Link>
-          : <Link className="navBarLink" to="/">Home </Link>
+            : <Link className="navBarLink" to="/">Home </Link>
         }
         <Link className="navBarLink" to="/explore">Explore </Link>
         <Link className="navBarLink" to="/about">About </Link>
         { !currentUser.loggedIn ? <Link className="navBarLink" to="/login">Login </Link>
-        : <Link className="navBarLink" to="/" onClick={handleLogout} >Logout</Link> }
+          : <Link className="navBarLink" to="/" onClick={handleLogout} >Logout</Link> }
       </div>
     </div>
-  )
+  );
 };
 
 export default NavBar;

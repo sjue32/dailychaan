@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { CurrentUserContext } from './CurrentUserContext';
 
@@ -41,18 +41,18 @@ const Login = () => {
   return(
     <div className="loginComponent">
       <form className="loginForm" onSubmit={submitHandler} noValidate>
-          <h2>Login</h2>
-          <LoginInput id='username' value={details.username} onChange={e => setDetails({...details, username: e.target.value})} loginInputData={loginInputUsernamePropData} />
-          <LoginInput id='password' value={details.password} onChange={e => setDetails({...details, password: e.target.value})} loginInputData={loginInputPasswordPropData} />
-          <input className="submitButton" type="submit" value="LOGIN" />
+        <h2>Login</h2>
+        <LoginInput id='username' value={details.username} onChange={e => setDetails({...details, username: e.target.value})} loginInputData={loginInputUsernamePropData} />
+        <LoginInput id='password' value={details.password} onChange={e => setDetails({...details, password: e.target.value})} loginInputData={loginInputPasswordPropData} />
+        <input className="submitButton" type="submit" value="LOGIN" />
       </form>
 
       { status === 'error' ? <div>{loginMessage} </div> : null }
       { status === 'pending' ? 
-      <Loader />
-      : null }
+        <Loader />
+        : null }
     </div>
-  )
+  );
 };
 
 export default Login;

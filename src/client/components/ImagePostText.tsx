@@ -24,7 +24,7 @@ const ImagePostText = (props: { imagePostMetadata: ImagePostProps }) => {
       <div className='imagePostTextBottomRow'>{caption}</div>
 
     </div>
-  )
+  );
 };
 
 export default ImagePostText;

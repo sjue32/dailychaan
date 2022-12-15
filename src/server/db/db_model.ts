@@ -1,5 +1,5 @@
 import { Pool } from 'pg';
-import { QueryResult } from 'pg';
+// import { QueryResult } from 'pg';
 import * as dotenv from 'dotenv';
 import { GenericFunction } from '../../types';
 // import express from 'express';
@@ -19,14 +19,14 @@ const pool = new Pool({
 });
 
 export default {
-  query: async (text: string, params?: any, callback?: GenericFunction):Promise<any>  => {
+  query: async (text: string, params?: any, callback?: GenericFunction):Promise<unknown>  => {
     try {
       const result = await pool.query(text, params, callback);
       return result;
     } catch(e) {
-        console.log('Error in pool: ', e);
-        return null;
+      console.log('Error in pool: ', e);
+      return null;
     }
   }
-}
+};
 

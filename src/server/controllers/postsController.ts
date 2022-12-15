@@ -1,4 +1,4 @@
-import express, { Request, Response, NextFunction } from 'express';
+import { Request, Response, NextFunction } from 'express';
 import { ddbDocClient } from '../../../libs/ddbDocClient';
 import { QueryCommand, PutCommand, UpdateCommand, DeleteCommand, GetCommand } from '@aws-sdk/lib-dynamodb';
 
@@ -16,7 +16,7 @@ const postsController = {
         ExpressionAttributeValues: {
           ':user_id': 1,
         },
-      }
+      };
       const response = await ddbDocClient.send(new QueryCommand(params));
       const data = response.Items;
       res.locals = data;
@@ -30,12 +30,12 @@ const postsController = {
         log: `postsController.getPosts : ERROR : ${err}`,
         status: 404,
         message: { err: 'postsController.getPosts: ERROR: Check server logs for details'}
-      }
+      };
       return next(errObj);
     }
   },
   // query for all posts/single post from a specific user
-  getUserPosts: async (req: Request, res: Response, next: NextFunction): Promise<any> => {
+  getUserPosts: async (req: Request, res: Response, next: NextFunction): Promise<unknown> => {
     if(req.body.getOnePost) {
       try {
         const { table_name, timestamp } = req.body;
@@ -59,7 +59,7 @@ const postsController = {
           log: `postsController.getUserPosts for getOnePost : ERROR : ${err}`,
           status: 404,
           message: { err: 'postsController.getUserPosts for getOnePost: ERROR: Check server logs for details'}
-        }
+        };
         return next(errObj);
       }
 
@@ -71,12 +71,12 @@ const postsController = {
         console.log('inside postsControler.getUserPosts: user_id: ', user_id, 'typeof: ', typeof user_id);
 
         const params = {
-            TableName: table_name,
-            KeyConditionExpression: 'user_id = :user_id',
-            ExpressionAttributeValues: {
-              ':user_id': user_id,
-            },
-        }
+          TableName: table_name,
+          KeyConditionExpression: 'user_id = :user_id',
+          ExpressionAttributeValues: {
+            ':user_id': user_id,
+          },
+        };
         const response = await ddbDocClient.send(new QueryCommand(params));
         const data = response.Items;
         res.locals.user_posts = data;
@@ -88,7 +88,7 @@ const postsController = {
           log: `postsController.getUserPosts : ERROR : ${err}`,
           status: 404,
           message: { err: 'postsController.getUserPosts: ERROR: Check server logs for details'}
-        }
+        };
         return next(errObj);
       }
 
@@ -132,7 +132,7 @@ const postsController = {
       else {
         res.locals = { 
           message: 'Item already exists, item updated.'
-        }
+        };
       }
       return next();
 
@@ -141,7 +141,7 @@ const postsController = {
         log: `postsController.addUserPost : ERROR : ${err}`,
         status: 400,
         message: { err: 'postsController.addUserPost: ERROR: Check server logs for details'}
-      }
+      };
       return next(errObj);
     }
 
@@ -178,7 +178,7 @@ const postsController = {
       };
 
       return next(errObj);
-     }
+    }
   },
 
   // delete a single post for a specific user
@@ -195,7 +195,7 @@ const postsController = {
           timestamp: timestamp,
         },
         ReturnValues: 'ALL_OLD',
-      }
+      };
       const response = await ddbDocClient.send(new DeleteCommand(params));
       // store deletedItem at res.locals.deletedItem
       const { Attributes } = response;

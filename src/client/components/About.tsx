@@ -16,7 +16,7 @@ const About = () => {
         <p>Please enjoy as we continue to ramp up the service.</p>
       </div>
     </div>
-  )
+  );
 };
 
 export default About;

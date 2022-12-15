@@ -48,5 +48,6 @@ const tableNameController = {
     return next();
 
   },
-}
+};
+
 export default tableNameController;

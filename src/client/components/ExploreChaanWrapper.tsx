@@ -20,7 +20,7 @@ const ExploreChaanWrapper = () => {
         children={(userChaanListData) => (<Explore userListData={userChaanListData} />)}
       />
     </Suspense>
-  )
+  );
 };
 
 export default ExploreChaanWrapper;

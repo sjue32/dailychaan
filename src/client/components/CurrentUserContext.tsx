@@ -16,7 +16,7 @@ export const CurrentUserProvider = (props: { children: ReactNode }) => {
     <CurrentUserContext.Provider value={{currentUser, setCurrentUser}}>
       {props.children}
     </CurrentUserContext.Provider>
-  )
+  );
 };
 
 

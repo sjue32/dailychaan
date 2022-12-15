@@ -1,9 +1,9 @@
-import express, { Request, Response, NextFunction } from 'express';
+import express, { Request, Response } from 'express';
 import usersController from '../controllers/usersController';
 
 const signupRouter = express.Router();
 
-signupRouter.post('/', usersController.createUser, (req: Request, res: Response, next: NextFunction) => {
+signupRouter.post('/', usersController.createUser, (req: Request, res: Response) => {
   res.status(201).json(res.locals.message);
 });
 

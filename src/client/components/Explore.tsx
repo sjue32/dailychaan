@@ -18,12 +18,12 @@ const Explore = (props: { userListData: ExploreChaanListDataProps }) => {
         {
           usersListArray.map((object: UsersData, idx) => {
             const { user_id, username } = object;
-            return(<ChaanLinkButton key={`chaanLink${idx}`} user_id={user_id} username={username} />)
+            return(<ChaanLinkButton key={`chaanLink${idx}`} user_id={user_id} username={username} />);
           })
         }
       </div>
     </div>
-  )
+  );
 };
 
 export default Explore;

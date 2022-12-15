@@ -40,7 +40,7 @@ const sessionController = {
         log: `sessionController.isLoggedIn: ERROR : ${err}`,
         status: 404,
         message: { err: 'sessionController.isLoggedIn: ERROR: Check server logs for details'}
-      }
+      };
       return next(errObj);
     }
   },
@@ -61,7 +61,7 @@ const sessionController = {
         log: `sessionController.startSession: ERROR : ${err}`,
         status: 404,
         message: { err: 'sessionController.startSession: ERROR: Check server logs for details'}
-      }
+      };
       return next(errObj);
     }
   },
@@ -71,7 +71,7 @@ const sessionController = {
       // checkAuthStatus
       const loginStatus = await sessionController.checkAuthStatus(req);
       if(loginStatus) {
-        const sessionAction = await req.session.destroy(() => console.log('endSession - session ended'));
+        await req.session.destroy(() => console.log('endSession - session ended'));
         res.locals.message = 'user is logged out';
         console.log('endSession - user is logged out');
       }
@@ -86,11 +86,11 @@ const sessionController = {
         log: `sessionController.endSession: ERROR : ${err}`,
         status: 404,
         message: { err: 'sessionController.endSession: ERROR: Check server logs for details'}
-      }
+      };
       return next(errObj);
     }
   },
 
-}
+};
 
 export default sessionController;

@@ -1,4 +1,4 @@
-import express, { Request, Response, NextFunction } from 'express';
+import express, { Request, Response } from 'express';
 import sessionController from '../controllers/sessionController';
 
 const logoutRouter = express.Router();

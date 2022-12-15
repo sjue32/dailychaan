@@ -20,7 +20,7 @@ const UserPostsWrapper = () => {
         children={(userPostsData) => (<Posts userPostsData={userPostsData} />)}
       />
     </Suspense>
-  )
+  );
 };
 
 export default UserPostsWrapper;

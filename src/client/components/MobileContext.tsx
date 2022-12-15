@@ -14,5 +14,5 @@ export const MobileProvider = (props: { children: ReactNode }) => {
     <MobileContext.Provider value={{isMobile, setIsMobile}}>
       {props.children}
     </MobileContext.Provider>
-  )
+  );
 };

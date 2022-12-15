@@ -19,15 +19,15 @@ const Dashboard = () => {
         { posts.map((imagePostMetadata: ImagePostProps, idx: number) => {
 
           return (<ImagePost 
-                    id={`img${idx}`} 
-                    key={`key${idx}`} 
-                    isMobile={isMobile}
-                    imagePostMetadata={imagePostMetadata}
-                  />);
+            id={`img${idx}`} 
+            key={`key${idx}`} 
+            isMobile={isMobile}
+            imagePostMetadata={imagePostMetadata}
+          />);
         })}
       </div>
     </div>
-  )
+  );
 };
 
 export default Dashboard;

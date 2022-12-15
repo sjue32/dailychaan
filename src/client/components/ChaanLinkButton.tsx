@@ -15,7 +15,7 @@ const ChaanLinkButton = (props: ChaanLinkButtonProps) => {
         </div>
       </Link>
     </div>
-  )
+  );
 };
 
 export default ChaanLinkButton;

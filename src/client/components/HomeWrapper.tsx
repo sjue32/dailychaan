@@ -20,7 +20,7 @@ const HomeWrapper = () => {
         children={(publicPostsData) => (<Home publicPostsData={publicPostsData} />)}
       />
     </Suspense>
-  )
+  );
 };
 
 export default HomeWrapper;
