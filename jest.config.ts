@@ -7,8 +7,17 @@
 import type { Config } from 'jest';
 
 const config: Config = {
-  preset: "ts-jest",
+  preset: 'ts-jest',
   verbose: true,
+  moduleNameMapper: {
+    '\\.(jpg | jpeg | png | gif | ico | svg | webp)$': '<rootDir>/mocks/fileMock.ts'
+  }
 };
 
 export default config;
+
+// "jest": {
+//   "moduleNameMapper": {
+//     "\\.(jpg | jpeg | png | gif | ico | svg | webp )$": "<rootDir>/mocks/fileMock.ts"
+//   }
+// }
