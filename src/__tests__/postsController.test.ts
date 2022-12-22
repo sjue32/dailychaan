@@ -19,7 +19,9 @@ describe('getPublicPosts returns public posts', () => {
       table_name: 'test_user_posts',
     }
   };
-  const mockRes: Partial<Response> = {};
+  const mockRes: Partial<Response> = {
+    locals: {},
+  };
   const mockNext: Partial<NextFunction> = function() { return mockRes as unknown;};
 
   beforeAll( async () => {
@@ -72,7 +74,9 @@ describe('getPublicPosts throws error and triggers error handler', () => {
       user_id: 1,
     },
   };
-  const mockRes: Partial<Response> = {};
+  const mockRes: Partial<Response> = {
+    locals: {},
+  };
   const mockNext: Partial<NextFunction> = function() { return; };
 
   afterAll(() => {
@@ -103,7 +107,9 @@ describe('get posts for specific user', () => {
       table_name: 'test_user_posts',
     }
   };
-  const mockRes: Partial<Response> = {};
+  const mockRes: Partial<Response> = {
+    locals: {},
+  };
   // const mockNext: Partial<NextFunction> = function() { return mockRes as unknown;};
   const mockNext: Partial<NextFunction> = function() { return;};
 
@@ -157,7 +163,9 @@ describe('getUserPosts throws error and triggers error handler', () => {
       user_id: user_id,
     },
   };
-  const mockRes: Partial<Response> = {};
+  const mockRes: Partial<Response> = {
+    locals: {},
+  };
   const mockNext: Partial<NextFunction> = function() { return; };
 
   afterAll(() => {
@@ -195,7 +203,9 @@ describe('add post for specific user', () => {
     },
     body: user_data,
   };
-  const mockRes: Partial<Response> = {};
+  const mockRes: Partial<Response> = {
+    locals: {},
+  };
   const mockNext: Partial<NextFunction> = function() { return;};
 
 
@@ -242,7 +252,9 @@ describe('add user post with error triggers error handler', () => {
     },
     body: user_data,
   };
-  const mockRes: Partial<Response> = {};
+  const mockRes: Partial<Response> = {
+    locals: {},
+  };
   const mockNext: Partial<NextFunction> = function() { return; };
 
   afterAll(() => {
@@ -279,7 +291,9 @@ describe('Update post successful', () => {
       timestamp: timestamp,
     }
   };
-  const mockRes: Partial<Response> = {};
+  const mockRes: Partial<Response> = {
+    locals: {},
+  };
   const mockNext: Partial<NextFunction> = function() { return; };
 
   beforeAll( async () => {
@@ -319,7 +333,9 @@ describe('update user post with error triggers error handler', () => {
       caption: caption,
     }
   };
-  const mockRes: Partial<Response> = {};
+  const mockRes: Partial<Response> = {
+    locals: {},
+  };
   const mockNext: Partial<NextFunction> = function() { return;};
 
   afterAll( async () => {
@@ -348,7 +364,9 @@ describe('Delete post successful', () => {
       timestamp: timestamp,
     },
   };
-  const mockRes: Partial<Response> = {};
+  const mockRes: Partial<Response> = {
+    locals: {},
+  };
   const mockNext: Partial<NextFunction> = function() { return; };
 
   beforeAll( async () => {
@@ -391,7 +409,9 @@ describe('delete user post with error triggers error handler', () => {
       timestamp: timestamp,
     }
   };
-  const mockRes: Partial<Response> = {};
+  const mockRes: Partial<Response> = {
+    locals: {},
+  };
   const mockNext: Partial<NextFunction> = function() { return; };
 
   afterAll( async () => {

@@ -68,9 +68,8 @@ const usersController = {
       // if it doesn't match, send back generic message to client
       if(!comparison) {
         console.log('Password does not match');
-        res.locals = { 
-          message:'username / password does not match' 
-        };
+
+        res.locals.message = 'username / password does not match' ;
         // send response to client
         return res.status(401).json({ message: res.locals.message });
       }
@@ -79,23 +78,22 @@ const usersController = {
         // create session - pass to sessionController
         // send cookie with sessionId and user data back to client
         console.log('successful login');
-
+        res.locals.message = 'user verified';
         const { user_id, fav_users } = data;
-        res.locals = {
-          message: 'user verified',
-          user_data: {
-            user_id,
-            username,
-            fav_users,
-            // liked,
-          },
+
+        res.locals.user_data = {
+          user_id,
+          username,
+          fav_users,
         };
+
         console.log('inside verifyUser, res.locals: ', res.locals);
 
         req.params = {
           user_id: user_id.toString(),
-          username: username,
+          username,
         };
+
         console.log('req.params in verifyUser: ', req.params);
       }
       
@@ -128,7 +126,8 @@ const usersController = {
       console.log('check', check);
       // if username/email already exists, send response, client should display message that username/email exists 
       if(check) {
-        res.locals = { message: 'user already exists' };
+        // res.locals = { message: 'user already exists' };
+        res.locals.message = 'user already exists';
         return next();
       }
       else {
