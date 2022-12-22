@@ -2,6 +2,8 @@ import React, { useState, createContext, ReactNode } from 'react';
 import { MobileContextValue } from '../../types';
 
 export const MobileContext = createContext<MobileContextValue | undefined>(undefined);
+// export const MobileContext = createContext<MobileContextValue | undefined>({ isMobile: false, setIsMobile: ''});
+
 
 // ReactNode is more generic than ReactElement
 export const MobileProvider = (props: { children: ReactNode }) => {

@@ -5,11 +5,11 @@ const LoaderNew = () => {
 
   const color = '#C4A484';
 
-  const override: CSSProperties = {
-    display: 'block',
-    margin: '0 auto',
-    width: '40%'
-  };
+  // const override: CSSProperties = {
+  //   display: 'block',
+  //   margin: '0 auto',
+  //   width: '40%'
+  // };
 
   return(
     <div className='spinnerContainer'>

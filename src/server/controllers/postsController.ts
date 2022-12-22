@@ -7,7 +7,7 @@ const postsController = {
   // get all posts from public profile of Daily Chaan
   getPublicPosts: async (req: Request, res: Response, next: NextFunction) => {
     try {
-      console.log('inside of getPublicPosts');
+      // console.log('inside of getPublicPosts');
       // console.log('testing, req.body.test: ', req.body.test, 'table_name: ', req.body.table_name);
       const { table_name } = req.body;
       const params = {
@@ -52,6 +52,7 @@ const postsController = {
         const response = await ddbDocClient.send(new GetCommand(params));
         const data = response.Item;
         res.locals = data;
+        console.log('inside getOnePost: ', res.locals);
         return next();
 
       } catch(err) {
@@ -68,7 +69,7 @@ const postsController = {
         const { table_name } = req.body;
         const user_id = Number(req.params.user_id);
   
-        console.log('inside postsControler.getUserPosts: user_id: ', user_id, 'typeof: ', typeof user_id);
+        // console.log('inside postsControler.getUserPosts: user_id: ', user_id, 'typeof: ', typeof user_id);
 
         const params = {
           TableName: table_name,
@@ -78,9 +79,13 @@ const postsController = {
           },
         };
         const response = await ddbDocClient.send(new QueryCommand(params));
+
         const data = response.Items;
-        res.locals.user_posts = data;
-        console.log('inside getUserPosts: ', data);
+        // res.locals.user_posts = data;
+        res.locals = {
+          user_posts: data,
+        };
+        // console.log('inside getUserPosts: ', data);
         return next();
   
       } catch(err) {

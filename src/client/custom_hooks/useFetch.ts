@@ -13,11 +13,12 @@ const useFetch = (url: string) => {
       try {
         const response = await fetch(url);
         const data = await response.json();
+        console.log('inside useFetch: data: ', data);
         setData(data);
       } catch(error) {
         setIsError(true);
-        console.log('error: ', error);
-        console.log('error', JSON.stringify(error));
+        // console.log('error: ', error);
+        // console.log('error', JSON.stringify(error));
 
       } finally {
         setIsloading(false);
@@ -27,7 +28,7 @@ const useFetch = (url: string) => {
     fetchData();
   }, []);
 
-  return { isLoading, isError, data };
+  return { isLoading, isError, data, setIsError, setData };
 };
 
 export default useFetch;

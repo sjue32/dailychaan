@@ -53,8 +53,10 @@ describe('getPublicPosts returns public posts', () => {
   });
 
   it('contains links to jpeg images', () => {
-    expect(/https/.test(mockRes.locals[0].url)).toBe(true);
-    expect(/jpeg/.test(mockRes.locals[0].url)).toBe(true);
+    expect(/https/.test(mockRes.locals[0].url_large)).toBe(true);
+    expect(/jpg/.test(mockRes.locals[0].url_large)).toBe(true);
+    expect(/https/.test(mockRes.locals[0].url_small)).toBe(true);
+    expect(/jpg/.test(mockRes.locals[0].url_small)).toBe(true);
   });
 
 });
@@ -102,7 +104,9 @@ describe('get posts for specific user', () => {
     }
   };
   const mockRes: Partial<Response> = {};
-  const mockNext: Partial<NextFunction> = function() { return mockRes as unknown;};
+  // const mockNext: Partial<NextFunction> = function() { return mockRes as unknown;};
+  const mockNext: Partial<NextFunction> = function() { return;};
+
 
   beforeAll( async () => {
     queryMock.mockResolvedValue(sampleGetPostData as never);
@@ -117,19 +121,26 @@ describe('get posts for specific user', () => {
     expect(await queryMock.mock.results[0].value).toBeInstanceOf(Object);
   });
 
-  it('stores an array at mockRes.locals', () => {
-    expect(mockRes.locals).toBeInstanceOf(Array);
+  it('stores an array at mockRes.locals', async () => {
+    // console.log('inside test: getPosts for specific user: mockRes.locals: ', mockRes.locals);
+    // console.log('inside test: getPosts for specific user: mockRes.locals.user_posts: ', mockRes.locals.user_posts);
+
+    expect(await mockRes.locals.user_posts).toBeInstanceOf(Array);
   });
 
-  it('contains post data related to user_id from req.params', () => {
-    const data = mockRes.locals;
+  it('contains post data related to user_id from req.params', async () => {
+    const data = await mockRes.locals.user_posts;
     expect(data[0].user_id).toBe(Number(test_req_param));
   });
 
-  it('contains links to jpeg images', () => {
-    const url = mockRes.locals[0].url;
-    expect(/https/.test(url)).toBe(true);
-    expect(/jpeg/.test(url)).toBe(true);
+  it('contains links to jpeg images', async () => {
+    const url_large = await mockRes.locals.user_posts[0].url_large;
+    const url_small = await mockRes.locals.user_posts[0].url_small;
+
+    expect(/https/.test(url_large)).toBe(true);
+    expect(/jpg/.test(url_large)).toBe(true);
+    expect(/https/.test(url_small)).toBe(true);
+    expect(/jpg/.test(url_small)).toBe(true);
   });
 
 });
