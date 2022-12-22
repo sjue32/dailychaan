@@ -63,8 +63,8 @@ const Login = () => {
 
       { status === 'error' ? <div>{loginMessage} </div> : null }
       { status === 'pending' ? 
-        <Loader />
-        : (loginMessage ? <div>{loginMessage} </div> : null)  }
+        <Loader /> : null }
+      { status === 'fulfilled' ? <div>{loginMessage} </div> : null }
     </div>
   );
 };

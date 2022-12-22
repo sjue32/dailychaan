@@ -81,10 +81,10 @@ const postsController = {
         const response = await ddbDocClient.send(new QueryCommand(params));
 
         const data = response.Items;
-        // res.locals.user_posts = data;
-        res.locals = {
-          user_posts: data,
-        };
+        res.locals.user_posts = data;
+        // res.locals = {
+        //   user_posts: data,
+        // };
         // console.log('inside getUserPosts: ', data);
         return next();
   

@@ -16,6 +16,7 @@ loginRouter.get('/:username', sessionController.isLoggedIn, (req: Request, res: 
 
 loginRouter.post('/', usersController.verifyUser, sessionController.startSession, 
   tableNameController.assignPosts, postsController.getUserPosts, (req: Request, res: Response) => {
+    console.log('router for login: about to send response back to client: res.locals ', res.locals);
     res.status(201).json({ message: res.locals.message, user_posts: res.locals.user_posts, user_data: res.locals.user_data });
   });
 

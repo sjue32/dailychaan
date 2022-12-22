@@ -1,4 +1,4 @@
-import type { CheckLoginProps} from '../../types';
+import type { CheckLoginProps } from '../../types';
 
 const checkLogin =  async (details: CheckLoginProps) => {
 
