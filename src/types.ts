@@ -41,7 +41,7 @@ export type UserPostsProps = {
   user_id: number,
   username: string,
   likes: number,
-  likesData: LikesDataProp,
+  likesData?: LikesDataProp,
   url_small: string,
   url_large: string,
   caption: string,
@@ -115,12 +115,11 @@ export type ChaanLinkButtonProps = {
 }
 
 export type CheckLoginProps = {
-  details: LoginDetailsProps,
-  setStatus: React.Dispatch<React.SetStateAction<string>>,
-  currentUser: CurrentUserProps, 
-  setCurrentUser: React.Dispatch<React.SetStateAction<CurrentUserProps>>,
-  setLoginMessage: React.Dispatch<React.SetStateAction<string>>
-}
+  username: string,
+  password: string
+};
+
+// export type CheckLoginProps = details: LoginDetailProps
 
 export type LoginDetailsProps = {
   username: string,
@@ -142,6 +141,14 @@ export type LoginInputFieldProps = {
   errorMessage: string,
   required: boolean,
   htmlFor: string
+}
+
+export type LoginResponse = {
+  verified: boolean,
+  message: string,
+  username?: string,
+  user_posts?: UserPostsProps[],
+  fav_users?: Record<string, unknown>
 }
 
 export interface GenericFunction {

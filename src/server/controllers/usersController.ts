@@ -21,9 +21,12 @@ const usersController = {
       };
 
       const response = await ddbDocClient.send(new GetCommand(params));
+      // console.log('inside usersController: response: ', response);
+      // console.log('inside usersController: response.Item: ', response.Item);
+
       const data = response.Item.user_list;
       res.locals = data;
-      console.log('inside usersController.getUsers: data: ', data);
+      // console.log('inside usersController.getUsers: data: ', data);
       return next();
 
     } catch (err) {
@@ -53,7 +56,7 @@ const usersController = {
       // if username doesn't exist, send back generic message to client
       const data = response.Item;
       if(data == undefined) {
-        res.locals.message = 'username does not exist';
+        res.locals = { message: 'username does not exist'};
         // send response to client
         return res.status(401).json({ message: res.locals.message });
       }
@@ -65,39 +68,35 @@ const usersController = {
       // if it doesn't match, send back generic message to client
       if(!comparison) {
         console.log('Password does not match');
-        res.locals.message = 'username / password does not match';
+        res.locals = { 
+          message:'username / password does not match' 
+        };
         // send response to client
         return res.status(401).json({ message: res.locals.message });
       }
       else {
         // otherwise, retrieve user data and save to req.body
-      //   const { user_id } = data;
-      //   const paramsPosts = {
-      //     TableName: 'user_posts',
-      //     KeyConditionExpression: 'user_id = :user_id',
-      //     ExpressionAttributeValues: {
-      //       ':user_id': user_id,
-      //     },
-      // }
-      // const response = await ddbDocClient.send(new QueryCommand(paramsPosts));
-      // const userPosts = response.Items;
-      // console.log('userPosts', userPosts);
-      // create session - pass to sessionController
-      // send cookie with sessionId and user data back to client
+        // create session - pass to sessionController
+        // send cookie with sessionId and user data back to client
         console.log('successful login');
-        res.locals.message = 'user verified';
 
-        const { user_id, fav_users, liked } = data;
-        req.params.user_id = user_id.toString();
-        req.params.username = username;
-        // res.locals.user_posts = userPosts;
-        res.locals.user_data = { 
-          user_id: user_id,
-          username: username,
-          fav_users: fav_users,
-          liked: liked,
+        const { user_id, fav_users } = data;
+        res.locals = {
+          message: 'user verified',
+          user_data: {
+            user_id,
+            username,
+            fav_users,
+            // liked,
+          },
         };
+        console.log('inside verifyUser, res.locals: ', res.locals);
 
+        req.params = {
+          user_id: user_id.toString(),
+          username: username,
+        };
+        console.log('req.params in verifyUser: ', req.params);
       }
       
       return next();
@@ -129,7 +128,7 @@ const usersController = {
       console.log('check', check);
       // if username/email already exists, send response, client should display message that username/email exists 
       if(check) {
-        res.locals.message = 'user already exists';
+        res.locals = { message: 'user already exists' };
         return next();
       }
       else {

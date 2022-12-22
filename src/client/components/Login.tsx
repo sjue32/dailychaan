@@ -2,12 +2,12 @@ import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { CurrentUserContext } from './CurrentUserContext';
 
-import checkLogin from '../helperFunctions/checkLogin';
+import { checkLogin } from '../helperFunctions/checkLogin';
 import Loader from './Loader';
 import LoginInput from './LoginInput';
 import { loginInputUsernamePropData, loginInputPasswordPropData } from '../helperData/loginFormPropData';
 
-import type { LoginDetailsProps, CurrentUserContextValue } from '../../types';
+import type { LoginDetailsProps, CurrentUserContextValue, LoginResponse } from '../../types';
 
 // core style sheet
 import '../style/login.css';
@@ -28,11 +28,25 @@ const Login = () => {
   const submitHandler = async (event: React.FormEvent) => {
     event.preventDefault();
     setStatus('pending');
-    const response = await checkLogin({details, setStatus, currentUser, setCurrentUser, setLoginMessage} );
-    response ? setStatus('fulfilled') : setStatus('error');
-    // if login fails, return to login? with error message displayed?
-    response ? navigate('/user') : null;
-    setDetails({ username: '', password: ''});
+    const loginResponse: LoginResponse = await checkLogin(details);
+
+    const { verified, message } = loginResponse;
+    if(verified) {
+      const { username, user_posts, fav_users } = loginResponse;
+      setCurrentUser({...currentUser, 
+        loggedIn: true,
+        username,
+        posts: user_posts,
+        fav_users, 
+      });
+      setStatus('fulfilled');
+      navigate('/user');
+    }
+    else {
+      setLoginMessage(message);
+      setStatus('fulfilled');
+      setDetails({ username: '', password: ''});
+    }
   };
 
   console.log('status: ', status);
@@ -50,7 +64,7 @@ const Login = () => {
       { status === 'error' ? <div>{loginMessage} </div> : null }
       { status === 'pending' ? 
         <Loader />
-        : null }
+        : (loginMessage ? <div>{loginMessage} </div> : null)  }
     </div>
   );
 };

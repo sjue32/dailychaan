@@ -1,8 +1,6 @@
 import type { CheckLoginProps} from '../../types';
 
-const checkLogin =  async (props: CheckLoginProps) => {
-
-  const { details, setStatus, currentUser, setCurrentUser, setLoginMessage } = props;
+const checkLogin =  async (details: CheckLoginProps) => {
 
   const requestOptions = {
     method: 'POST',
@@ -27,18 +25,36 @@ const checkLogin =  async (props: CheckLoginProps) => {
 
     if(message === 'user verified') {
       console.log('LOGGED IN SUCCESSFULLY');
-      setCurrentUser({ ...currentUser, loggedIn: true, username: username, posts: user_posts, fav_users: fav_users  });
+      // setCurrentUser({ ...currentUser, loggedIn: true, username: username, posts: user_posts, fav_users: fav_users  });
       console.log('response.posts', user_posts);
-      setStatus('fulfilled');
-      return true;
+      // setStatus('fulfilled');
+      // return true;
+
+      const loginObject = {
+        verified: true,
+        message,
+        user_posts,
+        username,
+        fav_users,
+      };
+
+      return loginObject;
+    }
+    else {
+      const loginObject = {
+        verified: false,
+        message,
+      };
+
+      return loginObject;
     }
 
   } catch(error) {
     console.log('error', JSON.stringify(error));
-    setLoginMessage('username / password does not match');
-    setStatus('error');
-    return false;
+    // setLoginMessage('username / password does not match');
+    // setStatus('error');
+    // return false;
   }
 };
 
-export default checkLogin;
+export { checkLogin };
