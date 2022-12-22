@@ -6,23 +6,26 @@ import { validCredentials, validCredentialsPasswordData, invalidUsernameData, in
   invalidCredentials, invalidCredentialsPasswordData, usernameExistsData, usernameExistsCredentials,
   usernameDoesNotExist, successfulCreateUserCredentials } from '../sample/samplePasswords';
 
-import sampleGetUsersData from '../sample/sampleGetUsersData';
+import { sampleGetUsersDataBE } from '../sample/sampleGetUsersData';
 
 describe('getUsers will retrieve an object containing some basic data on all users', () => {
   
   const queryMock = jest.spyOn(ddbDocClient, 'send');
   // set up mock req, res, next objects for express
   const mockReq: Partial<Request> = {
+    params: {},
     body: {
       table_name: 'users',
     }
   };
-  const mockRes: Partial<Response> = {};
+  const mockRes: Partial<Response> = {
+    locals: {},
+  };
   const mockNext: Partial<NextFunction> = function() {return;};
 
   // beforeAll - set up mockResolvedValue, await usersController.getUsers invokation
   beforeAll( async () => {
-    queryMock.mockResolvedValue(sampleGetUsersData as never);
+    queryMock.mockResolvedValue(sampleGetUsersDataBE as never);
     await usersController.getUsers(mockReq as Request, mockRes as Response, mockNext as NextFunction);
   });
   afterAll(() => {
@@ -63,12 +66,15 @@ describe('check verifyUser during successful login', () => {
 
   // set up mock req, res, next objects for express
   const mockReq: Partial<Request> = {
+    params: {},
     body: {
       username: usernameInput,
       password: passwordInput,
     },
   };
-  const mockRes: Partial<Response> = {};
+  const mockRes: Partial<Response> = {
+    locals: {},
+  };
   const mockNext: Partial<NextFunction> = function() {return;};
 
   beforeAll( async () => {
@@ -106,12 +112,15 @@ describe('check verifyUser when username does not exist in DBB', () => {
   const { usernameInput, passwordInput } = invalidUsernameCredentials;
 
   const mockReq: Partial<Request> = {
+    params: {},
     body: {
       username: usernameInput,
       password: passwordInput,
     }
   };
-  const mockRes: Partial<Response> = {};
+  const mockRes: Partial<Response> = {
+    locals: {},
+  };
   const mockNext: Partial<NextFunction> = function () {return;};
 
   beforeAll( async () => {
@@ -138,12 +147,15 @@ describe('check verifyUser when username and password do not match', () => {
   const { usernameInput, passwordInput } = invalidCredentials;
 
   const mockReq: Partial<Request> = {
+    params: {},
     body: {
       username: usernameInput,
       password: passwordInput,
     }
   };
-  const mockRes: Partial<Response> = {};
+  const mockRes: Partial<Response> = {
+    locals: {},
+  };
   const mockNext: Partial<NextFunction> = function () {return;};
 
   beforeAll( async () => {
@@ -170,13 +182,16 @@ describe('Attempt to create username when it already exists', () => {
   const { usernameInput, passwordInput, emailInput } = usernameExistsCredentials;
 
   const mockReq: Partial<Request> = {
+    params: {},
     body: {
       username: usernameInput,
       password: passwordInput,
       email: emailInput,
     },
   };
-  const mockRes: Partial<Response> = {};
+  const mockRes: Partial<Response> = {
+    locals: {},
+  };
   const mockNext: Partial<NextFunction> = function () { return;};
   // mock the response
   beforeAll( async () => {
@@ -203,20 +218,23 @@ describe.skip('Successful attempt to create username', () => {
   const { usernameInput, passwordInput, emailInput } = successfulCreateUserCredentials;
 
   const mockReq: Partial<Request> = {
+    params: {},
     body: {
       username: usernameInput,
       password: passwordInput,
       email: emailInput,
     },
   };
-  const mockRes: Partial<Response> = {};
+  const mockRes: Partial<Response> = {
+    locals: {},
+  };
   const mockNext: Partial<NextFunction> = function () { return;};
 
-  beforeAll(() => {
-    // mock return values, 1st call - , 2nd call - 
-    queryMock.mockReturnValueOnce(usernameDoesNotExist as never)
-      .mockReturnValue();
-  });
+  // beforeAll(() => {
+  //   // mock return values, 1st call - , 2nd call - 
+  //   queryMock.mockReturnValueOnce(usernameDoesNotExist as never)
+  //     .mockReturnValue();
+  // });
 
   // createUser func incomplete
 

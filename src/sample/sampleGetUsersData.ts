@@ -1,24 +1,24 @@
-// const sampleGetUsersData = {
-//   Item: {
-//     user_info: 'test_user',
-//     user_list: {
-//       main_chaan: {
-//         username: 'Main Chaan',
-//         user_id: 1,
-//       },
-//       cafe_chaan: {
-//         username: 'Cafe Chaan',
-//         user_id: 2,
-//       },
-//       chinese_chaan: {
-//         username: 'Chinese Chaan',
-//         user_id: 3,
-//       },
-//     },
-//   },
-// };
+const sampleGetUsersDataBE = {
+  Item: {
+    user_info: 'test_user',
+    user_list: {
+      main_chaan: {
+        username: 'Main Chaan',
+        user_id: 1,
+      },
+      cafe_chaan: {
+        username: 'Cafe Chaan',
+        user_id: 2,
+      },
+      chinese_chaan: {
+        username: 'Chinese Chaan',
+        user_id: 3,
+      },
+    },
+  },
+};
 
-const sampleGetUsersData = {
+const sampleGetUsersDataFE = {
   main_chaan: {
     username: 'Main Chaan',
     user_id: 1,
@@ -33,4 +33,4 @@ const sampleGetUsersData = {
   },
 };
 
-export default sampleGetUsersData;
+export { sampleGetUsersDataFE, sampleGetUsersDataBE };
