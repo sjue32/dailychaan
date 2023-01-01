@@ -4,7 +4,7 @@ import { Request, Response, NextFunction } from 'express';
 const tableNameController = {
   // assign table name to access user_posts table in DDB
   assignPosts: (req: Request, res: Response, next: NextFunction) => {
-    console.log('inside of assignPosts');
+    // console.log('inside of assignPosts');
     const { user_id } = req.params;
     if(/test/.test(user_id)) {
       req.body.table_name = 'test_user_posts';
@@ -26,7 +26,7 @@ const tableNameController = {
         new_user_id += user_id[i];
       }
     }
-    console.log('tableNameController: user_id: ', user_id, ', new_user_id: ', new_user_id);
+    // console.log('tableNameController: user_id: ', user_id, ', new_user_id: ', new_user_id);
     req.params.user_id = new_user_id;
     return next();
   },
@@ -36,7 +36,7 @@ const tableNameController = {
     return next();
   },
   assignUsers: (req: Request, res: Response, next:NextFunction) => {
-    console.log('inside of assignUsers');
+    // console.log('inside of assignUsers');
     const { table } = req.params;
     if(/test/.test(table)) {
       req.body.table_name = 'test_user_data';

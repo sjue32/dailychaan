@@ -1,4 +1,4 @@
-import express, { Request, Response, NextFunction } from 'express';
+import express, { Request, Response } from 'express';
 import path from 'path';
 import morgan from 'morgan';
 import { ServerError } from '../types';
@@ -21,16 +21,6 @@ if(process.env.NODE_ENV === 'production') {
 
 // serve routes
 app.use('/api', apiRouter);
-
-// test error handler
-app.get('/error', (req: Request, res: Response, next: NextFunction) => {
-  return next({
-    log: 'This is a test of global error handler',
-    status: 418,
-    message: { err: 'This is a test of global error handler'}
-  });
-});
-
 
 // 404 handler
 app.use('*', (req: Request, res: Response) => {

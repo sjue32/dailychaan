@@ -9,7 +9,7 @@ const usersController = {
   // get list of all user data for the Explore Section of Daily Chaan
   getUsers: async (req: Request, res: Response, next: NextFunction) => {
     try {
-      console.log('inside usersController.getUsers middleware');
+      // console.log('inside usersController.getUsers middleware');
       const { table_name } = req.body;
       const user_info = 'main_users';
 
@@ -42,7 +42,7 @@ const usersController = {
     try{
       // username and password
       const { username, password } = req.body;
-      console.log('username: ', username, ', password: ', password);
+      // console.log('username: ', username, ', password: ', password);
       // make call to DDB passwords table using username
       const params = {
         TableName: 'passwords',
@@ -52,7 +52,7 @@ const usersController = {
       };
   
       const response = await ddbDocClient.send(new GetCommand(params));
-      console.log('response from getCommand to DBB inside verifyUser: ', response);
+      // console.log('response from getCommand to DBB inside verifyUser: ', response);
       // if username doesn't exist, send back generic message to client
       const data = response.Item;
       if(data == undefined) {
@@ -61,13 +61,13 @@ const usersController = {
         return res.status(401).json({ message: res.locals.message });
       }
       const storedHashedPassword = data.password;
-      console.log('storedHashedPassword: ', storedHashedPassword);
+      // console.log('storedHashedPassword: ', storedHashedPassword);
     
       // otherwise, compare stored hashed password to hashed client password using bcrypt
       const comparison = await bcrypt.compare(password, storedHashedPassword);
       // if it doesn't match, send back generic message to client
       if(!comparison) {
-        console.log('Password does not match');
+        // console.log('Password does not match');
 
         res.locals.message = 'username / password does not match' ;
         // send response to client
@@ -77,7 +77,7 @@ const usersController = {
         // otherwise, retrieve user data and save to req.body
         // create session - pass to sessionController
         // send cookie with sessionId and user data back to client
-        console.log('successful login');
+        // console.log('successful login');
         res.locals.message = 'user verified';
         const { user_id, fav_users } = data;
 
@@ -87,14 +87,14 @@ const usersController = {
           fav_users,
         };
 
-        console.log('inside verifyUser, res.locals: ', res.locals);
+        // console.log('inside verifyUser, res.locals: ', res.locals);
 
         req.params = {
           user_id: user_id.toString(),
           username,
         };
 
-        console.log('req.params in verifyUser: ', req.params);
+        // console.log('req.params in verifyUser: ', req.params);
       }
       
       return next();
@@ -121,9 +121,9 @@ const usersController = {
       };
   
       const checkUsernameResponse = await ddbDocClient.send(new GetCommand(paramsUserNameCheck));
-      console.log('response from getCommand to DBB inside verifyUser: ', checkUsernameResponse);
+      // console.log('response from getCommand to DBB inside verifyUser: ', checkUsernameResponse);
       const check = checkUsernameResponse.Item;
-      console.log('check', check);
+      // console.log('check', check);
       // if username/email already exists, send response, client should display message that username/email exists 
       if(check) {
         // res.locals = { message: 'user already exists' };
@@ -131,9 +131,9 @@ const usersController = {
         return next();
       }
       else {
-        console.log('email: ', email, ', username: ', username, ', password: ', password );
+        // console.log('email: ', email, ', username: ', username, ', password: ', password );
         const hashedPassword = await bcrypt.hash(password, 10);
-        console.log('hashedPassword', hashedPassword);
+        // console.log('hashedPassword', hashedPassword);
         // putItem request to DDB passwords table
         const params = {
           TableName: 'passwords',
@@ -147,7 +147,7 @@ const usersController = {
         };
   
         const response = await ddbDocClient.send(new PutCommand(params));
-        console.log(response);
+        // console.log(response);
         // add user_id (generate random UUID) and username to users table, main_users document
   
         // after successful creation, user will be sent to sessionController and cookieController

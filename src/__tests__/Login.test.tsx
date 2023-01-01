@@ -46,7 +46,7 @@ describe('checking Login functionality', () => {
 
     // grab submit button
     const submitButton = renderedLogin.getByRole('button');
-    console.log('button', submitButton);
+    // console.log('button', submitButton);
 
     await user.click(submitButton);
     expect(mockCheckLogin).toHaveBeenCalled();

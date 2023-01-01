@@ -1,4 +1,4 @@
-import express, { Request, Response, NextFunction } from 'express';
+import express, { Request, Response } from 'express';
 import path from 'path';
 import morgan from 'morgan';
 import { ServerError } from '../types';
@@ -53,19 +53,8 @@ if(process.env.NODE_ENV === 'production') {
   app.use('/', express.static(path.join(__dirname, '../../dist')));
 }
 
-
-
 // serve routes
 app.use('/api', apiRouter);
-
-// test error handler
-app.get('/error', (req: Request, res: Response, next: NextFunction) => {
-  return next({
-    log: 'This is a test of global error handler',
-    status: 418,
-    message: { err: 'This is a test of global error handler'}
-  });
-});
 
 // Is this redundant? Webpack dev server proxy pointed to root is redundant?
 app.use('/*', (req, res) => {

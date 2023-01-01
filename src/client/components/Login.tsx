@@ -15,8 +15,8 @@ import '../style/login.css';
 const Login = () => {
 
   const { currentUser, setCurrentUser } = useContext(CurrentUserContext) as CurrentUserContextValue;
-  console.log('LOGIN: useContext(CurrentUserContext)', useContext(CurrentUserContext));
-  console.log('LOGIN: CurrentUserContext', CurrentUserContext);
+  // console.log('LOGIN: useContext(CurrentUserContext)', useContext(CurrentUserContext));
+  // console.log('LOGIN: CurrentUserContext', CurrentUserContext);
 
 
   const [ details, setDetails ] = useState<LoginDetailsProps>({ username: '', password: ''});
@@ -49,8 +49,8 @@ const Login = () => {
     }
   };
 
-  console.log('status: ', status);
-  console.log('loginMessage: ', loginMessage);
+  // console.log('status: ', status);
+  // console.log('loginMessage: ', loginMessage);
 
   return(
     <div className="loginComponent">

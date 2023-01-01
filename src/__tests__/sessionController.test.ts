@@ -1,6 +1,5 @@
 import sessionController from '../server/controllers/sessionController';
 import { Request, Response, NextFunction } from 'express';
-
 import { startSessionUsername, loggedInUsername } from '../sample/sampleSessionData';
 
 describe('check startSession', () => {
@@ -132,7 +131,7 @@ describe('invoking endSession method when session object is already destroyed', 
 
 
   it('string "user is already logged out" is assigned to res.locals.message ', () => {
-    console.log('inside endSession: session already destroyed: mockReq.session: ', mockReq.session);
+    // console.log('inside endSession: session already destroyed: mockReq.session: ', mockReq.session);
     expect(mockRes.locals.message).toEqual('user is already logged out');
   });
 
@@ -184,14 +183,8 @@ describe('checking isLoggedIn method when user still has active cookie', () => {
   afterAll( async () => {
     // invoke isLogged in a 2nd time
     await sessionController.isLoggedIn(mockReq as Request, mockRes as Response, mockNext as NextFunction);
-    console.log('inside sessionController.isLoggedIn: afterAll: req.session: ', mockReq.session);
-    // expect req.session.views to be 2
-    // it('increments sessions.views again during 2nd call to isLoggedIn()', () => {
-    //   console.log('inside sessionController.isLoggedIn: afterAll: req.session: ', mockReq.session);
-    // allowed to add another expect statement after afterAll() is called, but now allowed to 
-    // run another it('') test
+    // console.log('inside sessionController.isLoggedIn: afterAll: req.session: ', mockReq.session);
     expect(mockReq.session.views).toEqual(2);
-    // });
   });
 
 });
@@ -200,8 +193,7 @@ describe('checking isLoggedIn method when user still has inactive cookie', () =>
 
   // sample username
   const username = loggedInUsername;
-  // mockReq, res, next
-  // req.session has defined isAuthenticated, sample username, views?
+
   const mockReq: Partial<Request> = {
     params: {
       username,
@@ -216,8 +208,6 @@ describe('checking isLoggedIn method when user still has inactive cookie', () =>
       resetMaxAge: undefined,
       touch: undefined,
       save: undefined,
-      // isAuthenticated: true,
-      // username,
     },
 
   };

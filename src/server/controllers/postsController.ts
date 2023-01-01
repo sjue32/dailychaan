@@ -39,7 +39,8 @@ const postsController = {
     if(req.body.getOnePost) {
       try {
         const { table_name, timestamp } = req.body;
-        const user_id = Number(req.params.user_id);        
+        const user_id = Number(req.params.user_id);  
+        // console.log('inside postsController.getUserPosts: getOnePost condition: timestamp from body: ', timestamp);
 
         const params = {
           TableName: table_name,
@@ -51,8 +52,7 @@ const postsController = {
 
         const response = await ddbDocClient.send(new GetCommand(params));
         const data = response.Item;
-        res.locals = data;
-        console.log('inside getOnePost: ', res.locals);
+        res.locals.user_posts = data;
         return next();
 
       } catch(err) {
@@ -82,10 +82,6 @@ const postsController = {
 
         const data = response.Items;
         res.locals.user_posts = data;
-        // res.locals = {
-        //   user_posts: data,
-        // };
-        // console.log('inside getUserPosts: ', data);
         return next();
   
       } catch(err) {
@@ -126,18 +122,14 @@ const postsController = {
       const response = await ddbDocClient.send(new PutCommand(params));
       const data = response.Attributes;
       if(data == undefined) {
-        res.locals = {
-          message: 'Item added',
-          key: {
-            user_id: user_id,
-            timestamp: timestamp,
-          },
+        res.locals.message = 'Item added';
+        res.locals.key = {
+          user_id: user_id,
+          timestamp: timestamp,
         };
       }
       else {
-        res.locals = { 
-          message: 'Item already exists, item updated.'
-        };
+        res.locals.message = 'Item already exists, item updated.';
       }
       return next();
 

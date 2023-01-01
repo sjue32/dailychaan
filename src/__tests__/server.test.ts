@@ -21,20 +21,6 @@ describe('Route integration', () => {
   });
 });
 
-describe('Error handler', () => {
-  describe('GET', () => {
-    it('responds with 418 status and error message', () => {
-      return request(app)
-        .get('/error')
-        .expect(418)
-        .then(res => {
-          console.log('Testing global error handler', res.body);
-          expect(res.body).toEqual({ err: 'This is a test of global error handler'});
-        });
-    });
-  });
-});
-
 describe('Requests', () => {
 
   const sampleDate = new Date();
@@ -91,8 +77,7 @@ describe('Requests', () => {
     };
     try {
       const response = await ddbDocClient.send(new BatchWriteCommand(params));
-      // console.log('response: ', response);
-    } catch(err){
+    } catch(err) {
       console.log('ERROR in batchWrite for PutRequests: ', err);
     }
   });
@@ -226,6 +211,7 @@ describe('Requests', () => {
           const returnedCaption = data.caption;
           expect(returnedCaption).toEqual(newCaption);
           // console.log('new update to user post: ', data);
+          expect(oldCaption).not.toEqual(returnedCaption);
         });
     });
 
@@ -287,7 +273,5 @@ describe('Requests', () => {
       });
     });
   });
-
-
 });
 
