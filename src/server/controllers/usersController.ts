@@ -2,7 +2,8 @@ import { Request, Response, NextFunction } from 'express';
 import { ddbDocClient } from '../../../libs/ddbDocClient';
 import { PutCommand, GetCommand } from '@aws-sdk/lib-dynamodb';
 // QueryCommand, UpdateCommand, DeleteCommand
-import bcrypt from 'bcrypt';
+// import bcrypt from 'bcrypt';
+import bcryptjs from 'bcryptjs';
 
 // Middleware controller making all queries to user_data table in DynamoDB
 const usersController = {
@@ -64,7 +65,7 @@ const usersController = {
       // console.log('storedHashedPassword: ', storedHashedPassword);
     
       // otherwise, compare stored hashed password to hashed client password using bcrypt
-      const comparison = await bcrypt.compare(password, storedHashedPassword);
+      const comparison = await bcryptjs.compare(password, storedHashedPassword);
       // if it doesn't match, send back generic message to client
       if(!comparison) {
         // console.log('Password does not match');
@@ -132,7 +133,8 @@ const usersController = {
       }
       else {
         // console.log('email: ', email, ', username: ', username, ', password: ', password );
-        const hashedPassword = await bcrypt.hash(password, 10);
+        // Double check that bcryptjs synxtax is same as bcrypt for .hash method
+        const hashedPassword = await bcryptjs.hash(password, 10);
         // console.log('hashedPassword', hashedPassword);
         // putItem request to DDB passwords table
         const params = {

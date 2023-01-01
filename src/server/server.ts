@@ -9,9 +9,12 @@ export type RedisClientType = ReturnType<typeof createClient>
 
 import connect_redis from 'connect-redis';
 
+const PORT = Number(process.env.PORT) || 3000;
+const REDIS_URL = process.env.REDIS_URL;
+
 const redisStore = connect_redis(session);
 const redisClient = createClient({
-  socket: { host: 'localhost', port: 6379 },
+  socket: { host: REDIS_URL, port: 6379 },
   legacyMode: true,
 });
 
@@ -39,7 +42,7 @@ app.use(session({
     maxAge: 1000 * 60, // 1 minute
   },
   store: new redisStore({
-    host: 'localhost',
+    host: REDIS_URL,
     port: 6379,
     // @ts-expect-error because wrong type definitions of connect-redis
     client: redisClient,
@@ -81,4 +84,4 @@ app.use('/', (err: ServerError, req: Request, res: Response) => {
   return res.status(errorObj.status).json(errorObj.message);
 });
 
-app.listen(3000, () => console.log('Server is listening on PORT 3000'));
+app.listen(PORT, () => console.log(`Server is listening on PORT ${PORT}`));
