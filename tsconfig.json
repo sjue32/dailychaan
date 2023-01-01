@@ -13,6 +13,7 @@
     "paths":{
       "NavBar": ["./client/components/NavBar"],
     },
+    "skipLibCheck": true,
   },
   "ts-node": {
     "compilerOptions": {
