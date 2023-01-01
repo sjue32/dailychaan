@@ -1,9 +1,7 @@
 import React, { Suspense, createRef, RefObject, useContext, useEffect } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 
-// import NavBar from './components/Navbar';
-import NavBar from '/Users/stephenjue/Programming/projects/daily-chaan/dailychaan/src/client/components/Navbar';
-
+import NavBar from './components/Navbar';
 
 import Loader from './components/Loader';
 
