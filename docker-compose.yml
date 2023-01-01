@@ -5,7 +5,7 @@ services:
     build: .
     container_name: daily-chaan-prod
     ports:
-      - "3000:3000"
+      - "80:3000"
     environment:
       - AWS_ACCESS_KEY_ID=AKIAWZPM23GX2MOE3D7M
       - AWS_SECRET_ACCESS_KEY=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
