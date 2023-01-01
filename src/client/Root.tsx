@@ -3,7 +3,7 @@ import { Outlet, useLocation } from 'react-router-dom';
 
 import NavBar from './components/Navbar';
 
-import Loader from './components/Loader';
+import Loader from './components/Loaderx';
 
 // import React transition group
 import { SwitchTransition, CSSTransition } from 'react-transition-group';
