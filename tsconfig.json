@@ -9,6 +9,10 @@
     // "removeComments": false
     // "sourceMap": false
     // "preserveConstEnums": false
+    "baseUrl":"./src",
+    "paths":{
+      "NavBar": ["./client/components/NavBar.tsx"],
+    },
   },
   "ts-node": {
     "compilerOptions": {

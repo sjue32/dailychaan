@@ -5,11 +5,15 @@ services:
     build: .
     container_name: daily-chaan-prod
     ports:
-      - "80:3000"
+      - "3000:3000"
     environment:
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
       - REDIS_URL=redis-container
       - PORT=3000
-    command: npm run start:eb
+    env_file:
+      - .env
+    command: npm run start
     depends_on: 
       - redis
   redis:
