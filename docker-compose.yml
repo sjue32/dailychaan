@@ -9,7 +9,7 @@ services:
     environment:
       - REDIS_URL=redis-container
       - PORT=3000
-    command: npm run start
+    command: npm run start:eb
     depends_on: 
       - redis
   redis:
