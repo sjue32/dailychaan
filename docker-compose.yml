@@ -7,8 +7,6 @@ services:
     ports:
       - "80:3000"
     environment:
-      - AWS_ACCESS_KEY_ID=TEMP
-      - AWS_SECRET_ACCESS_KEY=TEMP
       - REDIS_URL=redis-container
       - PORT=3000
     command: npm run start

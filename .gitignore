@@ -11,3 +11,6 @@ dump.rdb
 
 # Code Cov
 coverage/
+
+# Misc
+.DS_Store
