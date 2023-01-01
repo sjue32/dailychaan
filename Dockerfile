@@ -1,7 +1,7 @@
 FROM node:16.14-alpine
 WORKDIR /usr/src/app
 COPY package*.json ./
-RUN npm ci
+RUN npm install
 COPY . ./
 COPY ./src/client/components/NavBar.tsx ./src/client/components
 RUN npm run build
