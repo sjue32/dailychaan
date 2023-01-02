@@ -9,11 +9,11 @@
     // "removeComments": false
     // "sourceMap": false
     // "preserveConstEnums": false
-    "baseUrl":"./src",
-    "paths":{
-      "NavBar": ["./client/components/NavBar"],
-    },
-    "skipLibCheck": true,
+    // "baseUrl":"./src",
+    // "paths":{
+    //   "NavBar": ["./client/components/NavBar"],
+    // },
+    // "skipLibCheck": true,
   },
   "ts-node": {
     "compilerOptions": {

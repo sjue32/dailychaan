@@ -13,7 +13,7 @@ services:
       - PORT=3000
     env_file:
       - .env
-    command: npm run start
+    command: npm run start:eb
     depends_on: 
       - redis
   redis:
